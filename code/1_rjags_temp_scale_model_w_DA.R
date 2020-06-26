@@ -3,7 +3,6 @@
 
 ### UPLOAD AND PROCESS THE MOST RECENT DATA FROM THE CATWALK
 ### THIS WILL NEED TO BE PULLED FROM THE CareyLabVT Github 
-### https://github.com/CareyLabVT/SCCData/tree/mia-data
 
 cat <- read_csv("./input/DA_temp_scale_model/Catwalk.csv", skip = 1)
 
@@ -1185,13 +1184,9 @@ hobo_1023$TIMESTAMP <- as.POSIXct(strptime(hobo_1023$TIMESTAMP, '%Y-%m-%d %H:%M:
 temp_model_1023 <- left_join(hobo_1023, cat_sum, by = "TIMESTAMP")
 temp_model_1023 <- na.omit(temp_model_1023)
 
-temp_model_1023 <- temp_model_1023  %>% filter(TIMESTAMP <= "2019-10-23 12:00:00") %>% filter(TIMESTAMP >= "2019-10-16 12:00:00") %>% summarise_all(funs(mean))
-temp_model_1023[1,1] = as.POSIXct("2019-10-23")
+temp_model_1023$TIMESTAMP <- as.POSIXct(strptime(temp_model_1023$TIMESTAMP, '%Y-%m-%d', tz = 'EST'))
 
-temp_model_1023 <- rbind(temp_model_1016, temp_model_1023)
-
-temp_model_1023_lm <- lm(Temp_C~mean_ws_temp, data = temp_model_1023)
-summary(temp_model_1023_lm)
+temp_model_1023 <- temp_model_1023 %>% group_by(TIMESTAMP) %>% summarise_all(funs(mean))
 
 N <- length(temp_model_1023$TIMESTAMP)
 sink("jags_model.bug")
