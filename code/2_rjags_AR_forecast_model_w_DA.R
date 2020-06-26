@@ -1,9 +1,9 @@
 ### RJAGS ebullition model using hobo and catwalk data going back to deployment of the ebullition traps in 2017
-### Author: Ryan McClure
+
 
 ### 27May19 forecast Temperature JAGS model ###
 ###########################################################################################
-ebu_527 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_527.csv")
+ebu_527 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_527.csv")
 
 
 N <- length(ebu_527$date)
@@ -57,7 +57,7 @@ mean_pars_527 <- colMeans(master_chain_527)
 
 ### 03June19 forecast Temperature JAGS model ###
 ###########################################################################################
-ebu_603 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_603.csv")
+ebu_603 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_603.csv")
 
 
 N <- length(ebu_603$date)
@@ -109,7 +109,7 @@ mean_pars_603 <- colMeans(master_chain_603)
 
 ### 10June19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_610 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_610.csv")
+ebullition_610 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_610.csv")
 
 N <- length(ebullition_610$date)
 
@@ -160,7 +160,7 @@ mean_pars_610 <- colMeans(master_chain_610)
 
 ### 17June19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_617 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_617.csv")
+ebullition_617 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_617.csv")
 
 N <- length(ebullition_617$date)
 
@@ -211,7 +211,7 @@ mean_pars_617 <- colMeans(master_chain_617)
 
 ### 24June19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_624 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_624.csv")
+ebullition_624 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_624.csv")
 
 N <- length(ebullition_624$date)
 
@@ -262,7 +262,7 @@ mean_pars_624 <- colMeans(master_chain_624)
 
 ### 01July19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_701 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_701.csv")
+ebullition_701 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_701.csv")
 
 N <- length(ebullition_701$date)
 
@@ -313,7 +313,7 @@ mean_pars_701 <- colMeans(master_chain_701)
 
 ### 08July19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_708 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_708.csv")
+ebullition_708 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_708.csv")
 
 N <- length(ebullition_708$date)
 
@@ -363,7 +363,7 @@ mean_pars_708 <- colMeans(master_chain_708)
 
 ### 15July19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_715 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_715.csv")
+ebullition_715 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_715.csv")
 
 N <- length(ebullition_715$date)
 
@@ -413,7 +413,7 @@ mean_pars_715 <- colMeans(master_chain_715)
 
 ### 22July19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_722 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_722.csv")
+ebullition_722 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_722.csv")
 
 N <- length(ebullition_722$date)
 
@@ -463,7 +463,7 @@ mean_pars_722 <- colMeans(master_chain_722)
 
 ### 29July19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_729 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_729.csv")
+ebullition_729 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_729.csv")
 
 N <- length(ebullition_729$date)
 
@@ -513,7 +513,7 @@ mean_pars_729 <- colMeans(master_chain_729)
 
 ### 05Aug19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_805 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_805.csv")
+ebullition_805 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_805.csv")
 
 N <- length(ebullition_805$date)
 
@@ -563,7 +563,7 @@ mean_pars_805 <- colMeans(master_chain_805)
 
 ### 12Aug19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_812 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_812.csv")
+ebullition_812 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_812.csv")
 
 N <- length(ebullition_812$date)
 
@@ -613,7 +613,7 @@ mean_pars_812 <- colMeans(master_chain_812)
 
 ### 19Aug19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_819 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_819.csv")
+ebullition_819 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_819.csv")
 
 N <- length(ebullition_819$date)
 
@@ -663,7 +663,7 @@ mean_pars_819 <- colMeans(master_chain_819)
 
 ### 28Aug19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_828 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_828.csv")
+ebullition_828 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_828.csv")
 
 N <- length(ebullition_828$date)
 
@@ -713,7 +713,7 @@ mean_pars_828 <- colMeans(master_chain_828)
 
 ### 02Sep19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_902 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_902.csv")
+ebullition_902 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_902.csv")
 
 N <- length(ebullition_902$date)
 
@@ -763,7 +763,7 @@ mean_pars_902 <- colMeans(master_chain_902)
 
 ### 11Sep19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_911 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_911.csv")
+ebullition_911 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_911.csv")
 
 N <- length(ebullition_911$date)
 
@@ -813,7 +813,7 @@ mean_pars_911 <- colMeans(master_chain_911)
 
 ### 20Sep19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_920 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_920.csv")
+ebullition_920 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_920.csv")
 
 N <- length(ebullition_920$date)
 
@@ -863,7 +863,7 @@ mean_pars_920 <- colMeans(master_chain_920)
 
 ### 27Sep19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_927 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_927.csv")
+ebullition_927 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_927.csv")
 
 N <- length(ebullition_927$date)
 
@@ -913,7 +913,7 @@ mean_pars_927 <- colMeans(master_chain_927)
 
 ### 02Oct19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1002 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1002.csv")
+ebullition_1002 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1002.csv")
 
 N <- length(ebullition_1002$date)
 
@@ -963,7 +963,7 @@ mean_pars_1002 <- colMeans(master_chain_1002)
 
 ### 11Oct19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1011 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1011.csv")
+ebullition_1011 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1011.csv")
 
 N <- length(ebullition_1011$date)
 
@@ -1013,7 +1013,7 @@ mean_pars_1011 <- colMeans(master_chain_1011)
 
 ### 16Oct19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1016 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1016.csv")
+ebullition_1016 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1016.csv")
 
 N <- length(ebullition_1016$date)
 
@@ -1063,7 +1063,7 @@ mean_pars_1016 <- colMeans(master_chain_1016)
 
 ### 23Oct19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1023 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1023.csv")
+ebullition_1023 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1023.csv")
 
 N <- length(ebullition_1023$date)
 
@@ -1113,7 +1113,7 @@ mean_pars_1023 <- colMeans(master_chain_1023)
 
 ### 30Oct19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1030 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1030.csv")
+ebullition_1030 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1030.csv")
 
 N <- length(ebullition_1030$date)
 
@@ -1163,7 +1163,7 @@ mean_pars_1030 <- colMeans(master_chain_1030)
 
 ### 07Nov19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1107 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1107.csv")
+ebullition_1107 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1107.csv")
 
 N <- length(ebullition_1107$date)
 
@@ -1213,7 +1213,7 @@ mean_pars_1107 <- colMeans(master_chain_1107)
 
 ### 20Nov19 AR TS JAGS model ###
 ###########################################################################################
-ebullition_1120 <- read_csv("./RAW_EBU_files_for_RJAGS_19/EBU_JAGS_1120.csv")
+ebullition_1120 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_1120.csv")
 N <- length(ebullition_1120$date)
 
 sink("jags_model.bug")

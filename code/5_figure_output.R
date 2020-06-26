@@ -4,22 +4,19 @@ library(patchwork)
 
 ### Figure 3 ### Ebullition forecasts
 ############################################################################################
+ensemble_forecasts_ch4_short<- ensemble_forecasts_ch4 %>% filter(full_time_day>="2019-07-08")
 
-pdf("Ebullition_Rate_forecasts_wo_jitter_level_temp_14May20.pdf", width=10, height=13)
-
-f <- ggplot(ensemble_forecasts_all_temp) + 
-  #geom_jitter(data = filtered_ensemble_30_70_forecasts_all, aes(x = full_time_day, y = exp(ebullition_prediction), group = full_time_day), size=1.3, pch = 21, color = "black", fill = "white", width = .5)+
-  geom_flat_violin(data = ensemble_forecasts_all_temp, aes(x = full_time_day, y = exp(ebullition_prediction), group = full_time_day), size=.1, color = NA, fill = "darkorchid1", scale = "width")+
-  geom_point(data = mean_forecasts_temp, aes(x = full_time_day, y = exp(ebullition_prediction)),pch = 3, color = "darkorchid1", size = 2)+
-  
-  #geom_line(data = forecast_observe_compare_18, aes(x=ebu_forcast_date,y=deterministic_17),lwd = 5, color = "red3")+
-  # geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=exp(ebullition_prediction)-exp(SE), ymax=exp(ebullition_prediction)+exp(SE)), width=120000,
-  #               position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
-  geom_point(data = mean_observe_all, aes(x = full_time_day, y = exp(ebullition_prediction)),pch = 23, color = "black", fill = "firebrick2", size = 4)+
-  ylim(0,1000000)+
+a <- ggplot(ensemble_forecasts_ch4) + 
+  geom_flat_violin(data = ensemble_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
+  geom_errorbar(data = mean_forecasts_ch4,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
+                position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
+  geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
   xlab("")+
-  labs(title="Temperature + Level")+
-  ylab(expression(paste("Ebullition Rate (mg CH "[4]," m"^"-2"," d"^"-1",")")))+
+  labs(title="A")+
+  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-07-05"), yend = -7.5, colour = "black", lty = "dashed")+
+  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
+  geom_segment(x = as.POSIXct("2019-07-05"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
+  ylab(expression(paste("ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
   scale_x_datetime(limits = c(mean_observe_all$full_time_day[1],mean_observe_all$full_time_day[25]+(86400*11)), expand = c(.05,.05), 
                    breaks = c(mean_observe_all$full_time_day[2]-(86400*2),
                               mean_observe_all$full_time_day[6],
@@ -37,16 +34,13 @@ f <- ggplot(ensemble_forecasts_all_temp) +
         panel.grid.major.y = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.minor.y = element_blank(),
-        legend.title = element_blank())
+        legend.title = element_blank(), 
+        title = element_text(size = 15))
+a
 
-
-ensemble_forecasts_all_temp_short <- ensemble_forecasts_all_temp%>% filter(full_time_day>="2019-07-08")
-e <- ggplot(ensemble_forecasts_all_temp_short) + 
-  #geom_jitter(data = ensemble_forecasts_all_temp_short, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=1.3, pch = 21, color = "black", fill = "white", width = .5)+
-  geom_flat_violin(data = ensemble_forecasts_all_temp_short, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
-  geom_point(data = mean_forecasts_temp, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
-  
-  #geom_line(data = forecast_observe_compare_18, aes(x=ebu_forcast_date,y=deterministic_17),lwd = 5, color = "red3")+
+b <- ggplot(ensemble_forecasts_ch4_short) + 
+  geom_flat_violin(data = ensemble_forecasts_ch4_short, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
+  geom_point(data = mean_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
   geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
                   position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
@@ -75,53 +69,17 @@ e <- ggplot(ensemble_forecasts_all_temp_short) +
         panel.grid.minor.y = element_blank(),
         legend.title = element_blank(), 
         title = element_text(size = 15))
-e
+b
 
 # options(gganimate.dev_args = list(width = 700, height = 450))
 # s <- z + transition_reveal(full_time_day)+
 # shadow_mark(alpha = 0.2, size = 1)
 # anim_save("Ebu_forecast_23jun20_presentation_19.gif", s)
 
-shaded <- data.frame(x = c(as.POSIXct("2019-12-01"), as.POSIXct("2019-06-30")), y = c(10, -10))
 
-z <- ggplot(ensemble_forecasts_all_temp) + 
-  #geom_jitter(data = ensemble_forecasts_all_temp, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=1.3, pch = 21, color = "black", fill = "white", width = .5)+
-  geom_flat_violin(data = ensemble_forecasts_all_temp, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
-  #geom_point(data = mean_forecasts_temp, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
-  
-  #geom_line(data = forecast_observe_compare_18, aes(x=ebu_forcast_date,y=deterministic_17),lwd = 5, color = "red3")+
-  geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
-                  position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
-  geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
-  #ylim(-200,200)+
-  xlab("")+
-  labs(title="A")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-07-05"), yend = -7.5, colour = "black", lty = "dashed")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
-  ylab(expression(paste("ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
-  scale_x_datetime(limits = c(mean_observe_all$full_time_day[1],mean_observe_all$full_time_day[25]+(86400*11)), expand = c(.05,.05), 
-                   breaks = c(mean_observe_all$full_time_day[2]-(86400*2),
-                              mean_observe_all$full_time_day[6],
-                              mean_observe_all$full_time_day[10]+(86400*3),
-                              mean_observe_all$full_time_day[14]+(86400*4),
-                              mean_observe_all$full_time_day[18]+(86400*4),
-                              mean_observe_all$full_time_day[22]+(86400*9),
-                              mean_observe_all$full_time_day[25]+(86400*11)), 
-                   labels = c("01 June","01 July","01 Aug","01 Sep", "01 Oct", "01 Nov", "01 Dec"))+
-  theme_classic()+
-  theme(axis.text=element_text(size=15, color = "black"),
-        axis.title=element_text(size=15, color = "black"),
-        legend.position=c(.1, .9),
-        panel.grid.major.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        legend.title = element_blank(), 
-        title = element_text(size = 15))
-z
 
-tiff("FIGURE_3_EBU_FORECAST_W_JITTER.tiff", width = 14, height = 6, units = 'in', res = 1600)
+
+tiff("FIGURE_EBU_FORECAST_W_JITTER.tiff", width = 14, height = 6, units = 'in', res = 1600)
 aa <- z|e
 aa
 dev.off()

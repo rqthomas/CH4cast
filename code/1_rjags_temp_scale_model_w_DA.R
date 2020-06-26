@@ -1,12 +1,11 @@
 ### RJAGS temperature model using hobo and catwalk data going back to deployment of the catwalk of FLARE in 2018
 
-### Author: Ryan McClure
 
 ### UPLOAD AND PROCESS THE MOST RECENT DATA FROM THE CATWALK
-### THIS WILL NEED TO BE DPULLED FROM THE CareyLabVT Github 
+### THIS WILL NEED TO BE PULLED FROM THE CareyLabVT Github 
 ### https://github.com/CareyLabVT/SCCData/tree/mia-data
 
-cat <- read_csv("./HOBO_files_for_RJAGS/Catwalk.csv", skip = 1)
+cat <- read_csv("./input/DA_temp_scale_model/Catwalk.csv", skip = 1)
 
 cat_sum <- cat %>% filter(TIMESTAMP >= "2018-07-05 12:00:00") %>%
   select(TIMESTAMP, wtr_1, wtr_2, wtr_3) %>%
@@ -20,13 +19,11 @@ cat_sum <- cat %>% filter(TIMESTAMP >= "2018-07-05 12:00:00") %>%
 
 cat_sum$TIMESTAMP <- as.POSIXct(strptime(cat_sum$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
-#cat_sum <- cat_sum %>% filter(TIMESTAMP>="2018-09-24")
-
 ### 03June19 and 10June19 Temperature JAGS model ###
 ###########################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_603_610 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_603_610.csv")
+hobo_603_610 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_603_610.csv")
 names(hobo_603_610)[1] <- "TIMESTAMP"
 
 hobo_603_610 <- hobo_603_610 %>% filter(TIMESTAMP>= "2019-04-01")
@@ -90,7 +87,7 @@ mean_pars_temp_603_610 <- colMeans(master_temp_chain_603_610)
 ###########################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_617 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_617.csv")
+hobo_617 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_617.csv")
 names(hobo_617)[1] <- "TIMESTAMP"
 hobo_617$TIMESTAMP <- as.POSIXct(strptime(hobo_617$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -152,7 +149,7 @@ mean_pars_temp_617 <- colMeans(master_temp_chain_617)
 ###########################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_624 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_624.csv")
+hobo_624 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_624.csv")
 names(hobo_624)[1] <- "TIMESTAMP"
 hobo_624$TIMESTAMP <- as.POSIXct(strptime(hobo_624$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -213,7 +210,7 @@ mean_pars_temp_624 <- colMeans(master_temp_chain_624) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_701 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_701.csv")
+hobo_701 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_701.csv")
 names(hobo_701)[1] <- "TIMESTAMP"
 hobo_701$TIMESTAMP <- as.POSIXct(strptime(hobo_701$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -274,7 +271,7 @@ mean_pars_temp_701 <- colMeans(master_temp_chain_701) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_708 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_708.csv")
+hobo_708 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_708.csv")
 names(hobo_708)[1] <- "TIMESTAMP"
 hobo_708$TIMESTAMP <- as.POSIXct(strptime(hobo_708$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -335,7 +332,7 @@ mean_pars_temp_708 <- colMeans(master_temp_chain_708) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_715 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_715.csv")
+hobo_715 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_715.csv")
 names(hobo_715)[1] <- "TIMESTAMP"
 hobo_715$TIMESTAMP <- as.POSIXct(strptime(hobo_715$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -396,7 +393,7 @@ mean_pars_temp_715 <- colMeans(master_temp_chain_715) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_722 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_722.csv")
+hobo_722 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_722.csv")
 names(hobo_722)[1] <- "TIMESTAMP"
 hobo_722$TIMESTAMP <- as.POSIXct(strptime(hobo_722$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -457,7 +454,7 @@ mean_pars_temp_722 <- colMeans(master_temp_chain_722) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_729 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_729.csv")
+hobo_729 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_729.csv")
 names(hobo_729)[1] <- "TIMESTAMP"
 hobo_729$TIMESTAMP <- as.POSIXct(strptime(hobo_729$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -518,7 +515,7 @@ mean_pars_temp_729 <- colMeans(master_temp_chain_729) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_805 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_805.csv")
+hobo_805 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_805.csv")
 names(hobo_805)[1] <- "TIMESTAMP"
 hobo_805$TIMESTAMP <- as.POSIXct(strptime(hobo_805$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -579,7 +576,7 @@ mean_pars_temp_805 <- colMeans(master_temp_chain_805) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_812 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_812.csv")
+hobo_812 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_812.csv")
 names(hobo_812)[1] <- "TIMESTAMP"
 hobo_812$TIMESTAMP <- as.POSIXct(strptime(hobo_812$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -640,7 +637,7 @@ mean_pars_temp_812 <- colMeans(master_temp_chain_812) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_819 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_819.csv")
+hobo_819 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_819.csv")
 names(hobo_819)[1] <- "TIMESTAMP"
 hobo_819$TIMESTAMP <- as.POSIXct(strptime(hobo_819$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -700,7 +697,7 @@ mean_pars_temp_819 <- colMeans(master_temp_chain_819) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_828 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_828.csv")
+hobo_828 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_828.csv")
 names(hobo_828)[1] <- "TIMESTAMP"
 hobo_828$TIMESTAMP <- as.POSIXct(strptime(hobo_828$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -760,7 +757,7 @@ mean_pars_temp_828 <- colMeans(master_temp_chain_828) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_902 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_902.csv")
+hobo_902 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_902.csv")
 names(hobo_902)[1] <- "TIMESTAMP"
 hobo_902$TIMESTAMP <- as.POSIXct(strptime(hobo_902$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -820,7 +817,7 @@ mean_pars_temp_902 <- colMeans(master_temp_chain_902) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_911 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_911.csv")
+hobo_911 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_911.csv")
 names(hobo_911)[1] <- "TIMESTAMP"
 hobo_911$TIMESTAMP <- as.POSIXct(strptime(hobo_911$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -880,7 +877,7 @@ mean_pars_temp_911 <- colMeans(master_temp_chain_911) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_920 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_920.csv")
+hobo_920 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_920.csv")
 names(hobo_920)[1] <- "TIMESTAMP"
 hobo_920$TIMESTAMP <- as.POSIXct(strptime(hobo_920$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -940,7 +937,7 @@ mean_pars_temp_920 <- colMeans(master_temp_chain_920) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_927 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_927.csv")
+hobo_927 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_927.csv")
 names(hobo_927)[1] <- "TIMESTAMP"
 hobo_927$TIMESTAMP <- as.POSIXct(strptime(hobo_927$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1000,7 +997,7 @@ mean_pars_temp_927 <- colMeans(master_temp_chain_927) ### Calculate the means of
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_1002 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1002.csv")
+hobo_1002 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1002.csv")
 names(hobo_1002)[1] <- "TIMESTAMP"
 hobo_1002$TIMESTAMP <- as.POSIXct(strptime(hobo_1002$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1060,7 +1057,7 @@ mean_pars_temp_1002 <- colMeans(master_temp_chain_1002) ### Calculate the means 
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_1011 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1011.csv")
+hobo_1011 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1011.csv")
 names(hobo_1011)[1] <- "TIMESTAMP"
 hobo_1011$TIMESTAMP <- as.POSIXct(strptime(hobo_1011$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1120,7 +1117,7 @@ mean_pars_temp_1011 <- colMeans(master_temp_chain_1011) ### Calculate the means 
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_1016 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1016.csv")
+hobo_1016 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1016.csv")
 names(hobo_1016)[1] <- "TIMESTAMP"
 hobo_1016$TIMESTAMP <- as.POSIXct(strptime(hobo_1016$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1180,7 +1177,7 @@ mean_pars_temp_1016 <- colMeans(master_temp_chain_1016) ### Calculate the means 
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_1023 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1023.csv")
+hobo_1023 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1023.csv")
 names(hobo_1023)[1] <- "TIMESTAMP"
 hobo_1023$TIMESTAMP <- as.POSIXct(strptime(hobo_1023$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1240,7 +1237,7 @@ mean_pars_temp_1023 <- colMeans(master_temp_chain_1023) ### Calculate the means 
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_1030 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1030.csv")
+hobo_1030 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1030.csv")
 names(hobo_1030)[1] <- "TIMESTAMP"
 hobo_1030$TIMESTAMP <- as.POSIXct(strptime(hobo_1030$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1299,7 +1296,7 @@ mean_pars_temp_1030 <- colMeans(master_temp_chain_1030) ### Calculate the means 
 #######################################################################################
 
 ### READ IN THE HOBO DATA
-hobo_1107 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1107.csv")
+hobo_1107 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1107.csv")
 names(hobo_1107)[1] <- "TIMESTAMP"
 hobo_1107$TIMESTAMP <- as.POSIXct(strptime(hobo_1107$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 
@@ -1377,7 +1374,7 @@ cat('model {
 )
 
 ### READ IN THE HOBO DATA
-hobo_1120 <- read_csv("./HOBO_files_for_RJAGS/HOBO_CATWALK_MODEL_1120.csv")
+hobo_1120 <- read_csv("./input/DA_temp_scale_model/HOBO_CATWALK_MODEL_1120.csv")
 names(hobo_1120)[1] <- "TIMESTAMP"
 hobo_1120$TIMESTAMP <- as.POSIXct(strptime(hobo_1120$TIMESTAMP, '%Y-%m-%d %H:%M:%S', tz = 'EST'))
 

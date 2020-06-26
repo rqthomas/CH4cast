@@ -1,56 +1,15 @@
+### Generate the forecasts for CH4cast from SWI temp scaling model and FLARE
 
-### NERF script
-### Developed by Ryan P. McClure
-### Virginia Tech
-### Carey Lab
-
-### Load in packages and functions far all the scripts! 
-### Only run this once! 
-###########################################################################################
-if (!"pacman" %in% installed.packages()) install.packages("pacman")
-pacman::p_load(ggplot2,
-               PerformanceAnalytics, 
-               MuMIn, 
-               zoo, 
-               grid, 
-               gridExtra, 
-               rcompanion, 
-               MASS, 
-               knitr, 
-               dplyr,
-               ResourceSelection, 
-               tidyverse,
-               ncdf4,
-               reshape2, 
-               ggjoy, 
-               ggridges,
-               see, 
-               gganimate, 
-               gifski,
-               mvtnorm,
-               magick,
-               Rmisc,
-               rjags,
-               runjags,
-               viridis, 
-               verification, 
-               hydroGOF,
-               ggjoy, 
-               scoringRules, 
-               MCMCvis, 
-               patchwork)
-
-###########################################################################################
+# set nmembers to match FLARE's default output ensemble number (210)
 nmembers = 210
-ebu <- read_csv("observed_ebu_rates_19.csv")
-
+ebu <- read_csv("./input/observed/observed_ebu_rates.csv")
 
 #Forecast for 03 June 19
 #############################################################################################################
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_05_24_2019_05_27_F_10_552020_18_35.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_05_24_2019_05_27_F_10_552020_18_35.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -222,7 +181,7 @@ var_ebu_603 <- var((log_ebu_rate_forecast_603$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_05_30_2019_06_03_F_10_552020_19_17.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_05_30_2019_06_03_F_10_552020_19_17.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -389,7 +348,7 @@ var_ebu_610 <- var((log_ebu_rate_forecast_610$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_06_07_2019_06_10_F_10_552020_19_34.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_06_07_2019_06_10_F_10_552020_19_34.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -563,7 +522,7 @@ var_ebu_617 <- var((log_ebu_rate_forecast_617$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_06_14_2019_06_17_F_10_552020_20_49.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_06_14_2019_06_17_F_10_552020_20_49.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -736,7 +695,7 @@ var_ebu_624 <- var((log_ebu_rate_forecast_624$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_06_21_2019_06_24_F_10_552020_22_47.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_06_21_2019_06_24_F_10_552020_22_47.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -910,7 +869,7 @@ var_ebu_701 <- var((log_ebu_rate_forecast_701$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_06_28_2019_07_01_F_10_552020_23_44.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_06_28_2019_07_01_F_10_552020_23_44.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -1083,7 +1042,7 @@ var_ebu_708 <- var((log_ebu_rate_forecast_708$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_07_05_2019_07_08_F_10_562020_0_12.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_07_05_2019_07_08_F_10_562020_0_12.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -1257,7 +1216,7 @@ var_ebu_715 <- var((log_ebu_rate_forecast_715$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_07_12_2019_07_15_F_10_562020_0_33.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_07_12_2019_07_15_F_10_562020_0_33.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -1430,7 +1389,7 @@ var_ebu_722 <- var((log_ebu_rate_forecast_722$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_07_19_2019_07_22_F_10_562020_0_47.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_07_19_2019_07_22_F_10_562020_0_47.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -1602,7 +1561,7 @@ var_ebu_729 <- var((log_ebu_rate_forecast_729$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_07_26_2019_07_29_F_10_562020_1_6.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_07_26_2019_07_29_F_10_562020_1_6.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -1776,7 +1735,7 @@ var_ebu_805 <- var((log_ebu_rate_forecast_805$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_08_02_2019_08_05_F_10_562020_1_20.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_08_02_2019_08_05_F_10_562020_1_20.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -1949,7 +1908,7 @@ var_ebu_812 <- var((log_ebu_rate_forecast_812$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_08_09_2019_08_12_F_10_562020_1_31.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_08_09_2019_08_12_F_10_562020_1_31.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -2121,7 +2080,7 @@ var_ebu_819 <- var((log_ebu_rate_forecast_819$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_08_16_2019_08_19_F_10_562020_1_52.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_08_16_2019_08_19_F_10_562020_1_52.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -2294,7 +2253,7 @@ var_ebu_828 <- var((log_ebu_rate_forecast_828$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_08_25_2019_08_28_F_10_562020_2_5.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_08_25_2019_08_28_F_10_562020_2_5.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -2467,7 +2426,7 @@ var_ebu_902 <- var((log_ebu_rate_forecast_902$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_08_30_2019_09_02_F_10_562020_2_22.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_08_30_2019_09_02_F_10_562020_2_22.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -2640,7 +2599,7 @@ var_ebu_911 <- var((log_ebu_rate_forecast_911$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_09_08_2019_09_11_F_10_562020_10_15.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_09_08_2019_09_11_F_10_562020_10_15.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -2812,7 +2771,7 @@ var_ebu_920 <- var((log_ebu_rate_forecast_920$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_09_17_2019_09_20_F_10_562020_10_27.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_09_17_2019_09_20_F_10_562020_10_27.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -2985,7 +2944,7 @@ var_ebu_927 <- var((log_ebu_rate_forecast_927$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_09_24_2019_09_27_F_10_562020_10_37.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_09_24_2019_09_27_F_10_562020_10_37.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -3158,7 +3117,7 @@ var_ebu_1002 <- var((log_ebu_rate_forecast_1002$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_09_29_2019_10_02_F_10_562020_10_53.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_09_29_2019_10_02_F_10_562020_10_53.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -3331,7 +3290,7 @@ var_ebu_1011 <- var((log_ebu_rate_forecast_1011$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_10_08_2019_10_11_F_10_562020_11_25.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_10_08_2019_10_11_F_10_562020_11_25.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -3503,7 +3462,7 @@ var_ebu_1016 <- var((log_ebu_rate_forecast_1016$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_10_13_2019_10_16_F_10_562020_11_38.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_10_13_2019_10_16_F_10_562020_11_38.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -3676,7 +3635,7 @@ var_ebu_1023 <- var((log_ebu_rate_forecast_1023$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_10_20_2019_10_23_F_10_562020_11_53.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_10_20_2019_10_23_F_10_562020_11_53.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -3849,7 +3808,7 @@ var_ebu_1030 <- var((log_ebu_rate_forecast_1030$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_10_27_2019_10_30_F_10_562020_12_6.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_10_27_2019_10_30_F_10_562020_12_6.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -4022,7 +3981,7 @@ var_ebu_1107 <- var((log_ebu_rate_forecast_1107$ebullition_prediction), na = T)
 ### These are the focal depths from GLM-AED FLARE RUNS ###
 
 # Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("C:/Users/Owner/Desktop/Ebullition_FCR_forecasts/forecast_H_2019_11_04_2019_11_07_F_16_562020_12_20.nc")
+nc <- nc_open("./input/flare_forecasts/forecast_H_2019_11_04_2019_11_07_F_16_562020_12_20.nc")
 t <- ncvar_get(nc,'time')
 full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
 full_time_day <- strftime(full_time, format="%Y-%m-%d")
@@ -4189,10 +4148,71 @@ hist(log_ebu_rate_forecast_1120$ebullition_prediction, breaks = 100)
 var_ebu_1120 <- var((log_ebu_rate_forecast_1120$ebullition_prediction), na = T)
 #############################################################################################################
 
+#last_observation
+ebu_1120 <- ebu %>% filter(date == "2019-11-20")
+ebu_1120 <- na.omit(ebu_1120)
+x_1120 <- data.frame("full_time_day" = as.POSIXct("2019-11-20"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1120$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1120$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 ### Rbind all the temperature forecasts together
 #############################################################################################################
-ensemble_forecasts_all_temp <- rbind(log_ebu_rate_forecast_603,
+ensemble_temp_forecasts <- rbind(kf_mean_temp_up_603,
+                                     kf_mean_temp_up_610,
+                                     kf_mean_temp_up_617,
+                                     kf_mean_temp_up_624,
+                                     kf_mean_temp_up_701,
+                                     kf_mean_temp_up_708,
+                                     kf_mean_temp_up_715,
+                                     kf_mean_temp_up_722,
+                                     kf_mean_temp_up_729,
+                                     kf_mean_temp_up_805,
+                                     kf_mean_temp_up_812,
+                                     kf_mean_temp_up_819,
+                                     kf_mean_temp_up_828,
+                                     kf_mean_temp_up_902,
+                                     kf_mean_temp_up_911,
+                                     kf_mean_temp_up_920,
+                                     kf_mean_temp_up_927,
+                                     kf_mean_temp_up_1002,
+                                     kf_mean_temp_up_1011,
+                                     kf_mean_temp_up_1016,
+                                     kf_mean_temp_up_1023,
+                                     kf_mean_temp_up_1030,
+                                     kf_mean_temp_up_1107,
+                                     kf_mean_temp_up_1120,
+                                     deparse.level = 1)
+
+# Take the mean of the forecasts
+mean_temp_forecasts <- ensemble_temp_forecasts %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+#############################################################################################################
+write_csv(kf_mean_temp_up_603[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_03Jun19.csv")
+write_csv(kf_mean_temp_up_610[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_10Jun19.csv")
+write_csv(kf_mean_temp_up_617[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_17Jun19.csv")
+write_csv(kf_mean_temp_up_624[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_24Jun19.csv")
+write_csv(kf_mean_temp_up_701[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_01Jul19.csv")
+write_csv(kf_mean_temp_up_708[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_08Jul19.csv")
+write_csv(kf_mean_temp_up_715[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_15Jul19.csv")
+write_csv(kf_mean_temp_up_722[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_22Jul19.csv")
+write_csv(kf_mean_temp_up_729[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_29Jul19.csv")
+write_csv(kf_mean_temp_up_805[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_05Aug19.csv")
+write_csv(kf_mean_temp_up_812[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_12Aug19.csv")
+write_csv(kf_mean_temp_up_819[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_19Aug19.csv")
+write_csv(kf_mean_temp_up_828[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_28Aug19.csv")
+write_csv(kf_mean_temp_up_902[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_02Sep19.csv")
+write_csv(kf_mean_temp_up_911[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_11Sep19.csv")
+write_csv(kf_mean_temp_up_920[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_20Sep19.csv")
+write_csv(kf_mean_temp_up_927[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_27Sep19.csv")
+write_csv(kf_mean_temp_up_1002[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_02Oct19.csv")
+write_csv(kf_mean_temp_up_1011[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_11Oct19.csv")
+write_csv(kf_mean_temp_up_1016[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_16Oct19.csv")
+write_csv(kf_mean_temp_up_1023[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_23Oct19.csv")
+write_csv(kf_mean_temp_up_1030[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_30Oct19.csv")
+write_csv(kf_mean_temp_up_1107[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_07Nov19.csv")
+write_csv(kf_mean_temp_up_1120[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_Forecast_20Nov19.csv")
+
+
+### Rbind all the ebullition forecasts together
+#############################################################################################################
+ensemble_forecasts_ch4 <- rbind(log_ebu_rate_forecast_603,
                                 log_ebu_rate_forecast_610,
                                 log_ebu_rate_forecast_617,
                                 log_ebu_rate_forecast_624,
@@ -4219,77 +4239,62 @@ ensemble_forecasts_all_temp <- rbind(log_ebu_rate_forecast_603,
                                 deparse.level = 1)
 
 # Remove the furthest outliers from the forecasts
-filtered_ensemble_98_02_forecasts_all_temp <- ensemble_forecasts_all_temp %>% group_by(full_time_day) %>%
+filtered_ensemble_98_02_ch4 <- ensemble_forecasts_ch4 %>% group_by(full_time_day) %>%
   filter(ebullition_prediction < quantile(ebullition_prediction, 0.98, na.rm = T)) %>% filter(ebullition_prediction > quantile(ebullition_prediction, 0.02, na.rm = T))
 
 # Take the mean of the forecasts
-mean_forecasts_temp <- ensemble_forecasts_all_temp %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+mean_forecasts_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
 #############################################################################################################
 
+write_csv(log_ebu_rate_forecast_603[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_03Jun19.csv")
+write_csv(log_ebu_rate_forecast_610[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_10Jun19.csv")
+write_csv(log_ebu_rate_forecast_617[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_17Jun19.csv")
+write_csv(log_ebu_rate_forecast_624[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_24Jun19.csv")
+write_csv(log_ebu_rate_forecast_701[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_01Jul19.csv")
+write_csv(log_ebu_rate_forecast_708[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_08Jul19.csv")
+write_csv(log_ebu_rate_forecast_715[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_15Jul19.csv")
+write_csv(log_ebu_rate_forecast_722[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_22Jul19.csv")
+write_csv(log_ebu_rate_forecast_729[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_29Jul19.csv")
+write_csv(log_ebu_rate_forecast_805[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_05Aug19.csv")
+write_csv(log_ebu_rate_forecast_812[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_12Aug19.csv")
+write_csv(log_ebu_rate_forecast_819[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_19Aug19.csv")
+write_csv(log_ebu_rate_forecast_828[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_28Aug19.csv")
+write_csv(log_ebu_rate_forecast_902[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_02Sep19.csv")
+write_csv(log_ebu_rate_forecast_911[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_11Sep19.csv")
+write_csv(log_ebu_rate_forecast_920[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_20Sep19.csv")
+write_csv(log_ebu_rate_forecast_927[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_27Sep19.csv")
+write_csv(log_ebu_rate_forecast_1002[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_02Oct19.csv")
+write_csv(log_ebu_rate_forecast_1011[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_11Oct19.csv")
+write_csv(log_ebu_rate_forecast_1016[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_16Oct19.csv")
+write_csv(log_ebu_rate_forecast_1023[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_23Oct19.csv")
+write_csv(log_ebu_rate_forecast_1030[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_30Oct19.csv")
+write_csv(log_ebu_rate_forecast_1107[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_07Nov19.csv")
+write_csv(log_ebu_rate_forecast_1120[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_20Nov19.csv")
 
 
-
-
-
-
-
-### Rbind all the ebullition forecasts together
-#############################################################################################################
-ensemble_temp_forecasts_all <- rbind(kf_mean_temp_up_603,
-                                     kf_mean_temp_up_610,
-                                     kf_mean_temp_up_617,
-                                     kf_mean_temp_up_624,
-                                     kf_mean_temp_up_701,
-                                     kf_mean_temp_up_708,
-                                     kf_mean_temp_up_715,
-                                     kf_mean_temp_up_722,
-                                     kf_mean_temp_up_729,
-                                     kf_mean_temp_up_805,
-                                     kf_mean_temp_up_812,
-                                     kf_mean_temp_up_819,
-                                     kf_mean_temp_up_828,
-                                     kf_mean_temp_up_902,
-                                     kf_mean_temp_up_911,
-                                     kf_mean_temp_up_920,
-                                     kf_mean_temp_up_927,
-                                     kf_mean_temp_up_1002,
-                                     kf_mean_temp_up_1011,
-                                     kf_mean_temp_up_1016,
-                                     kf_mean_temp_up_1023,
-                                     kf_mean_temp_up_1030,
-                                     kf_mean_temp_up_1107,
-                                     kf_mean_temp_up_1120,
-                                     deparse.level = 1)
-
-# Remove the furthest outliers from the forecasts
-filtered_ensemble_98_02_forecasts_all_temp <- ensemble_forecasts_all_temp %>% group_by(full_time_day) %>%
-  filter(ebullition_prediction < quantile(ebullition_prediction, 0.98, na.rm = T)) %>% filter(ebullition_prediction > quantile(ebullition_prediction, 0.02, na.rm = T))
-
-# Take the mean of the forecasts
-mean_forecasts_temp <- filtered_ensemble_98_02_forecasts_all_temp %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-#############################################################################################################
-
-write_csv(log_ebu_rate_forecast_603[,c(1,3)],"Ebullition_Forecast_03Jun19.csv")
-write_csv(log_ebu_rate_forecast_610[,c(1,3)],"Ebullition_Forecast_10Jun19.csv")
-write_csv(log_ebu_rate_forecast_617[,c(1,3)],"Ebullition_Forecast_17Jun19.csv")
-write_csv(log_ebu_rate_forecast_624[,c(1,3)],"Ebullition_Forecast_24Jun19.csv")
-write_csv(log_ebu_rate_forecast_701[,c(1,3)],"Ebullition_Forecast_01Jul19.csv")
-write_csv(log_ebu_rate_forecast_708[,c(1,3)],"Ebullition_Forecast_08Jul19.csv")
-write_csv(log_ebu_rate_forecast_715[,c(1,3)],"Ebullition_Forecast_15Jul19.csv")
-write_csv(log_ebu_rate_forecast_722[,c(1,3)],"Ebullition_Forecast_22Jul19.csv")
-write_csv(log_ebu_rate_forecast_729[,c(1,3)],"Ebullition_Forecast_29Jul19.csv")
-write_csv(log_ebu_rate_forecast_805[,c(1,3)],"Ebullition_Forecast_05Aug19.csv")
-write_csv(log_ebu_rate_forecast_812[,c(1,3)],"Ebullition_Forecast_12Aug19.csv")
-write_csv(log_ebu_rate_forecast_819[,c(1,3)],"Ebullition_Forecast_19Aug19.csv")
-write_csv(log_ebu_rate_forecast_828[,c(1,3)],"Ebullition_Forecast_28Aug19.csv")
-write_csv(log_ebu_rate_forecast_902[,c(1,3)],"Ebullition_Forecast_02Sep19.csv")
-write_csv(log_ebu_rate_forecast_911[,c(1,3)],"Ebullition_Forecast_11Sep19.csv")
-write_csv(log_ebu_rate_forecast_920[,c(1,3)],"Ebullition_Forecast_20Sep19.csv")
-write_csv(log_ebu_rate_forecast_927[,c(1,3)],"Ebullition_Forecast_27Sep19.csv")
-write_csv(log_ebu_rate_forecast_1002[,c(1,3)],"Ebullition_Forecast_02Oct19.csv")
-write_csv(log_ebu_rate_forecast_1011[,c(1,3)],"Ebullition_Forecast_11Oct19.csv")
-write_csv(log_ebu_rate_forecast_1016[,c(1,3)],"Ebullition_Forecast_16Oct19.csv")
-write_csv(log_ebu_rate_forecast_1023[,c(1,3)],"Ebullition_Forecast_23Oct19.csv")
-write_csv(log_ebu_rate_forecast_1030[,c(1,3)],"Ebullition_Forecast_30Oct19.csv")
-write_csv(log_ebu_rate_forecast_1107[,c(1,3)],"Ebullition_Forecast_07Nov19.csv")
-write_csv(log_ebu_rate_forecast_1120[,c(1,3)],"Ebullition_Forecast_20Nov19.csv")
+mean_observe_all <- rbind(x_527,
+                          x_603,
+                          x_610,
+                          x_617,
+                          x_624,
+                          x_701,
+                          x_708,
+                          x_715,
+                          x_722,
+                          x_729,
+                          x_805,
+                          x_812,
+                          x_819,
+                          x_828,
+                          x_902,
+                          x_911,
+                          x_920,
+                          x_927,
+                          x_1002,
+                          x_1011,
+                          x_1016,
+                          x_1023,
+                          x_1030,
+                          x_1107,
+                          x_1120,
+                          deparse.level = 1)
