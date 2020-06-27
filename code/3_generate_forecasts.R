@@ -110,7 +110,7 @@ kf_mean_temp_up_603 <- melt(temp_up_603_test, id.vars = c("full_time_day"),
 variance_temp_603 <- var(kf_mean_temp_up_603$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -277,7 +277,7 @@ kf_mean_temp_up_610 <- melt(temp_up_610_test, id.vars = c("full_time_day"),
 variance_temp_610 <- var(kf_mean_temp_up_610$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -449,7 +449,7 @@ kf_mean_temp_up_617 <- melt(temp_up_617_test, id.vars = c("full_time_day"),
 variance_temp_617 <- var(kf_mean_temp_up_617$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -622,7 +622,7 @@ kf_mean_temp_up_624 <- melt(temp_up_624_test, id.vars = c("full_time_day"),
 variance_temp_624 <- var(kf_mean_temp_up_624$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -796,7 +796,7 @@ kf_mean_temp_up_701 <- melt(temp_up_701_test, id.vars = c("full_time_day"),
 variance_temp_701 <- var(kf_mean_temp_up_701$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -970,7 +970,7 @@ kf_mean_temp_up_708 <- melt(temp_up_708_test, id.vars = c("full_time_day"),
 variance_temp_708 <- var(kf_mean_temp_up_708$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -1143,7 +1143,7 @@ kf_mean_temp_up_715 <- melt(temp_up_715_test, id.vars = c("full_time_day"),
 variance_temp_715 <- var(kf_mean_temp_up_715$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -1317,7 +1317,7 @@ kf_mean_temp_up_722 <- melt(temp_up_722_test, id.vars = c("full_time_day"),
 variance_temp_722 <- var(kf_mean_temp_up_722$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -1489,7 +1489,7 @@ kf_mean_temp_up_729 <- melt(temp_up_729_test, id.vars = c("full_time_day"),
 variance_temp_729 <- var(kf_mean_temp_up_729$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -1662,7 +1662,7 @@ kf_mean_temp_up_805 <- melt(temp_up_805_test, id.vars = c("full_time_day"),
 variance_temp_805 <- var(kf_mean_temp_up_805$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -1836,7 +1836,7 @@ kf_mean_temp_up_812 <- melt(temp_up_812_test, id.vars = c("full_time_day"),
 variance_temp_812 <- var(kf_mean_temp_up_812$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -2008,7 +2008,7 @@ kf_mean_temp_up_819 <- melt(temp_up_819_test, id.vars = c("full_time_day"),
 variance_temp_819 <- var(kf_mean_temp_up_819$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -2181,7 +2181,7 @@ kf_mean_temp_up_828 <- melt(temp_up_828_test, id.vars = c("full_time_day"),
 variance_temp_828 <- var(kf_mean_temp_up_828$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -2354,7 +2354,7 @@ kf_mean_temp_up_902 <- melt(temp_up_902_test, id.vars = c("full_time_day"),
 variance_temp_902 <- var(kf_mean_temp_up_902$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -2527,7 +2527,7 @@ kf_mean_temp_up_911 <- melt(temp_up_911_test, id.vars = c("full_time_day"),
 variance_temp_911 <- var(kf_mean_temp_up_911$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -2699,7 +2699,7 @@ kf_mean_temp_up_920 <- melt(temp_up_920_test, id.vars = c("full_time_day"),
 variance_temp_920 <- var(kf_mean_temp_up_920$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -2872,7 +2872,7 @@ kf_mean_temp_up_927 <- melt(temp_up_927_test, id.vars = c("full_time_day"),
 variance_temp_927 <- var(kf_mean_temp_up_927$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -3045,7 +3045,7 @@ kf_mean_temp_up_1002 <- melt(temp_up_1002_test, id.vars = c("full_time_day"),
 variance_temp_1002 <- var(kf_mean_temp_up_1002$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -3218,7 +3218,7 @@ kf_mean_temp_up_1011 <- melt(temp_up_1011_test, id.vars = c("full_time_day"),
 variance_temp_1011 <- var(kf_mean_temp_up_1011$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -3390,7 +3390,7 @@ kf_mean_temp_up_1016 <- melt(temp_up_1016_test, id.vars = c("full_time_day"),
 variance_temp_1016 <- var(kf_mean_temp_up_1016$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -3563,7 +3563,7 @@ kf_mean_temp_up_1023 <- melt(temp_up_1023_test, id.vars = c("full_time_day"),
 variance_temp_1023 <- var(kf_mean_temp_up_1023$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -3736,7 +3736,7 @@ kf_mean_temp_up_1030 <- melt(temp_up_1030_test, id.vars = c("full_time_day"),
 variance_temp_1030 <- var(kf_mean_temp_up_1030$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -3909,7 +3909,7 @@ kf_mean_temp_up_1107 <- melt(temp_up_1107_test, id.vars = c("full_time_day"),
 variance_temp_1107 <- var(kf_mean_temp_up_1107$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -4082,7 +4082,7 @@ kf_mean_temp_up_1120 <- melt(temp_up_1120_test, id.vars = c("full_time_day"),
 variance_temp_1120 <- var(kf_mean_temp_up_1120$temp_prediction, na = T)
 
 #Uncertaintity paritioning for Ebullition
-hold_methane_pars <- T
+hold_methane_pars <- F
 hold_methane_process <- F
 hold_sed_temp <- F
 hold_methane_obs <- F
@@ -4149,9 +4149,7 @@ var_ebu_1120 <- var((log_ebu_rate_forecast_1120$ebullition_prediction), na = T)
 #############################################################################################################
 
 #last_observation
-ebu_1120 <- ebu %>% filter(date == "2019-11-20")
-ebu_1120 <- na.omit(ebu_1120)
-x_1120 <- data.frame("full_time_day" = as.POSIXct("2019-11-20"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1120$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1120$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_1120 <- data.frame("full_time_day" = as.POSIXct("2019-11-20"), "Ensemble" = "observed", "ebullition_prediction" = -3, "SE" = 1.1, "Data" = "observation")
 
 ### Rbind all the temperature forecasts together
 #############################################################################################################
@@ -4212,6 +4210,8 @@ write_csv(kf_mean_temp_up_1120[,c(1,3)],"./output/SWI_temp_forecast/SWI_temp_For
 
 ### Rbind all the ebullition forecasts together
 #############################################################################################################
+
+
 ensemble_forecasts_ch4 <- rbind(log_ebu_rate_forecast_603,
                                 log_ebu_rate_forecast_610,
                                 log_ebu_rate_forecast_617,
@@ -4239,8 +4239,8 @@ ensemble_forecasts_ch4 <- rbind(log_ebu_rate_forecast_603,
                                 deparse.level = 1)
 
 # Remove the furthest outliers from the forecasts
-filtered_ensemble_98_02_ch4 <- ensemble_forecasts_ch4 %>% group_by(full_time_day) %>%
-  filter(ebullition_prediction < quantile(ebullition_prediction, 0.98, na.rm = T)) %>% filter(ebullition_prediction > quantile(ebullition_prediction, 0.02, na.rm = T))
+ensemble_forecasts_99th_ch4 <- ensemble_forecasts_ch4 %>% group_by(full_time_day) %>%
+  filter(ebullition_prediction < quantile(ebullition_prediction, 0.99, na.rm = T)) %>% filter(ebullition_prediction > quantile(ebullition_prediction, 0.01, na.rm = T))
 
 # Take the mean of the forecasts
 mean_forecasts_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
@@ -4298,3 +4298,4 @@ mean_observe_all <- rbind(x_527,
                           x_1107,
                           x_1120,
                           deparse.level = 1)
+

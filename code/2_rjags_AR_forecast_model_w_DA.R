@@ -1,6 +1,5 @@
 ### RJAGS ebullition model using hobo and catwalk data going back to deployment of the ebullition traps in 2017
 
-
 ### 27May19 forecast Temperature JAGS model ###
 ###########################################################################################
 ebu_527 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_527.csv")
@@ -12,7 +11,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -32,7 +31,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebu_527$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebu_527$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebu_527$lvl_chg,
+                               'temp' = ebu_527$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -66,7 +65,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -86,7 +85,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebu_603$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebu_603$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebu_603$lvl_chg,
+                               'temp' = ebu_603$temp_b_avg,
                                'N' = N),
                    n.chains = 5,
                    n.adapt = 100)
@@ -117,7 +116,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -137,7 +136,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_610$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_610$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_610$lvl_chg,
+                               'temp' = ebullition_610$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -168,7 +167,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -188,7 +187,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_617$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_617$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_617$lvl_chg,
+                               'temp' = ebullition_617$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -219,7 +218,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -239,7 +238,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_624$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_624$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_624$lvl_chg,
+                               'temp' = ebullition_624$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -270,7 +269,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -290,7 +289,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_701$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_701$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_701$lvl_chg,
+                               'temp' = ebullition_701$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -321,7 +320,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -340,7 +339,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_708$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_708$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_708$lvl_chg,
+                               'temp' = ebullition_708$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -371,7 +370,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -390,7 +389,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_715$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_715$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_715$lvl_chg,
+                               'temp' = ebullition_715$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -421,7 +420,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -440,7 +439,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_722$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_722$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_722$lvl_chg,
+                               'temp' = ebullition_722$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -471,7 +470,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -490,7 +489,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_729$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_729$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_729$lvl_chg,
+                               'temp' = ebullition_729$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -521,7 +520,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -540,7 +539,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_805$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_805$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_805$lvl_chg,
+                               'temp' = ebullition_805$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -571,7 +570,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -590,7 +589,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_812$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_812$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_812$lvl_chg,
+                               'temp' = ebullition_812$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -621,7 +620,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -640,7 +639,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_819$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_819$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_819$lvl_chg,
+                               'temp' = ebullition_819$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -671,7 +670,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -690,7 +689,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_828$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_828$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_828$lvl_chg,
+                               'temp' = ebullition_828$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -721,7 +720,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -740,7 +739,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_902$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_902$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_902$lvl_chg,
+                               'temp' = ebullition_902$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -771,7 +770,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -790,7 +789,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_911$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_911$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_911$lvl_chg,
+                               'temp' = ebullition_911$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -821,7 +820,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -840,7 +839,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_920$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_920$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_920$lvl_chg,
+                               'temp' = ebullition_920$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -871,7 +870,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -890,7 +889,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_927$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_927$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_927$lvl_chg,
+                               'temp' = ebullition_927$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -921,7 +920,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -940,7 +939,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1002$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1002$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1002$lvl_chg,
+                               'temp' = ebullition_1002$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -971,7 +970,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -990,7 +989,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1011$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1011$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1011$lvl_chg,
+                               'temp' = ebullition_1011$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1021,7 +1020,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -1040,7 +1039,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1016$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1016$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1016$lvl_chg,
+                               'temp' = ebullition_1016$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1071,7 +1070,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -1090,7 +1089,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1023$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1023$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1023$lvl_chg,
+                               'temp' = ebullition_1023$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1121,7 +1120,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -1140,7 +1139,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1030$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1030$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1030$lvl_chg,
+                               'temp' = ebullition_1030$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1171,7 +1170,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -1190,7 +1189,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1107$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1107$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1107$lvl_chg,
+                               'temp' = ebullition_1107$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1220,7 +1219,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*level[i]
+    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
     }
     
     #Vague priors on the beta
@@ -1239,7 +1238,7 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1120$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1120$log_ebu_mgCH4_m2_d_1,
-                               'level' = ebullition_1120$lvl_chg,
+                               'temp' = ebullition_1120$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
