@@ -69,6 +69,10 @@ master_temp_chain_603_610 <- combine.mcmc(samples)
 curr_temp_pars_603_610 <- sample(seq(0, nrow(master_temp_chain_603_610)),1)
 
 mean_pars_temp_603_610 <- colMeans(master_temp_chain_603_610)
+
+parameters_temp_603_610 <- as.data.frame(master_temp_chain_603_610[,1:3])
+parameters_temp_603_610$variable <- 1:nrow(parameters_temp_603_610) 
+parameters_temp_603_610$full_time_day <- as.POSIXct("2019-06-03")
 ###########################################################################################
 
 ### 17June19 Temperature JAGS model ###
@@ -126,6 +130,9 @@ master_temp_chain_617 <- combine.mcmc(samples)
 curr_temp_pars_617 <- sample(seq(0, nrow(master_temp_chain_617)),1)
 
 mean_pars_temp_617 <- colMeans(master_temp_chain_617)
+parameters_temp_617 <- as.data.frame(master_temp_chain_617[,1:3])
+parameters_temp_617$variable <- 1:nrow(parameters_temp_617) 
+parameters_temp_617$full_time_day <- as.POSIXct("2019-06-17")
 ###########################################################################################
 
 ### 24June19 Temperature JAGS model ###
@@ -182,6 +189,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_624 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_624 <- colMeans(master_temp_chain_624) ### Calculate the means of the parameter distribution
+parameters_temp_624 <- as.data.frame(master_temp_chain_624[,1:3])
+parameters_temp_624$variable <- 1:nrow(parameters_temp_624) 
+parameters_temp_624$full_time_day <- as.POSIXct("2019-06-24")
 ###########################################################################################
 
 ### 01July19 Temperature JAGS model ###
@@ -238,6 +248,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_701 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_701 <- colMeans(master_temp_chain_701) ### Calculate the means of the parameter distribution
+parameters_temp_701 <- as.data.frame(master_temp_chain_701[,1:3])
+parameters_temp_701$variable <- 1:nrow(parameters_temp_701) 
+parameters_temp_701$full_time_day <- as.POSIXct("2019-07-01")
 ###########################################################################################
 
 ### 08July19 Temperature JAGS model ###
@@ -294,6 +307,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_708 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_708 <- colMeans(master_temp_chain_708) ### Calculate the means of the parameter distribution
+parameters_temp_708 <- as.data.frame(master_temp_chain_708[,1:3])
+parameters_temp_708$variable <- 1:nrow(parameters_temp_708) 
+parameters_temp_708$full_time_day <- as.POSIXct("2019-07-08")
 ###########################################################################################
 
 ### 15July19 Temperature JAGS model ###
@@ -350,6 +366,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_715 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_715 <- colMeans(master_temp_chain_715) ### Calculate the means of the parameter distribution
+parameters_temp_715 <- as.data.frame(master_temp_chain_715[,1:3])
+parameters_temp_715$variable <- 1:nrow(parameters_temp_715) 
+parameters_temp_715$full_time_day <- as.POSIXct("2019-07-05")
 ###########################################################################################
 
 ### 22July19 Temperature JAGS model ###
@@ -406,6 +425,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_722 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_722 <- colMeans(master_temp_chain_722) ### Calculate the means of the parameter distribution
+parameters_temp_722 <- as.data.frame(master_temp_chain_722[,1:3])
+parameters_temp_722$variable <- 1:nrow(parameters_temp_722) 
+parameters_temp_722$full_time_day <- as.POSIXct("2019-07-22")
 ###########################################################################################
 
 ### 29July19 Temperature JAGS model ###
@@ -462,6 +484,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_729 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_729 <- colMeans(master_temp_chain_729) ### Calculate the means of the parameter distribution
+parameters_temp_729 <- as.data.frame(master_temp_chain_729[,1:3])
+parameters_temp_729$variable <- 1:nrow(parameters_temp_729) 
+parameters_temp_729$full_time_day <- as.POSIXct("2019-07-29")
 ###########################################################################################
 
 ### 05Aug19 Temperature JAGS model ###
@@ -518,6 +543,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_805 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_805 <- colMeans(master_temp_chain_805) ### Calculate the means of the parameter distribution
+parameters_temp_805 <- as.data.frame(master_temp_chain_805[,1:3])
+parameters_temp_805$variable <- 1:nrow(parameters_temp_805) 
+parameters_temp_805$full_time_day <- as.POSIXct("2019-08-05")
 ###########################################################################################
 
 ### 12Aug19 Temperature JAGS model ###
@@ -574,6 +602,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_812 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_812 <- colMeans(master_temp_chain_812) ### Calculate the means of the parameter distribution
+parameters_temp_812 <- as.data.frame(master_temp_chain_812[,1:3])
+parameters_temp_812$variable <- 1:nrow(parameters_temp_812) 
+parameters_temp_812$full_time_day <- as.POSIXct("2019-08-12")
 ###########################################################################################
 
 ### 19Aug19 Temperature JAGS model ###
@@ -630,6 +661,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_819 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_819 <- colMeans(master_temp_chain_819) ### Calculate the means of the parameter distribution
+parameters_temp_819 <- as.data.frame(master_temp_chain_819[,1:3])
+parameters_temp_819$variable <- 1:nrow(parameters_temp_819) 
+parameters_temp_819$full_time_day <- as.POSIXct("2019-08-19")
 ###########################################################################################
 
 ### 28Aug19 Temperature JAGS model ###
@@ -686,6 +720,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_828 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_828 <- colMeans(master_temp_chain_828) ### Calculate the means of the parameter distribution
+parameters_temp_828 <- as.data.frame(master_temp_chain_828[,1:3])
+parameters_temp_828$variable <- 1:nrow(parameters_temp_828) 
+parameters_temp_828$full_time_day <- as.POSIXct("2019-08-28")
 ###########################################################################################
 
 ### 02Sep19 Temperature JAGS model ###
@@ -742,6 +779,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_902 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_902 <- colMeans(master_temp_chain_902) ### Calculate the means of the parameter distribution
+parameters_temp_902 <- as.data.frame(master_temp_chain_902[,1:3])
+parameters_temp_902$variable <- 1:nrow(parameters_temp_902) 
+parameters_temp_902$full_time_day <- as.POSIXct("2019-09-02")
 ###########################################################################################
 
 ### 11Sep19 Temperature JAGS model ###
@@ -798,6 +838,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_911 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_911 <- colMeans(master_temp_chain_911) ### Calculate the means of the parameter distribution
+parameters_temp_911 <- as.data.frame(master_temp_chain_911[,1:3])
+parameters_temp_911$variable <- 1:nrow(parameters_temp_911) 
+parameters_temp_911$full_time_day <- as.POSIXct("2019-09-11")
 ###########################################################################################
 
 ###20Sep19 Temperature JAGS model ###
@@ -854,6 +897,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_920 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_920 <- colMeans(master_temp_chain_920) ### Calculate the means of the parameter distribution
+parameters_temp_920 <- as.data.frame(master_temp_chain_920[,1:3])
+parameters_temp_920$variable <- 1:nrow(parameters_temp_920) 
+parameters_temp_920$full_time_day <- as.POSIXct("2019-09-20")
 ###########################################################################################
 
 ###27Sep19 Temperature JAGS model ###
@@ -910,6 +956,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_927 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_927 <- colMeans(master_temp_chain_927) ### Calculate the means of the parameter distribution
+parameters_temp_927 <- as.data.frame(master_temp_chain_927[,1:3])
+parameters_temp_927$variable <- 1:nrow(parameters_temp_927) 
+parameters_temp_927$full_time_day <- as.POSIXct("2019-09-27")
 ###########################################################################################
 
 ###02Oct19 Temperature JAGS model ###
@@ -966,6 +1015,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_1002 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_1002 <- colMeans(master_temp_chain_1002) ### Calculate the means of the parameter distribution
+parameters_temp_1002 <- as.data.frame(master_temp_chain_1002[,1:3])
+parameters_temp_1002$variable <- 1:nrow(parameters_temp_1002) 
+parameters_temp_1002$full_time_day <- as.POSIXct("2019-10-02")
 ###########################################################################################
 
 ###11Oct19 Temperature JAGS model ###
@@ -1022,6 +1074,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_1011 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_1011 <- colMeans(master_temp_chain_1011) ### Calculate the means of the parameter distribution
+parameters_temp_1011 <- as.data.frame(master_temp_chain_1011[,1:3])
+parameters_temp_1011$variable <- 1:nrow(parameters_temp_1011) 
+parameters_temp_1011$full_time_day <- as.POSIXct("2019-10-11")
 ###########################################################################################
 
 ###16Oct19 Temperature JAGS model ###
@@ -1078,6 +1133,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_1016 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_1016 <- colMeans(master_temp_chain_1016) ### Calculate the means of the parameter distribution
+parameters_temp_1016 <- as.data.frame(master_temp_chain_1016[,1:3])
+parameters_temp_1016$variable <- 1:nrow(parameters_temp_1016) 
+parameters_temp_1016$full_time_day <- as.POSIXct("2019-10-16")
 ###########################################################################################
 
 ###23Oct19 Temperature JAGS model ###
@@ -1134,6 +1192,9 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_1023 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_1023 <- colMeans(master_temp_chain_1023) ### Calculate the means of the parameter distribution
+parameters_temp_1023 <- as.data.frame(master_temp_chain_1023[,1:3])
+parameters_temp_1023$variable <- 1:nrow(parameters_temp_1023) 
+parameters_temp_1023$full_time_day <- as.POSIXct("2019-10-23")
 ###########################################################################################
 
 ###30Oct19 Temperature JAGS model ###
@@ -1190,7 +1251,10 @@ gelman.diag(samples) ### make sure the MCMC have converged
 master_temp_chain_1030 <- combine.mcmc(samples) ### combine the chains
 
 mean_pars_temp_1030 <- colMeans(master_temp_chain_1030) ### Calculate the means of the parameter distribution
-###########################################################################################
+parameters_temp_1030 <- as.data.frame(master_temp_chain_1030[,1:3])
+parameters_temp_1030$variable <- 1:nrow(parameters_temp_1030) 
+parameters_temp_1030$full_time_day <- as.POSIXct("2019-10-30")
+##########################################################################################
 
 ###07Nov19 Temperature JAGS model ###
 #######################################################################################
@@ -1309,14 +1373,27 @@ parameters_temp_1120$variable <- 1:nrow(parameters_temp_1120)
 parameters_temp_1120$full_time_day <- as.POSIXct("2019-11-20")
 ###########################################################################################
 
-parm_temp_all <- rbind(parameters_temp_1107,
+parm_temp_all <- rbind(parameters_temp_603_610,
+                       parameters_temp_617,
+                       parameters_temp_624,
+                       parameters_temp_701,
+                       parameters_temp_708,
+                       parameters_temp_715,
+                       parameters_temp_722,
+                       parameters_temp_729,
+                       parameters_temp_805,
+                       parameters_temp_812,
+                       parameters_temp_819,
+                       parameters_temp_828,
+                       parameters_temp_902,
+                       parameters_temp_911,
+                       parameters_temp_920,
+                       parameters_temp_927,
+                       parameters_temp_1002,
+                       parameters_temp_1011,
+                       parameters_temp_1016,
+                       parameters_temp_1023,
+                       parameters_temp_1030,
+                       parameters_temp_1107,
                        parameters_temp_1120)
 
-
-
-mean_temp_beta_1 <- parm_temp_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-
-ggplot(parm_temp_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
-  geom_line(color = "grey80")+
-  geom_line(data = mean_temp_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
-  theme_classic()
