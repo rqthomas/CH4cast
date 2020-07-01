@@ -15,60 +15,57 @@ OK - Let's run CH4cast!
 
 Step 1 - DOWNLOAD CH4cast code via terminal in R
 
-1: Open R Studio
+0: Make a FOLDER in your Documents (or Desktop) that is called -->     Forecast
 
-2: Locate the terminal tab
+1: Open a fresh R Studio window
 
-3: In terminal, create a location on your PC where you want all of the files to be stored for this tutorial
+2: Locate the terminal tab and select it
       
-      For example: 
-      mkdir /Users/Owner/Desktop/Forecast
-      
-4: In terminal, move to the new directory using the command "cd ".
+3: In terminal, move to the new Folder you made using the command "cd ".
 
       For example:
       cd /Users/Owner/Desktop/Forecast
       
-5: In terminal, run the following command to download the CH4cast code from Github. 
+4: In terminal, run the following command to download the CH4cast code from Github. 
 
       For example:
       git clone https://github.com/ryanmclake/CH4cast.git
       
-6: After the cloning finishes, there should be a new folder in your working directory named "CH4cast"
+5: After the cloning finishes, there should be a new folder in your working directory named "CH4cast"
 
 
 
 Step - 2 Execute the CH4cast scripts in order and make CH4 ebullition rate forecasts
 
-7: Go to the "code" folder and open all six scripts starting with 0_ going to 5_.
+6: Go to the "code" folder and open all six scripts starting with 0_ going to 5_.
 
-8: In 0_package_load.R, find the "Source" key on the top right --> Click "Source" and then let the script run until it is finished
+7: In 0_package_load.R, find the "Source" key on the top right --> Click "Source" and then let the script run until it is finished
 
 Note --> this may take a while if this is the first time using R. 
 
-9: When the script is complete, select the tab 1_rjags_temp_scale_model_w_DA.R
+8: When the script is complete, select the tab 1_rjags_temp_scale_model_w_DA.R
 
-10: In 1_rjags_temp_scale_model_w_DA.R, select all of the script with your cursor and then select "Run" in the top right. 
+9: In 1_rjags_temp_scale_model_w_DA.R, select all of the script with your cursor and then select "Run" in the top right. 
 
 Note --> You cannot source this file because of the way it is currently set up with rjags. This will also take a while to execute. 
 
-11: When 1_rjags_temp_scale_model_w_DA.R is complete, select the tab 2_rjags_AR_forecast_model_w_DA.R
+10: When 1_rjags_temp_scale_model_w_DA.R is complete, select the tab 2_rjags_AR_forecast_model_w_DA.R
 
-12: In 2_rjags_AR_forecast_model_w_DA.R, select all of the script with your cursor and then select "Run" in the top right.
+11: In 2_rjags_AR_forecast_model_w_DA.R, select all of the script with your cursor and then select "Run" in the top right.
 
 Note --> this is like the temperature scaling model
 
-13: When 2_rjags_AR_forecast_model_w_DA.R is complete, select the tab 3_generate_forecasts.R
+12 When 2_rjags_AR_forecast_model_w_DA.R is complete, select the tab 3_generate_forecasts.R
 
-14: The 3_generate_forecasts.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. 
+13: The 3_generate_forecasts.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. 
 
-15: Congrats, if there were no errors when 3_generate_forecasts.R was sourced then you have successfully run CH4cast! If you go to the output folder you can find the forecasts for both a SWI temperature scaling model and the CH4 ebullition rate forecasts. 
+14: Congrats, if there were no errors when 3_generate_forecasts.R was sourced then you have successfully run CH4cast! If you go to the output folder you can find the forecasts for both a SWI temperature scaling model and the CH4 ebullition rate forecasts. 
 
 
 
 Step - 3 Forecast Verification (i.e. how did we do?)
 
-16: Select the tab 4_figure_output.R and click "Source". Figures will appear for both the SWI temp scaling model and CH4 ebullition forecasts within the "figures" folder.
+15: Select the tab 4_figure_output.R and click "Source". Figures will appear for both the SWI temp scaling model and CH4 ebullition forecasts within the "figures" folder.
     
     For the SWI temp model forecasts:
     CH4cast/figures/SWI_scaling_model_forecast/weekly_output
@@ -76,7 +73,7 @@ Step - 3 Forecast Verification (i.e. how did we do?)
     For the CH4 ebullition forecast:
     CH4cast/figures/ebullition_forecast/weekly_output
 
-17: Finally, select the tab 5_forecast_evaluation.R and then click "Source". A table will generate that reports the Nash-Sutcliffe Efficiancy
+16: Finally, select the tab 5_forecast_evaluation.R and then click "Source". A table will generate that reports the Nash-Sutcliffe Efficiancy
 
     For the NSE table, go to:
     CH4cast/figures/ebullition_forecast/weekly_output
