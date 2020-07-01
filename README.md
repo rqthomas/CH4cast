@@ -14,7 +14,7 @@ Here are the basic requirements to run CH4cast
 
 OK - How to run CH4cast! 
 
- - DOWNLOAD CH4cast code via terminal in R
+Step 1 - DOWNLOAD CH4cast code via terminal in R
 
 1: Open R Studio
 
@@ -37,5 +37,7 @@ OK - How to run CH4cast!
       
 6: After the cloning finishes, there should be a new folder in your working directory named "CH4cast"
 
+Step - 2 Execute the CH4cast scripts in order and make CH4 ebullition rate forecasts
 
+7: 
       
