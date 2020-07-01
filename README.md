@@ -9,7 +9,8 @@ THESE FORECASTS ARE ONLY APPLICABLE TO THE UPSTREAM TRANSECT IN FALLING CREEK RE
 CH4cast currently cannot be scaled and run in another freshwater ecosystem. However, we are currently working on adapting a mechanisitic model (HIMELLI) to be run through a similar forecast framework so it can be scalable to more systems and run on shorter time scales. Our goal is to inspire all fellow bubble catchers to use this code as a baseline to start ebullition rate forecasts of their own. 
 
 Here are the basic requirements to run CH4cast
- - RStudio (newest version if possible)
+ - R (newest version if possible)
+ - RStudio
 
 OK - How to run CH4cast! 
 
