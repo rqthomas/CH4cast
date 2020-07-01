@@ -20,8 +20,8 @@ OK - How to run CH4cast!
 2: Locate the terminal tab
 
 3: In terminal, create a location on your PC where you want all of the files to be stored for this tutorial
-      For example:
       
+      For example: 
       mkdir /Users/Owner/Desktop/
       
 4: In terminal, move to the new directory using the command "cd ".
