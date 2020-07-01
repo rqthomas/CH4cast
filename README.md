@@ -16,16 +16,24 @@ OK - How to run CH4cast!
  - DOWNLOAD CH4cast code via terminal in R
 
 1: Open R Studio
+
 2: Locate the terminal tab
+
 3: In terminal, create a location on your PC where you want all of the files to be stored for this tutorial
       For example:
+      
       mkdir /Users/Owner/Desktop/
+      
 4: In terminal, move to the new directory using the command "cd ".
+
       For example:
       cd /Users/Owner/Desktop/
+      
 5: In terminal, run the following command to download the CH4cast code from Github. 
+
       For example:
       git clone https://github.com/ryanmclake/CH4cast.git
+      
 6: After the cloning finishes, there should be a new folder in your working directory named "CH4cast"
 
 
