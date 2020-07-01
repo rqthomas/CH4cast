@@ -36,6 +36,8 @@ Step 1 - DOWNLOAD CH4cast code via terminal in R
       
 6: After the cloning finishes, there should be a new folder in your working directory named "CH4cast"
 
+
+
 Step - 2 Execute the CH4cast scripts in order and make CH4 ebullition rate forecasts
 
 7: Go to the "code" folder and open all six scripts starting with 0_ going to 5_.
@@ -61,6 +63,8 @@ Note --> this is like the temperature scaling model
 14: The 3_generate_forecasts.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. 
 
 15: Congrats, if there were no errors when 3_generate_forecasts.R was sourced then you have successfully run CH4cast! If you go to the output folder you can find the forecasts for both a SWI temperature scaling model and the CH4 ebullition rate forecasts. 
+
+
 
 Step - 3 Forecast Verification (i.e. how did we do?)
 
