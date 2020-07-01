@@ -1355,6 +1355,7 @@ mean_pars_1120 <- colMeans(master_chain_1120)
 parameters_ebu_1120 <- as.data.frame(master_chain_1120[,1:4])
 parameters_ebu_1120$variable <- 1:nrow(parameters_ebu_1120) 
 parameters_ebu_1120$full_time_day <- as.POSIXct("2019-11-20")
+
 ###########################################################################################
 
 

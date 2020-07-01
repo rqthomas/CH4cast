@@ -5,11 +5,8 @@
 ###########################################################################################
 if (!"pacman" %in% installed.packages()) install.packages("pacman")
 pacman::p_load(ggplot2,
-               PerformanceAnalytics, 
                MuMIn, 
-               zoo, 
-               grid, 
-               gridExtra, 
+               zoo,
                rcompanion, 
                MASS, 
                knitr, 
@@ -34,7 +31,8 @@ pacman::p_load(ggplot2,
                ggjoy, 
                scoringRules, 
                MCMCvis, 
-               patchwork)
+               patchwork,
+               lubridate)
 
 ###########################################################################################
 

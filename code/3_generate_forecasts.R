@@ -4299,3 +4299,71 @@ mean_observe_all <- rbind(x_527,
                           x_1120,
                           deparse.level = 1)
 
+### Total Variance ###
+var_ebu_forecast<- rbind(var_ebu_603,
+                         var_ebu_610,
+                         var_ebu_617,
+                         var_ebu_624,
+                         var_ebu_701,
+                         var_ebu_708,
+                         var_ebu_715,
+                         var_ebu_722,
+                         var_ebu_729,
+                         var_ebu_805,
+                         var_ebu_812,
+                         var_ebu_819,
+                         var_ebu_828,
+                         var_ebu_902,
+                         var_ebu_911,
+                         var_ebu_920,
+                         var_ebu_927,
+                         var_ebu_1002,
+                         var_ebu_1011,
+                         var_ebu_1016, 
+                         var_ebu_1023, 
+                         var_ebu_1030, 
+                         var_ebu_1107, 
+                         var_ebu_1120)
+
+var_ebu_forecast <- cbind(mean_observe_all[2:25,1],
+                          data.frame((var_ebu_forecast)))
+names(var_ebu_forecast) <- c("date", "total_variance")
+
+var_temp_forecast <- rbind(variance_temp_603,
+                      variance_temp_610,
+                      variance_temp_617,
+                      variance_temp_624,
+                      variance_temp_701,
+                      variance_temp_708,
+                      variance_temp_715,
+                      variance_temp_722,
+                      variance_temp_729,
+                      variance_temp_805,
+                      variance_temp_812,
+                      variance_temp_819,
+                      variance_temp_828,
+                      variance_temp_902,
+                      variance_temp_911,
+                      variance_temp_920,
+                      variance_temp_927,
+                      variance_temp_1002,
+                      variance_temp_1011,
+                      variance_temp_1016, 
+                      variance_temp_1023, 
+                      variance_temp_1030, 
+                      variance_temp_1107, 
+                      variance_temp_1120)
+
+var_temp_forecast <- cbind(mean_observe_all[2:25,1],
+                          data.frame((var_temp_forecast)))
+names(var_temp_forecast) <- c("date", "total_variance")
+
+### Run the deterministic model using the observed temperatures from the SWI
+det_prediction <- as.data.frame(-7.18 + 0.3*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.42*ebullition_1120$temp_b_avg)
+det_prediction_h <- as.data.frame(-5.91 + 0.35*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.48*ebullition_1120$temp_b_avg)
+det_prediction_l <- as.data.frame(-8.45 + 0.25*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.36*ebullition_1120$temp_b_avg)
+
+deterministic_prediction <- cbind(mean_observe_all[,1],det_prediction, det_prediction_l, det_prediction_h)
+
+names(deterministic_prediction) <- c("full_time_day","deterministic", "deterministic_low", "deterministic_high")
+

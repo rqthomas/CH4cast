@@ -46,12 +46,12 @@ b <- ggplot(ensemble_forecasts_99th_ch4) +
   geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
                 position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
+  geom_point(data = deterministic_prediction, aes(x = full_time_day, y = deterministic),pch = 23, color = "black", fill = "magenta", size = 2)+
   ylim(-7.5,7.5)+
   xlab("")+
   labs(title="B")+
   geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-07-05"), yend = -7.5, colour = "black", lty = "dashed")+
   geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
   ylab(expression(paste("ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
   scale_x_datetime(limits = c(mean_observe_all$full_time_day[7]-(86400*1),mean_observe_all$full_time_day[25]+(86400*11)), expand = c(.05,.05), 
                    breaks = c(mean_observe_all$full_time_day[7],
@@ -82,11 +82,15 @@ dev.off()
 
 ### Figure ### SWI temperature forecasts
 ############################################################################################
+observed_temps <- as.data.frame(cbind(mean_observe_all[,1], ebullition_1120[,6]))
+names(observed_temps) <- c("full_time_day", "observed_SWI_temp")
+
 tiff("./figures/SWI_scaling_model_forecast/weekly_output/TEMPERATURE_FORECASTS_FIGURE_S2.tiff", width = 8, height = 6, units = 'in', res = 600)
 
 v <- ggplot() + 
   geom_flat_violin(data = ensemble_temp_forecasts, aes(x = full_time_day, y = temp_prediction, group = full_time_day), size = .1, color = NA, fill = "darkorange2", scale = "width")+
-  geom_point(data = mean_temp_forecasts, aes(x = full_time_day, y = temp_prediction),pch = 3, color = "black", fill = "red1", size = 2)+
+  geom_point(data = mean_temp_forecasts, aes(x = full_time_day, y = temp_prediction),pch = 3, color = "darkorange2", size = 2)+
+  geom_point(data = observed_temps, aes(x = full_time_day, y = observed_SWI_temp),pch = 23, color = "black", fill="red1", size = 3)+
   #geom_point(data = observed_temp, aes(x = full_time_day, y = Temp_C),pch = 23, color = "black", fill = "red1", size = 3)+
   ylim(4,30)+
   xlab("")+
@@ -140,6 +144,26 @@ a <- ggplot()+
 
 a
 
+dev.off()
+############################################################################################
+
+### Figure ### Total Ebullition forecast variance
+############################################################################################
+tiff("./figures/ebullition_forecast/weekly_output/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
+p <- ggplot(var_ebu_forecast, aes(date, total_variance))+
+  geom_line(lwd = 3, color = "black")+
+  theme_classic()
+p
+dev.off()
+############################################################################################
+
+### Figure ### Total SWI Temperature scaling model forecast variance
+############################################################################################
+tiff("./figures/SWI_scaling_model_forecast/weekly_output/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
+p <- ggplot(var_temp_forecast, aes(date, total_variance))+
+  geom_line(lwd = 3, color = "black")+
+  theme_classic()
+p
 dev.off()
 ############################################################################################
 
