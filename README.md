@@ -22,12 +22,12 @@ Step 1 - DOWNLOAD CH4cast code via terminal in R
 3: In terminal, create a location on your PC where you want all of the files to be stored for this tutorial
       
       For example: 
-      mkdir /Users/Owner/Desktop/
+      mkdir /Users/Owner/Desktop/Forecast
       
 4: In terminal, move to the new directory using the command "cd ".
 
       For example:
-      cd /Users/Owner/Desktop/
+      cd /Users/Owner/Desktop/Forecast
       
 5: In terminal, run the following command to download the CH4cast code from Github. 
 
