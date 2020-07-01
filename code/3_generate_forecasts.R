@@ -4243,7 +4243,11 @@ ensemble_forecasts_99th_ch4 <- ensemble_forecasts_ch4 %>% group_by(full_time_day
   filter(ebullition_prediction < quantile(ebullition_prediction, 0.99, na.rm = T)) %>% filter(ebullition_prediction > quantile(ebullition_prediction, 0.01, na.rm = T))
 
 # Take the mean of the forecasts
-mean_forecasts_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+mean_forecast_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+SE_forecast_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(SE))
+names(SE_forecast_ch4)[2] <- "SE"
+
+mean_forecast_ch4 <- left_join(mean_forecast_ch4, SE_forecast_ch4, by = "full_time_day")
 #############################################################################################################
 
 write_csv(log_ebu_rate_forecast_603[,c(1,3)],"./output/ebullition_forecast/Ebullition_Forecast_03Jun19.csv")
@@ -4358,12 +4362,8 @@ var_temp_forecast <- cbind(mean_observe_all[2:25,1],
                           data.frame((var_temp_forecast)))
 names(var_temp_forecast) <- c("date", "total_variance")
 
-### Run the deterministic model using the observed temperatures from the SWI
-det_prediction <- as.data.frame(-7.18 + 0.3*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.42*ebullition_1120$temp_b_avg)
-det_prediction_h <- as.data.frame(-5.91 + 0.35*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.48*ebullition_1120$temp_b_avg)
-det_prediction_l <- as.data.frame(-8.45 + 0.25*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.36*ebullition_1120$temp_b_avg)
-
-deterministic_prediction <- cbind(mean_observe_all[,1],det_prediction, det_prediction_l, det_prediction_h)
-
-names(deterministic_prediction) <- c("full_time_day","deterministic", "deterministic_low", "deterministic_high")
+### Run the deterministic model using the observed temperatures from the SWI and the parameter estimates from 2017 (McClure et al., 2020 JGR: Biogeosciences)
+det_prediction <- as.data.frame(-6.13 + 0.28803*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.38255*ebullition_1120$temp_b_avg)
+deterministic_prediction <- cbind(mean_observe_all[,1],det_prediction)
+names(deterministic_prediction) <- c("full_time_day","deterministic")
 

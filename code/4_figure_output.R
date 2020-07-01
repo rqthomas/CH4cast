@@ -4,21 +4,21 @@ library(patchwork)
 
 ### Figure ### Ebullition forecasts
 ############################################################################################
-ensemble_forecasts_ch4_short<- ensemble_forecasts_99th_ch4 %>% filter(full_time_day>="2019-07-08")
+ensemble_forecasts_ch4_short<- ensemble_forecasts_99th_ch4 %>% filter(full_time_day>="2019-07-01")
 
 a <- ggplot(ensemble_forecasts_99th_ch4) + 
-  geom_flat_violin(data = ensemble_forecasts_99th_ch4, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
-  geom_point(data = mean_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
+  geom_flat_violin(data = ensemble_forecasts_99th_ch4, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = "black", fill = "lightblue", scale = "width")+
+  geom_point(data = mean_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "lightblue", size = 2)+
   geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
                 position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
   xlab("")+
   labs(title="A")+
   ylim(-300,300)+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-07-05"), yend = -7.5, colour = "black", lty = "dashed")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
-  ylab(expression(paste("ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
+  geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-06-28"), yend = -7.5, colour = "black", lty = "dashed")+
+  geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
+  geom_segment(x = as.POSIXct("2019-06-28"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
+  ylab(expression(paste("Ebullition rate ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
   scale_x_datetime(limits = c(mean_observe_all$full_time_day[1],mean_observe_all$full_time_day[25]+(86400*11)), expand = c(.05,.05), 
                    breaks = c(mean_observe_all$full_time_day[2]-(86400*2),
                               mean_observe_all$full_time_day[6],
@@ -38,29 +38,28 @@ a <- ggplot(ensemble_forecasts_99th_ch4) +
         panel.grid.minor.y = element_blank(),
         legend.title = element_blank(), 
         title = element_text(size = 15))
-a
 
-b <- ggplot(ensemble_forecasts_99th_ch4) + 
-  geom_flat_violin(data = ensemble_forecasts_99th_ch4, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
+b <- ggplot(ensemble_forecasts_ch4_short) + 
+  geom_flat_violin(data = ensemble_forecasts_ch4_short, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
   geom_point(data = mean_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
   geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
                 position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
-  geom_point(data = deterministic_prediction, aes(x = full_time_day, y = deterministic),pch = 23, color = "black", fill = "magenta", size = 2)+
   ylim(-7.5,7.5)+
   xlab("")+
   labs(title="B")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-07-05"), yend = -7.5, colour = "black", lty = "dashed")+
-  geom_segment(x = as.POSIXct("2019-07-05"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
-  ylab(expression(paste("ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
-  scale_x_datetime(limits = c(mean_observe_all$full_time_day[7]-(86400*1),mean_observe_all$full_time_day[25]+(86400*11)), expand = c(.05,.05), 
-                   breaks = c(mean_observe_all$full_time_day[7],
+  geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-06-28"), yend = -7.5, colour = "black", lty = "dashed")+
+  geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
+  geom_segment(x = as.POSIXct("2019-06-28"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
+  ylab(expression(paste("Ebullition rate ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
+  scale_x_datetime(limits = c(mean_observe_all$full_time_day[6]-(86400*1),mean_observe_all$full_time_day[25]+(86400*11)), expand = c(.05,.05), 
+                   breaks = c(mean_observe_all$full_time_day[6],
                               mean_observe_all$full_time_day[10]+(86400*3),
                               mean_observe_all$full_time_day[14]+(86400*4),
                               mean_observe_all$full_time_day[18]+(86400*4),
                               mean_observe_all$full_time_day[22]+(86400*9),
                               mean_observe_all$full_time_day[25]+(86400*11)), 
-                   labels = c("08 July","01 Aug","01 Sep", "01 Oct", "01 Nov", "01 Dec"))+
+                   labels = c("01 July","01 Aug","01 Sep", "01 Oct", "01 Nov", "01 Dec"))+
   theme_classic()+
   theme(axis.text=element_text(size=15, color = "black"),
         axis.title=element_text(size=15, color = "black"),
@@ -70,8 +69,8 @@ b <- ggplot(ensemble_forecasts_99th_ch4) +
         panel.grid.minor.x = element_blank(),
         panel.grid.minor.y = element_blank(),
         legend.title = element_blank(), 
-        title = element_text(size = 15))
-b
+        title = element_text(size = 15),
+        axis.title.y = element_blank())
 
 # Figure output
 tiff("./figures/ebullition_forecast/weekly_output/EBU_FORECASTS_FIGURE_3.tiff", width = 14, height = 6, units = 'in', res = 600)
@@ -167,69 +166,171 @@ p
 dev.off()
 ############################################################################################
 
+### Figure ### Forecast evaluation time series
+############################################################################################
+mean_forecast_short <- mean_forecast_ch4 %>% filter(full_time_day <= "2019-06-28")
 
+g <- ggplot() + 
+  geom_line(data = mean_observe_all, aes(x = full_time_day, y = exp(ebullition_prediction)),lwd = 1.3, color = "red")+
+  geom_point(data = mean_observe_all, aes(x=full_time_day,y=exp(ebullition_prediction)),pch = 23,color = "black", fill = "firebrick2", size = 5)+
+  geom_point(data = mean_forecast_ch4, aes(x=full_time_day,y=exp(ebullition_prediction)),pch = 21,color = "black", fill = "blue", size = 7)+
+  geom_point(data = mean_forecast_short, aes(x=full_time_day,y=exp(ebullition_prediction)),pch = 21,color = "black", fill = "lightblue", size = 7)+
+  geom_point(data = deterministic_prediction, aes(x=full_time_day,y=exp(deterministic)),pch = 24,color = "black", fill = "grey", size = 6)+
+  geom_vline(xintercept = as.POSIXct("2019-07-01"), lwd = 1, lty = "dashed")+
+  xlab("")+
+  ylab(expression(paste("Ebullition rate (mg CH "[4]," m"^"-2"," d"^"-1",")")))+
+  scale_x_datetime(limits = c(mean_observe_all$full_time_day[2],mean_observe_all$full_time_day[25]), expand = c(.05,.05), 
+                   breaks = c(mean_observe_all$full_time_day[2],
+                              mean_observe_all$full_time_day[6],
+                              mean_observe_all$full_time_day[10]+(86400*3),
+                              mean_observe_all$full_time_day[14]+(86400*4),
+                              mean_observe_all$full_time_day[18]+(86400*4),
+                              mean_observe_all$full_time_day[22]+(86400*9),
+                              mean_observe_all$full_time_day[25]), 
+                   labels = c("03 June","01 July","01 Aug","01 Sep", "01 Oct", "01 Nov", "20 Nov"))+
+  theme_classic()+
+  theme(axis.text=element_text(size=15, color = "black"),
+        axis.title=element_text(size=15, color = "black"),
+        legend.position=c(.2, .9),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
 
-# These two take a long time to run
+tiff("./figures/ebullition_forecast/weekly_output/FORECAST_VS_DETERMINISTIC.tiff", width=10, height=7, units = "in", res = 600)
+g
+dev.off()
+############################################################################################
+
+### Figure ### Taylor Diagram
+############################################################################################
+library("plotrix")
+
+taylor_compare <- left_join(mean_observe_all, mean_forecast_ch4, by = "full_time_day")
+taylor_compare <- left_join(taylor_compare, deterministic_prediction, by = "full_time_day")
+
+taylor_compare <- taylor_compare %>% select(full_time_day,ebullition_prediction.x,ebullition_prediction.y,deterministic)
+names(taylor_compare) <- c("full_time_day","observation","forecasts", "deterministic")
+
+taylor_compare_da <- taylor_compare %>%
+  filter(full_time_day>="2019-07-01")
+names(taylor_compare_da) <- c("full_time_day","observation","forecasts", "deterministic")
+
+taylor_compare <- na.omit(taylor_compare)
+taylor_compare_da <- na.omit(taylor_compare_da)
+
+tiff("./figures/ebullition_forecast/weekly_output/TAYLOR_DIAGRAM.tiff", width=7, height=7, units="in", res = 600)
+
+taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$deterministic), pos.cor = T, col="grey", pcex = 3, pch = 17, main = "") ### Using just 2018 training data
+taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$deterministic), col="black", add = T, pcex = 3, pch = 24) ### Using just 2018 training data
+#taylor.diagram(exp(stats$observed), exp(stats$ebullition_temp_level_model), col="darkorchid1", pos.cor=T, add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
+#taylor.diagram(exp(stats$observed), exp(stats$ebullition_temp_level_model), col="black", pos.cor=T, add = T, cex = 2, pcex = 4.3, pch = 21) ### Just 2019 data with data assimilation
+taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$forecasts), col="lightblue", pos.cor=T, add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
+taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$forecasts), col="black", pos.cor=T, add = T, cex = 2, pcex = 4.3, pch = 21) ### Just 2019 data with data assimilation
+taylor.diagram(exp(taylor_compare_da$observation), exp(taylor_compare_da$forecasts), col="blue", pos.cor=T, add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
+taylor.diagram(exp(taylor_compare_da$observation), exp(taylor_compare_da$forecasts), col="black", pos.cor=T, add = T, cex = 2, pcex = 4.3, pch = 21) ### Just 2019 data with data assimilation
+taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$observation), col="red", pos.cor=T, add = T, cex = 2, pcex = 6, pch = 18) ### Just 2019 data with data assimilation
+taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$observation), col="black", pos.cor=T, add = T, cex = 2, pcex = 5, pch = 23) ### Just 2019 data with data assimilation
+
+### Add legend to the plot
+lpos1<-14*sd((taylor_compare$observation))
+lpos2 <- 5*sd((taylor_compare$forecasts))
+legend(lpos1,lpos2, box.lwd = 0, box.col = "white",legend=c("Observations","Forecasts (with first month)", "Forecasts (after first month)", "Deterministic"), pch=c(18,19,19,17),pt.cex = c(3,3,3,2), cex = 1.2, col=c("red","lightblue","blue","grey"))
+
+dev.off()
+############################################################################################
+
+# These two figures take a loooonng time to run
 # Be ready with a glass of tea, wine, coffee, beer, etc. You will be waiting a bit.
+# In the meantime, I have made them captioned so they do not run when you source the code. 
 
-### Figure ### SWI scaling model parameter estimates
-############################################################################################
-mean_temp_beta_1 <- parm_temp_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-
-b1 <- ggplot(parm_temp_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
-  geom_line(color = "grey80", lwd = 0.1)+
-  geom_line(data = mean_temp_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
-  ylab("Intercept")+
-  xlab("")+
-  theme_classic()
-
-mean_temp_beta_2 <- parm_temp_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-
-b2 <- ggplot(parm_temp_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
-  geom_line(color = "grey80", lwd = 0.1)+
-  geom_line(data = mean_temp_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 3)+
-  ylab("Temperature")+
-  xlab("")+
-  theme_classic()
-
-
-tiff("./figures/SWI_scaling_model_forecast/parameter_est/BETA_temp_estimates.tiff", width = 6, height = 10, units = "in", res = 600)
-beta <- b1/b2
-beta
-dev.off()
-############################################################################################
-
-### Figure ### ebullition model parameter estimates
-############################################################################################
-mean_ebu_beta_1 <- parm_ebu_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-
-b1 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
-  geom_line(color = "grey80")+
-  geom_line(data = mean_ebu_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
-  ylab("Intercept")+
-  xlab("")+
-  theme_classic()
-
-mean_ebu_beta_2 <- parm_ebu_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-
-b2 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
-  geom_line(color = "grey80")+
-  geom_line(data = mean_ebu_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
-  ylab("AR term")+
-  xlab("")+
-  theme_classic()
-
-mean_ebu_beta_3 <- parm_ebu_all %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-
-b3 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[3]`, group=as.character(variable))) + 
-  geom_line(color = "grey80")+
-  geom_line(data = mean_ebu_beta_3, aes(full_time_day, `beta[3]`), color = "black", lwd = 3)+
-  ylab("SWI_temp")+
-  xlab("")+
-  theme_classic()
-
-tiff("./figures/ebullition_forecast/parameter_est/BETA_ebu_estimates.tiff", width = 6, height = 14, units = "in", res = 600)
-beta <- b1/b2/b3
-beta
-dev.off()
-############################################################################################
+# ### Figure ### SWI scaling model parameter estimates
+# ############################################################################################
+# mean_temp_beta_1 <- parm_temp_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b1 <- ggplot(parm_temp_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_temp_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
+#   ylab("Intercept")+
+#   xlab("")+
+#   theme_classic()
+# 
+# mean_temp_beta_2 <- parm_temp_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b2 <- ggplot(parm_temp_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_temp_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 3)+
+#   ylab("Temperature")+
+#   xlab("")+
+#   theme_classic()
+# 
+# 
+# tiff("./figures/SWI_scaling_model_forecast/parameter_est/BETA_temp_estimates.tiff", width = 6, height = 10, units = "in", res = 600)
+# beta <- b1/b2
+# beta
+# dev.off()
+# ############################################################################################
+# 
+# ### Figure ### ebullition model parameter estimates
+# ############################################################################################
+# mean_ebu_beta_1 <- parm_ebu_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b1 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_ebu_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 1)+
+#   ylab("Intercept")+
+#   xlab("")+
+#   theme_classic()
+# 
+# mean_ebu_beta_2 <- parm_ebu_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b2 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_ebu_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 1)+
+#   ylab("AR term")+
+#   xlab("")+
+#   theme_classic()
+# 
+# mean_ebu_beta_3 <- parm_ebu_all %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b3 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[3]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_ebu_beta_3, aes(full_time_day, `beta[3]`), color = "black", lwd = 1)+
+#   ylab("SWI_temp")+
+#   xlab("")+
+#   theme_classic()
+# 
+# 
+# parm_ebu_short <- parm_ebu_all %>% filter(full_time_day>="2019-07-08")
+# mean_ebu_beta_1_short <- parm_ebu_short %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b4 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_ebu_beta_1_short, aes(full_time_day, `beta[1]`), color = "black", lwd = 1)+
+#   ylab("")+
+#   xlab("")+
+#   theme_classic()
+# 
+# mean_ebu_beta_2_short <- parm_ebu_short %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b5 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_ebu_beta_2_short, aes(full_time_day, `beta[2]`), color = "black", lwd = 1)+
+#   ylab("AR ")+
+#   xlab("")+
+#   theme_classic()
+# 
+# mean_ebu_beta_3_short <- parm_ebu_short %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+# 
+# b6 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[3]`, group=as.character(variable))) + 
+#   geom_line(color = "grey80", lwd = 0.1)+
+#   geom_line(data = mean_ebu_beta_3_short, aes(full_time_day, `beta[3]`), color = "black", lwd = 1)+
+#   ylab("")+
+#   xlab("")+
+#   theme_classic()
+# 
+# tiff("./figures/ebullition_forecast/parameter_est/BETA_ebu_estimates.tiff", width = 12, height = 14, units = "in", res = 600)
+# beta <- (b1|b4)/(b2|b5)/(b3|b6)
+# beta
+# dev.off()
+# ############################################################################################

@@ -2,45 +2,37 @@
 ### MAE, RMSE, NSE
 ### Set the Standard error function and specify the number of states and the 
 ### number of ensamble members that come from the FLARE forecast model 
-SE <- function(x) sd(x)/sqrt(length(x))
-rmse <- function(x) {sqrt(mean(x^2))}
-mae <- function(x) {mean(abs(x))}
-mean_forecasts_deterministic <- forecast_observe_compare_18[,20]
 
-names(mean_forecasts_temp)[2] <- "ebullition_temp_model"
-names(mean_forecasts_temp_level)[2] <- "ebullition_temp_level_model"
-names(mean_forecasts_level)[2] <- "ebullition_level_model"
-names(mean_forecasts_deterministic)[2] <- "ebullition_deterministic_model"
-names(mean_forecasts_deterministic)[1] <- "full_time_day"
-mean_observe_all <- mean_observe_all[,c(1,3)]
+stats_whole_season <- taylor_compare
+stats_w_da <- taylor_compare_da
 
-model_comparisons <- join_all(list(mean_forecasts_temp,mean_forecasts_temp_level,mean_forecasts_level),
-                               by = "full_time_day", type = "left")
-
-stats <- cbind(model_comparisons,mean_forecasts_deterministic,mean_observe_all[2:25,2])
-names(stats)[6] <- "observed"
+NSE_forecast_whole_season <- as.data.frame(NSE(exp(stats_whole_season$forecasts), exp(stats_whole_season$observation)))
+names(NSE_forecast_whole_season)[1] <- "NSE"
+NSE_forecast_past_24jun <- as.data.frame(NSE(exp(stats_w_da$forecasts), exp(stats_w_da$observation)))
+names(NSE_forecast_past_24jun)[1] <- "NSE"
+NSE_deterministic_whole_season <- as.data.frame(NSE(exp(stats_whole_season$deterministic), exp(stats_whole_season$observation)))
+names(NSE_deterministic_whole_season)[1] <- "NSE"
+NSE_deterministic_past_24jun <- as.data.frame(NSE(exp(stats_w_da$deterministic), exp(stats_w_da$observation)))
+names(NSE_deterministic_past_24jun)[1] <- "NSE"
 
 
-stats2 <- stats[-1,]
-NSE(exp(stats2$ebullition_temp_model), exp(stats2$observed))
-NSE(stats2$mean_forecasts_deterministic, exp(stats2$observed))
+NSE_forecast_whole_season$period <- "with first month"
+NSE_forecast_past_24jun$period <- "after first month"
+NSE_deterministic_whole_season$period <- "with first month"
+NSE_deterministic_past_24jun$period <- "after first month"
+
+NSE_forecast_whole_season$model <- "forecast"
+NSE_forecast_past_24jun$model <- "forecast"
+NSE_deterministic_whole_season$model <- "deterministic"
+NSE_deterministic_past_24jun$model <- "deterministic"
+
+NSE_all <- rbind(NSE_forecast_whole_season,NSE_forecast_past_24jun,NSE_deterministic_whole_season,NSE_deterministic_past_24jun)
+
+NSE_all <- NSE_all[,c(3,2,1)]
+
+names(NSE_all) <- c("Model", "Period", "NSE")
 
 
-stats$temp_level_error <- exp(stats$observed)-exp(stats$ebullition_temp_level_model)
-stats$temp_error <- exp(stats$observed)-exp(stats$ebullition_temp_model)
-stats$level_error <- exp(stats$observed)-exp(stats$ebullition_level_model)
-stats$determine_error <- exp(stats$observed)-stats$mean_forecasts_deterministic
-
-rmse(stats$temp_level_error)
-rmse(stats$temp_error)
-rmse(stats$level_error)
-rmse(stats$determine_error)
-
-mae(stats$temp_level_error)
-mae(stats$temp_error)
-mae(stats$level_error)
-mae(stats$determine_error)
-
-
-
-
+tiff("./figures/ebullition_forecast/weekly_output/NSE_OUTPUT.tiff", width=4, height=2, units="in", res = 600)
+grid.table(NSE_all)
+dev.off()

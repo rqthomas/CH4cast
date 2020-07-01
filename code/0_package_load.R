@@ -1,7 +1,7 @@
 ### load packages ###
 
 ### Load in packages and functions far all the scripts! 
-### Only run this once! 
+### Just source it
 ###########################################################################################
 if (!"pacman" %in% installed.packages()) install.packages("pacman")
 pacman::p_load(ggplot2,
@@ -32,9 +32,15 @@ pacman::p_load(ggplot2,
                scoringRules, 
                MCMCvis, 
                patchwork,
-               lubridate)
+               lubridate,
+               grid,
+               gridExtra)
 
 ###########################################################################################
+
+SE <- function(x) sd(x)/sqrt(length(x))
+rmse <- function(x) {sqrt(mean(x^2))}
+mae <- function(x) {mean(abs(x))}
 
 ### Violin plot for forecast visualization ###
 
