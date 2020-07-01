@@ -37,7 +37,7 @@ Step 1 - DOWNLOAD CH4cast code via terminal in R
 
 Step - 2 Execute the CH4cast scripts in order and make CH4 ebullition rate forecasts
 
-6: Go to the "code" folder and open all six scripts starting with 0_ going to 5_.
+6: Open up the CH4cast R Project by selecting CH4cast.Rproj in the CH4cast folder
 
 7: In 0_package_load.R, find the "Source" key on the top right --> Click "Source" and then let the script run until it is finished
 
