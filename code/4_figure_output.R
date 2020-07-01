@@ -8,7 +8,7 @@ ensemble_forecasts_ch4_short<- ensemble_forecasts_99th_ch4 %>% filter(full_time_
 
 a <- ggplot(ensemble_forecasts_99th_ch4) + 
   geom_flat_violin(data = ensemble_forecasts_99th_ch4, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = "black", fill = "lightblue", scale = "width")+
-  geom_point(data = mean_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "lightblue", size = 2)+
+  geom_point(data = mean_forecast_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "lightblue", size = 2)+
   geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
                 position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
@@ -41,7 +41,7 @@ a <- ggplot(ensemble_forecasts_99th_ch4) +
 
 b <- ggplot(ensemble_forecasts_ch4_short) + 
   geom_flat_violin(data = ensemble_forecasts_ch4_short, aes(x = full_time_day, y = ebullition_prediction, group = full_time_day), size=.1, color = NA, fill = "blue", scale = "width")+
-  geom_point(data = mean_forecasts_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
+  geom_point(data = mean_forecast_ch4, aes(x = full_time_day, y = ebullition_prediction),pch = 3, color = "blue", size = 2)+
   geom_errorbar(data = mean_observe_all,aes(x = full_time_day, ymin=ebullition_prediction-SE, ymax=ebullition_prediction+SE), width=120000,
                 position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
