@@ -73,7 +73,7 @@ b <- ggplot(ensemble_forecasts_ch4_short) +
         axis.title.y = element_blank())
 
 # Figure output
-tiff("./figures/ebullition_forecast/weekly_output/EBU_FORECASTS_FIGURE_3.tiff", width = 14, height = 6, units = 'in', res = 600)
+tiff("./figures/EBU_FORECASTS_FIGURE_3.tiff", width = 14, height = 6, units = 'in', res = 600)
 aa <- a|b
 aa
 dev.off()
@@ -84,7 +84,7 @@ dev.off()
 observed_temps <- as.data.frame(cbind(mean_observe_all[,1], ebullition_1120[,6]))
 names(observed_temps) <- c("full_time_day", "observed_SWI_temp")
 
-tiff("./figures/SWI_scaling_model_forecast/weekly_output/TEMPERATURE_FORECASTS_FIGURE_S2.tiff", width = 8, height = 6, units = 'in', res = 600)
+tiff("./figures/TEMPERATURE_FORECASTS_FIGURE_S2.tiff", width = 8, height = 6, units = 'in', res = 600)
 
 v <- ggplot() + 
   geom_flat_violin(data = ensemble_temp_forecasts, aes(x = full_time_day, y = temp_prediction, group = full_time_day), size = .1, color = NA, fill = "darkorange2", scale = "width")+
@@ -121,7 +121,7 @@ dev.off()
 temp_train <- temp_model_1120 %>% filter(TIMESTAMP <= "2019-01-01")
 temp_forecast <- temp_model_1120 %>% filter(TIMESTAMP >= "2019-01-01")
 
-tiff("./figures/SWI_scaling_model_forecast/daily_output/TEMP_COMPARE_FIGURE_S3.tiff", width=7, height=7, units = "in",res = 350)
+tiff("./figures/TEMP_COMPARE_FIGURE.tiff", width=7, height=7, units = "in",res = 350)
 
 a <- ggplot()+
   geom_point(data = temp_train,  aes(mean_ws_temp,Temp_C), pch = 21, size = 4, col = "black", fill = "cyan")+
@@ -148,7 +148,7 @@ dev.off()
 
 ### Figure ### Total Ebullition forecast variance
 ############################################################################################
-tiff("./figures/ebullition_forecast/weekly_output/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
+tiff("./figures/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
 p <- ggplot(var_ebu_forecast, aes(date, total_variance))+
   geom_line(lwd = 3, color = "black")+
   theme_classic()
@@ -158,7 +158,7 @@ dev.off()
 
 ### Figure ### Total SWI Temperature scaling model forecast variance
 ############################################################################################
-tiff("./figures/SWI_scaling_model_forecast/weekly_output/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
+tiff("./figures/Total_SWI_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
 p <- ggplot(var_temp_forecast, aes(date, total_variance))+
   geom_line(lwd = 3, color = "black")+
   theme_classic()
@@ -197,7 +197,7 @@ g <- ggplot() +
         panel.grid.minor.x = element_blank(),
         panel.grid.minor.y = element_blank())
 
-tiff("./figures/ebullition_forecast/weekly_output/FORECAST_VS_DETERMINISTIC.tiff", width=10, height=7, units = "in", res = 600)
+tiff("./figures/FORECAST_VS_DETERMINISTIC.tiff", width=10, height=7, units = "in", res = 600)
 g
 dev.off()
 ############################################################################################
@@ -219,7 +219,7 @@ names(taylor_compare_da) <- c("full_time_day","observation","forecasts", "determ
 taylor_compare <- na.omit(taylor_compare)
 taylor_compare_da <- na.omit(taylor_compare_da)
 
-tiff("./figures/ebullition_forecast/weekly_output/TAYLOR_DIAGRAM.tiff", width=7, height=7, units="in", res = 600)
+tiff("./figures/TAYLOR_DIAGRAM.tiff", width=7, height=7, units="in", res = 600)
 
 taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$deterministic), pos.cor = T, col="grey", pcex = 3, pch = 17, main = "") ### Using just 2018 training data
 taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$deterministic), col="black", add = T, pcex = 3, pch = 24) ### Using just 2018 training data
