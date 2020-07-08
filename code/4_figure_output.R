@@ -202,7 +202,7 @@ g
 dev.off()
 ############################################################################################
 
-### Figure ### Taylor Diagram
+### Figure ### Taylor Diagram for ebullition forecasts
 ############################################################################################
 library("plotrix")
 
@@ -240,97 +240,127 @@ legend(lpos1,lpos2, box.lwd = 0, box.col = "white",legend=c("Observations","Fore
 dev.off()
 ############################################################################################
 
+### Figure ### Temperature Evalutation x-y plot
+############################################################################################
+temp_eval <- cbind(mean_temp_forecasts, ebullition_1120[2:25,6])
+
+tiff("./figures/TEMP_EVALUATION_FIGURE.tiff", width=7, height=7, units = "in",res = 350)
+
+m <- ggplot()+
+  geom_point(data = temp_eval,  aes(temp_b_avg,temp_prediction), pch = 21, size = 4, col = "black", fill = "orange")+
+  geom_smooth(data = temp_eval,  aes(temp_b_avg,temp_prediction),method = "lm", color = "black", fill = "grey", alpha = 0.75)+
+  ylim(10,30)+
+  xlim(10,30)+
+  xlab(expression(paste("Observed Temperature (C)")))+
+  ylab(expression(paste("Forecasted Temperature (C)")))+
+  theme_classic()+
+  theme(axis.text=element_text(size=15, color = "black"),
+        axis.title=element_text(size=15, color = "black"),
+        legend.position=c(.2, .9),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+
+
+m
+
+dev.off()
+############################################################################################
+
+
+
 # These two figures take a loooonng time to run
 # Be ready with a glass of tea, wine, coffee, beer, etc. You will be waiting a bit.
 # In the meantime, I have made them captioned so they do not run when you source the code. 
 
-# ### Figure ### SWI scaling model parameter estimates
-# ############################################################################################
-# mean_temp_beta_1 <- parm_temp_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b1 <- ggplot(parm_temp_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_temp_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
-#   ylab("Intercept")+
-#   xlab("")+
-#   theme_classic()
-# 
-# mean_temp_beta_2 <- parm_temp_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b2 <- ggplot(parm_temp_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_temp_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 3)+
-#   ylab("Temperature")+
-#   xlab("")+
-#   theme_classic()
-# 
-# 
-# tiff("./figures/SWI_scaling_model_forecast/parameter_est/BETA_temp_estimates.tiff", width = 6, height = 10, units = "in", res = 600)
-# beta <- b1/b2
-# beta
-# dev.off()
-# ############################################################################################
-# 
+### Figure ### SWI scaling model parameter estimates
+############################################################################################
+mean_temp_beta_1 <- parm_temp_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b1 <- ggplot(parm_temp_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_temp_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 3)+
+  ylab("Intercept")+
+  xlab("")+
+  theme_classic()
+
+mean_temp_beta_2 <- parm_temp_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b2 <- ggplot(parm_temp_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_temp_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 3)+
+  ylab("Temperature")+
+  xlab("")+
+  theme_classic()
+
+
+tiff("./figures/SBETA_temp_estimates.tiff", width = 6, height = 10, units = "in", res = 600)
+beta <- b1/b2
+beta
+dev.off()
+############################################################################################
+
 # ### Figure ### ebullition model parameter estimates
-# ############################################################################################
-# mean_ebu_beta_1 <- parm_ebu_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b1 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_ebu_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 1)+
-#   ylab("Intercept")+
-#   xlab("")+
-#   theme_classic()
-# 
-# mean_ebu_beta_2 <- parm_ebu_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b2 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_ebu_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 1)+
-#   ylab("AR term")+
-#   xlab("")+
-#   theme_classic()
-# 
-# mean_ebu_beta_3 <- parm_ebu_all %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b3 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[3]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_ebu_beta_3, aes(full_time_day, `beta[3]`), color = "black", lwd = 1)+
-#   ylab("SWI_temp")+
-#   xlab("")+
-#   theme_classic()
-# 
-# 
-# parm_ebu_short <- parm_ebu_all %>% filter(full_time_day>="2019-07-08")
-# mean_ebu_beta_1_short <- parm_ebu_short %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b4 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[1]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_ebu_beta_1_short, aes(full_time_day, `beta[1]`), color = "black", lwd = 1)+
-#   ylab("")+
-#   xlab("")+
-#   theme_classic()
-# 
-# mean_ebu_beta_2_short <- parm_ebu_short %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b5 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[2]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_ebu_beta_2_short, aes(full_time_day, `beta[2]`), color = "black", lwd = 1)+
-#   ylab("AR ")+
-#   xlab("")+
-#   theme_classic()
-# 
-# mean_ebu_beta_3_short <- parm_ebu_short %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-# 
-# b6 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[3]`, group=as.character(variable))) + 
-#   geom_line(color = "grey80", lwd = 0.1)+
-#   geom_line(data = mean_ebu_beta_3_short, aes(full_time_day, `beta[3]`), color = "black", lwd = 1)+
-#   ylab("")+
-#   xlab("")+
-#   theme_classic()
-# 
-# tiff("./figures/ebullition_forecast/parameter_est/BETA_ebu_estimates.tiff", width = 12, height = 14, units = "in", res = 600)
-# beta <- (b1|b4)/(b2|b5)/(b3|b6)
-# beta
-# dev.off()
-# ############################################################################################
+############################################################################################
+mean_ebu_beta_1 <- parm_ebu_all %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b1 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[1]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_ebu_beta_1, aes(full_time_day, `beta[1]`), color = "black", lwd = 1)+
+  ylab("Intercept")+
+  xlab("")+
+  theme_classic()
+
+mean_ebu_beta_2 <- parm_ebu_all %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b2 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[2]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_ebu_beta_2, aes(full_time_day, `beta[2]`), color = "black", lwd = 1)+
+  ylab("AR term")+
+  xlab("")+
+  theme_classic()
+
+mean_ebu_beta_3 <- parm_ebu_all %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b3 <- ggplot(parm_ebu_all, aes(full_time_day, `beta[3]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_ebu_beta_3, aes(full_time_day, `beta[3]`), color = "black", lwd = 1)+
+  ylab("SWI_temp")+
+  xlab("")+
+  theme_classic()
+
+
+parm_ebu_short <- parm_ebu_all %>% filter(full_time_day>="2019-07-08")
+mean_ebu_beta_1_short <- parm_ebu_short %>% select(`beta[1]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b4 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[1]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_ebu_beta_1_short, aes(full_time_day, `beta[1]`), color = "black", lwd = 1)+
+  ylab("")+
+  xlab("")+
+  theme_classic()
+
+mean_ebu_beta_2_short <- parm_ebu_short %>% select(`beta[2]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b5 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[2]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_ebu_beta_2_short, aes(full_time_day, `beta[2]`), color = "black", lwd = 1)+
+  ylab("AR ")+
+  xlab("")+
+  theme_classic()
+
+mean_ebu_beta_3_short <- parm_ebu_short %>% select(`beta[3]`, full_time_day, variable) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+
+b6 <- ggplot(parm_ebu_short, aes(full_time_day, `beta[3]`, group=as.character(variable))) +
+  geom_line(color = "grey80", lwd = 0.1)+
+  geom_line(data = mean_ebu_beta_3_short, aes(full_time_day, `beta[3]`), color = "black", lwd = 1)+
+  ylab("")+
+  xlab("")+
+  theme_classic()
+
+tiff("./figures/BETA_ebu_estimates.tiff", width = 12, height = 14, units = "in", res = 600)
+beta <- (b1|b4)/(b2|b5)/(b3|b6)
+beta
+dev.off()
+############################################################################################

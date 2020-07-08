@@ -36,3 +36,8 @@ names(NSE_all) <- c("Model", "Period", "NSE")
 tiff("./figures/ebullition_forecast/weekly_output/NSE_OUTPUT.tiff", width=4, height=2, units="in", res = 600)
 grid.table(NSE_all)
 dev.off()
+
+
+
+NSE_forecast_whole_season_temp <- NSE((temp_eval$temp_prediction), (temp_eval$temp_b_avg))
+
