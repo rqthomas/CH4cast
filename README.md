@@ -4,7 +4,13 @@ Welcome to CH4cast! Below, you will find instructions how to generate CH4 ebulli
 
 First - a few things to note. 
 
+If you use these forecasts as an example for a paper, poster, presentation, teaching, etc. please acknowledge this work using the DOI. 
+The DOI for this script is:
+
+Because the forecasts are designed to be probabilistic and randomly pull from different parameter estimates and driver data values, you WILL obtain different results if you run CH4cast multiple times. 
+
 THESE FORECASTS ARE ONLY APPLICABLE TO THE UPSTREAM TRANSECT IN FALLING CREEK RESERVOIR! See McClure et al., 2020 for more details about the transect. 
+
 Again, CH4cast currently cannot be run for another freshwater ecosystem. However, we are currently working on adapting a mechanisitic model (HIMELLI) to be run through a similar forecast framework so it can be scalable to more systems and run on shorter time scales. The goal of CH4cast is to show you that CH4 ebullition, a highly uncertatin efflux from freshwater ecosystems, can in fact be predicted really well when it is integrated into a forecasting workflow! 
 
 Here are the basic requirements to run CH4cast
