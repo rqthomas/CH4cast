@@ -1,3 +1,4 @@
+
 ### RJAGS temperature model using hobo and catwalk data going back to deployment of the catwalk of FLARE in 2018
 
 cat <- read_csv("./input/DA_temp_scale_model/Catwalk.csv", skip = 1)
