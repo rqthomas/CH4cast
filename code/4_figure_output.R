@@ -247,8 +247,8 @@ taylor_compare$cycle <- seq.int(nrow(taylor_compare))
 taylor_compare$forecast_diff <- taylor_compare$observation - taylor_compare$forecasts
 taylor_compare$determine_diff <- taylor_compare$observation - taylor_compare$deterministic
 
-colnames(taylor_compare) <-  c('full_time_day',"observed","forecasted", "determined", "forecast_cycle","Forecast", "Null Determinisitc")
-taylor_compare <- taylor_compare %>% select(forecast_cycle, Forecast, `Null Determinisitc`)
+colnames(taylor_compare) <-  c('full_time_day',"observed","forecasted", "determined", "forecast_cycle","Forecast cycles", "Null determinisitc")
+taylor_compare <- taylor_compare %>% select(forecast_cycle, `Forecast cycles`, `Null determinisitc`)
 m <-  melt(taylor_compare,id='forecast_cycle')
 
 colnames(m) <-  c('forecast_cycle','Model','value')
@@ -258,7 +258,7 @@ q <- ggplot(m, aes(forecast_cycle, abs(value), fill = Model))+
   geom_bar(stat = "identity", color = "black", lwd = 0.1, position='dodge')+
   scale_x_continuous(limits = c(0,25), breaks = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24))+
   scale_fill_manual(values = c("blue", "grey"))+
-  xlab("Forecast cycle")+
+  xlab("Forecast cycle #")+
   ylab(expression(paste("Difference ln(mg CH "[4]," m"^"-2"," d"^"-1",")")))+
   theme_classic()+
   geom_vline(xintercept = 4.5)+
