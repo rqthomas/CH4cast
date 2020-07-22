@@ -19,9 +19,9 @@ names(NSE_deterministic_past_24jun)[1] <- "NSE"
 
 
 NSE_forecast_whole_season$period <- "Whole forecast period"
-NSE_forecast_past_24jun$period <- "Trained forecast period"
+NSE_forecast_past_24jun$period <- "Post training forecast period"
 NSE_deterministic_whole_season$period <- "Whole forecast period"
-NSE_deterministic_past_24jun$period <- "Trained forecast period"
+NSE_deterministic_past_24jun$period <- "Post training forecast period"
 
 NSE_forecast_whole_season$model <- "Forecast cycles"
 NSE_forecast_past_24jun$model <- "Forecast cycles"
@@ -59,19 +59,19 @@ sum_det_season$per_diff <- ((abs(sum_obs_season[1,1]-sum_det_season[1,1]))/((sum
 
 sum_obs_short <- as.data.frame(sum(exp(stats_w_da$observation))*143/1.04)
 names(sum_obs_short)[1] <- "mg methane"
-sum_obs_short$period <- "Trained forecast period"
+sum_obs_short$period <- "Post training forecast period"
 sum_obs_short$model <- "Observation"
 sum_obs_short$per_diff <- "-"
 
 sum_for_short <- as.data.frame(sum(exp(stats_w_da$forecasts))*143/1.04)
 names(sum_for_short)[1] <- "mg methane"
-sum_for_short$period <- "Trained forecast period"
+sum_for_short$period <- "Post training forecast period"
 sum_for_short$model <- "Forecast cycles"
 sum_for_short$per_diff <- ((abs(sum_obs_short[1,1]-sum_for_short[1,1]))/((sum_obs_short[1,1]+sum_for_short[1,1])/2))*100
 
 sum_det_short <- as.data.frame(sum(exp(stats_w_da$deterministic))*143/1.04)
 names(sum_det_short)[1] <- "mg methane"
-sum_det_short$period <- "Trained forecast period"
+sum_det_short$period <- "Post training forecast period"
 sum_det_short$model <- "Null deterministic"
 sum_det_short$per_diff <- ((abs(sum_obs_short[1,1]-sum_det_short[1,1]))/((sum_obs_short[1,1]+sum_det_short[1,1])/2))*100
 
