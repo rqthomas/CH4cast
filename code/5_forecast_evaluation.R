@@ -28,7 +28,7 @@ NSE_forecast_past_24jun$model <- "Forecast cycles"
 NSE_deterministic_whole_season$model <- "Null deterministic"
 NSE_deterministic_past_24jun$model <- "Null deterministic"
 
-NSE_all <- rbind(NSE_forecast_whole_season,NSE_forecast_past_24jun,NSE_deterministic_whole_season,NSE_deterministic_past_24jun)
+NSE_all <- rbind(NSE_forecast_past_24jun,NSE_deterministic_past_24jun)
 
 NSE_all <- NSE_all[,c(3,2,1)]
 
@@ -75,7 +75,7 @@ sum_det_short$period <- "Post training forecast period"
 sum_det_short$model <- "Null deterministic"
 sum_det_short$per_diff <- ((abs(sum_obs_short[1,1]-sum_det_short[1,1]))/((sum_obs_short[1,1]+sum_det_short[1,1])/2))*100
 
-total_all <- rbind(sum_obs_season, sum_obs_short,sum_for_season,sum_for_short,sum_det_season,sum_det_short)
+total_all <- rbind(sum_obs_short,sum_for_short,sum_det_short)
 
 total_all <- total_all[,c(3,2,1,4)]
 

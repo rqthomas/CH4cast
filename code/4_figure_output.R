@@ -15,6 +15,7 @@ a <- ggplot(ensemble_forecasts_99th_ch4) +
   xlab("")+
   labs(title="a")+
   ylim(-300,300)+
+  geom_vline(xintercept = as.POSIXct("2019-06-30"))+
   geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-06-28"), yend = -7.5, colour = "black", lty = "dashed")+
   geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-12-01"), yend = 7.5, colour = "black", lty = "dashed")+
   geom_segment(x = as.POSIXct("2019-06-28"), y = -7.5, xend = as.POSIXct("2019-12-01"), yend = -7.5, colour = "black", lty = "dashed")+
@@ -46,6 +47,7 @@ b <- ggplot(ensemble_forecasts_ch4_short) +
                 position=position_dodge(0.05), color = "firebrick2", lwd = 1)+
   geom_point(data = mean_observe_all, aes(x = full_time_day, y = ebullition_prediction),pch = 23, color = "black", fill = "firebrick2", size = 2)+
   ylim(-7.5,7.5)+
+  geom_vline(xintercept = as.POSIXct("2019-06-30"))+
   xlab("")+
   labs(title="b")+
   geom_segment(x = as.POSIXct("2019-06-28"), y = 7.5, xend = as.POSIXct("2019-06-28"), yend = -7.5, colour = "black", lty = "dashed")+
@@ -148,9 +150,10 @@ dev.off()
 
 ### Figure ### Total Ebullition forecast variance
 ############################################################################################
-tiff("./figures/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 600)
-p <- ggplot(var_ebu_forecast, aes(date, total_variance))+
+tiff("./figures/Total_forecast_variance.tiff", width = 6, height = 4, units = 'in', res = 800)
+p <- ggplot(var_ebu_forecast, aes(date, exp(total_variance)))+
   geom_line(lwd = 3, color = "black")+
+  scale_y_continuous(trans='log10')+
   theme_classic()
 p
 dev.off()
@@ -176,18 +179,18 @@ g <- ggplot() +
   geom_point(data = mean_forecast_ch4, aes(x=full_time_day,y=exp(ebullition_prediction)),pch = 21,color = "black", fill = "blue", size = 7)+
   geom_point(data = mean_forecast_short, aes(x=full_time_day,y=exp(ebullition_prediction)),pch = 21,color = "black", fill = "lightblue", size = 7)+
   geom_point(data = deterministic_prediction, aes(x=full_time_day,y=exp(deterministic)),pch = 24,color = "black", fill = "grey", size = 6)+
-  geom_vline(xintercept = as.POSIXct("2019-07-01"), lwd = 1, lty = "dashed")+
+  geom_vline(xintercept = as.POSIXct("2019-06-30"), lwd = 1)+
   xlab("")+
   ylab(expression(paste("Ebullition rate (mg CH "[4]," m"^"-2"," d"^"-1",")")))+
-  scale_x_datetime(limits = c(mean_observe_all$full_time_day[1],mean_observe_all$full_time_day[25]), expand = c(.05,.05), 
-                   breaks = c(mean_observe_all$full_time_day[2]-(86400*2),
+  scale_x_datetime(limits = c(mean_observe_all$full_time_day[6],mean_observe_all$full_time_day[25]), expand = c(.05,.05), 
+                   breaks = c(
                               mean_observe_all$full_time_day[6],
                               mean_observe_all$full_time_day[10]+(86400*3),
                               mean_observe_all$full_time_day[14]+(86400*4),
                               mean_observe_all$full_time_day[18]+(86400*4),
                               mean_observe_all$full_time_day[22]+(86400*9),
                               mean_observe_all$full_time_day[25]), 
-                   labels = c("01 June","01 July","01 Aug","01 Sep", "01 Oct", "01 Nov", "20 Nov"))+
+                   labels = c("01 July","01 Aug","01 Sep", "01 Oct", "01 Nov", "20 Nov"))+
   theme_classic()+
   theme(axis.text=element_text(size=15, color = "black"),
         axis.title=element_text(size=15, color = "black"),
@@ -222,8 +225,8 @@ taylor_compare_da <- na.omit(taylor_compare_da)
 tiff("./figures/TAYLOR_DIAGRAM.tiff", width=7, height=7, units="in", res = 600)
 taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$deterministic), pos.cor = T, col="grey", pcex = 3, pch = 17, main = "") ### Using just 2018 training data
 taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$deterministic), col="black", add = T, pcex = 3, pch = 24) ### Using just 2018 training data
-taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$forecasts), col="lightblue", pos.cor=T,add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
-taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$forecasts), col="black", pos.cor=T, add = T, cex = 2, pcex = 4.3, pch = 21) ### Just 2019 data with data assimilation
+#taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$forecasts), col="lightblue", pos.cor=T,add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
+#taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$forecasts), col="black", pos.cor=T, add = T, cex = 2, pcex = 4.3, pch = 21) ### Just 2019 data with data assimilation
 #taylor.diagram(exp(stats$observed), exp(stats$ebullition_temp_level_model), col="darkorchid1", pos.cor=T, add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
 #taylor.diagram(exp(stats$observed), exp(stats$ebullition_temp_level_model), col="black", pos.cor=T, add = T, cex = 2, pcex = 4.3, pch = 21) ### Just 2019 data with data assimilation
 taylor.diagram(exp(taylor_compare_da$observation), exp(taylor_compare_da$forecasts), col="blue", pos.cor=T, add = T, cex = 2, pcex = 4, pch = 19) ### Just 2019 data with data assimilation
@@ -234,7 +237,7 @@ taylor.diagram(exp(taylor_compare$observation), exp(taylor_compare$observation),
 ### Add legend to the plot
 lpos1<-17*sd((taylor_compare_da$observation))
 lpos2 <- 27*sd((taylor_compare_da$forecasts))
-legend(lpos1,lpos2, box.lwd = 0, box.col = "white",legend=c("Observations","Whole forecast period", "Trained forecast period", "Null deterministic"), pch=c(18,19,19,17),pt.cex = c(3,3,3,2), cex = 1.2, col=c("red","lightblue","blue","grey"))
+legend(lpos1,lpos2, box.lwd = 0, box.col = "white",legend=c("Observations", "Forecast cycles", "Null deterministic"), pch=c(18,19,17),pt.cex = c(3,3,2), cex = 1.2, col=c("red","blue","grey"))
 
 dev.off()
 ############################################################################################
