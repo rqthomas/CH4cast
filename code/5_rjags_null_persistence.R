@@ -1,24 +1,17 @@
-### RJAGS ebullition model using hobo and catwalk data going back to deployment of the ebullition traps in 2017
 
-### 27May19 forecast Temperature JAGS model ###
+### 27May19 forecast JAGS model ###
 ###########################################################################################
-ebu_527 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_527.csv")
+ebullition_527 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_527.csv")
 
 
-N <- length(ebu_527$date)
+N <- length(ebullition_527$date)
 
 sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
     
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
@@ -29,9 +22,9 @@ sink()
 
 
 jags <- jags.model('jags_model.bug',
-                   data = list('ebu' = ebu_527$log_ebu_mgCH4_m2_d,
-                               'ebu_lag' = ebu_527$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebu_527$temp_b_avg,
+                   data = list('ebu' = ebullition_527$log_ebu_mgCH4_m2_d,
+                               'ebu_lag' = ebullition_527$log_ebu_mgCH4_m2_d_1,
+
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -40,7 +33,7 @@ jags <- jags.model('jags_model.bug',
 update(jags, n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples)
 summary(samples)
@@ -53,30 +46,24 @@ master_chain_527[curr_pars_527,]
 
 mean_pars_527 <- colMeans(master_chain_527) 
 
-parameters_ebu_527 <- as.data.frame(master_chain_527[,1:4])
+parameters_ebu_527 <- as.data.frame(master_chain_527[,1:2])
 parameters_ebu_527$variable <- 1:nrow(parameters_ebu_527) 
 parameters_ebu_527$full_time_day <- as.POSIXct("2019-05-27")
 ###########################################################################################
 
-### 03June19 forecast Temperature JAGS model ###
+### 03June19 forecast JAGS model ###
 ###########################################################################################
-ebu_603 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_603.csv")
+ebullition_603 <- read_csv("./input/DA_AR_forecast_model/EBU_JAGS_603.csv")
 
 
-N <- length(ebu_603$date)
+N <- length(ebullition_603$date)
 
 sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+    ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
     
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
@@ -87,9 +74,8 @@ sink()
 
 
 jags <- jags.model('jags_model.bug',
-                   data = list('ebu' = ebu_603$log_ebu_mgCH4_m2_d,
-                               'ebu_lag' = ebu_603$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebu_603$temp_b_avg,
+                   data = list('ebu' = ebullition_603$log_ebu_mgCH4_m2_d,
+                               'ebu_lag' = ebullition_603$log_ebu_mgCH4_m2_d_1,
                                'N' = N),
                    n.chains = 5,
                    n.adapt = 100)
@@ -98,7 +84,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples)
 summary(samples)
@@ -109,7 +95,7 @@ master_chain_603[curr_pars_603,]
 
 mean_pars_603 <- colMeans(master_chain_603)
 
-parameters_ebu_603 <- as.data.frame(master_chain_603[,1:4])
+parameters_ebu_603 <- as.data.frame(master_chain_603[,1:2])
 parameters_ebu_603$variable <- 1:nrow(parameters_ebu_603) 
 parameters_ebu_603$full_time_day <- as.POSIXct("2019-06-03")
 ###########################################################################################
@@ -124,15 +110,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -144,7 +124,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_610$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_610$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_610$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -153,7 +132,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples)
 summary(samples)
@@ -163,7 +142,7 @@ curr_pars_610 <- sample(seq(0, nrow(master_chain_610)),1)
 master_chain_610[curr_pars_610,]
 
 mean_pars_610 <- colMeans(master_chain_610)
-parameters_ebu_610 <- as.data.frame(master_chain_610[,1:4])
+parameters_ebu_610 <- as.data.frame(master_chain_610[,1:2])
 parameters_ebu_610$variable <- 1:nrow(parameters_ebu_610) 
 parameters_ebu_610$full_time_day <- as.POSIXct("2019-06-10")
 ###########################################################################################
@@ -178,14 +157,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
@@ -198,7 +172,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_617$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_617$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_617$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -207,7 +180,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 50000)
 gelman.diag(samples)
 summary(samples)
@@ -217,7 +190,7 @@ curr_pars_617 <- sample(seq(0, nrow(master_chain_617)),1)
 master_chain_617[curr_pars_617,]
 
 mean_pars_617 <- colMeans(master_chain_617)
-parameters_ebu_617 <- as.data.frame(master_chain_617[,1:4])
+parameters_ebu_617 <- as.data.frame(master_chain_617[,1:2])
 parameters_ebu_617$variable <- 1:nrow(parameters_ebu_617) 
 parameters_ebu_617$full_time_day <- as.POSIXct("2019-06-17")
 ###########################################################################################
@@ -232,15 +205,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -252,7 +219,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_624$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_624$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_624$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -261,7 +227,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 summary(samples)
@@ -272,7 +238,7 @@ master_chain_624[curr_pars_624,]
 
 mean_pars_624 <- colMeans(master_chain_624)
 
-parameters_ebu_624 <- as.data.frame(master_chain_624[,1:4])
+parameters_ebu_624 <- as.data.frame(master_chain_624[,1:2])
 parameters_ebu_624$variable <- 1:nrow(parameters_ebu_624) 
 parameters_ebu_624$full_time_day <- as.POSIXct("2019-06-24")
 ###########################################################################################
@@ -287,15 +253,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -307,7 +267,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_701$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_701$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_701$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -316,7 +275,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 30000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 100000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -327,7 +286,7 @@ master_chain_701[curr_pars_701,]
 
 mean_pars_701 <- colMeans(master_chain_701)
 
-parameters_ebu_701 <- as.data.frame(master_chain_701[,1:4])
+parameters_ebu_701 <- as.data.frame(master_chain_701[,1:2])
 parameters_ebu_701$variable <- 1:nrow(parameters_ebu_701) 
 parameters_ebu_701$full_time_day <- as.POSIXct("2019-07-01")
 ###########################################################################################
@@ -342,14 +301,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -361,7 +315,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_708$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_708$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_708$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -370,7 +323,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -381,7 +334,7 @@ master_chain_708[curr_pars_708,]
 
 mean_pars_708 <- colMeans(master_chain_708)
 
-parameters_ebu_708 <- as.data.frame(master_chain_708[,1:4])
+parameters_ebu_708 <- as.data.frame(master_chain_708[,1:2])
 parameters_ebu_708$variable <- 1:nrow(parameters_ebu_708) 
 parameters_ebu_708$full_time_day <- as.POSIXct("2019-07-08")
 ###########################################################################################
@@ -396,14 +349,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -415,7 +363,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_715$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_715$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_715$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -424,7 +371,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -435,7 +382,7 @@ master_chain_715[curr_pars_715,]
 
 mean_pars_715 <- colMeans(master_chain_715)
 
-parameters_ebu_715 <- as.data.frame(master_chain_715[,1:4])
+parameters_ebu_715 <- as.data.frame(master_chain_715[,1:2])
 parameters_ebu_715$variable <- 1:nrow(parameters_ebu_715) 
 parameters_ebu_715$full_time_day <- as.POSIXct("2019-07-15")
 ###########################################################################################
@@ -450,14 +397,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -469,7 +411,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_722$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_722$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_722$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -478,7 +419,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -489,7 +430,7 @@ master_chain_722[curr_pars_722,]
 
 mean_pars_722 <- colMeans(master_chain_722)
 
-parameters_ebu_722 <- as.data.frame(master_chain_722[,1:4])
+parameters_ebu_722 <- as.data.frame(master_chain_722[,1:2])
 parameters_ebu_722$variable <- 1:nrow(parameters_ebu_722) 
 parameters_ebu_722$full_time_day <- as.POSIXct("2019-07-22")
 ###########################################################################################
@@ -504,14 +445,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -523,7 +459,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_729$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_729$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_729$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -532,7 +467,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 50000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -543,7 +478,7 @@ master_chain_729[curr_pars_729,]
 
 mean_pars_729 <- colMeans(master_chain_729)
 
-parameters_ebu_729 <- as.data.frame(master_chain_729[,1:4])
+parameters_ebu_729 <- as.data.frame(master_chain_729[,1:2])
 parameters_ebu_729$variable <- 1:nrow(parameters_ebu_729) 
 parameters_ebu_729$full_time_day <- as.POSIXct("2019-07-29")
 ###########################################################################################
@@ -558,14 +493,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -577,7 +507,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_805$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_805$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_805$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -586,7 +515,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 50000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -597,7 +526,7 @@ master_chain_805[curr_pars_805,]
 
 mean_pars_805 <- colMeans(master_chain_805)
 
-parameters_ebu_805 <- as.data.frame(master_chain_805[,1:4])
+parameters_ebu_805 <- as.data.frame(master_chain_805[,1:2])
 parameters_ebu_805$variable <- 1:nrow(parameters_ebu_805) 
 parameters_ebu_805$full_time_day <- as.POSIXct("2019-08-05")
 ###########################################################################################
@@ -612,14 +541,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -631,7 +555,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_812$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_812$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_812$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -640,7 +563,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -651,7 +574,7 @@ master_chain_812[curr_pars_812,]
 
 mean_pars_812 <- colMeans(master_chain_812)
 
-parameters_ebu_812 <- as.data.frame(master_chain_812[,1:4])
+parameters_ebu_812 <- as.data.frame(master_chain_812[,1:2])
 parameters_ebu_812$variable <- 1:nrow(parameters_ebu_812) 
 parameters_ebu_812$full_time_day <- as.POSIXct("2019-08-12")
 ###########################################################################################
@@ -666,14 +589,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -685,7 +603,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_819$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_819$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_819$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -694,7 +611,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -705,7 +622,7 @@ master_chain_819[curr_pars_819,]
 
 mean_pars_819 <- colMeans(master_chain_819)
 
-parameters_ebu_819 <- as.data.frame(master_chain_819[,1:4])
+parameters_ebu_819 <- as.data.frame(master_chain_819[,1:2])
 parameters_ebu_819$variable <- 1:nrow(parameters_ebu_819) 
 parameters_ebu_819$full_time_day <- as.POSIXct("2019-08-19")
 ###########################################################################################
@@ -720,14 +637,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -739,7 +651,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_828$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_828$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_828$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -748,7 +659,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -759,7 +670,7 @@ master_chain_828[curr_pars_828,]
 
 mean_pars_828 <- colMeans(master_chain_828)
 
-parameters_ebu_828 <- as.data.frame(master_chain_828[,1:4])
+parameters_ebu_828 <- as.data.frame(master_chain_828[,1:2])
 parameters_ebu_828$variable <- 1:nrow(parameters_ebu_828) 
 parameters_ebu_828$full_time_day <- as.POSIXct("2019-08-28")
 ###########################################################################################
@@ -774,13 +685,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
+
     
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
@@ -793,7 +700,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_902$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_902$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_902$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -802,7 +708,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -813,7 +719,7 @@ master_chain_902[curr_pars_902,]
 
 mean_pars_902 <- colMeans(master_chain_902)
 
-parameters_ebu_902 <- as.data.frame(master_chain_902[,1:4])
+parameters_ebu_902 <- as.data.frame(master_chain_902[,1:2])
 parameters_ebu_902$variable <- 1:nrow(parameters_ebu_902) 
 parameters_ebu_902$full_time_day <- as.POSIXct("2019-09-02")
 ###########################################################################################
@@ -828,14 +734,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -847,7 +748,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_911$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_911$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_911$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -856,7 +756,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -867,7 +767,7 @@ master_chain_911[curr_pars_911,]
 
 mean_pars_911 <- colMeans(master_chain_911)
 
-parameters_ebu_911 <- as.data.frame(master_chain_911[,1:4])
+parameters_ebu_911 <- as.data.frame(master_chain_911[,1:2])
 parameters_ebu_911$variable <- 1:nrow(parameters_ebu_911) 
 parameters_ebu_911$full_time_day <- as.POSIXct("2019-09-11")
 ###########################################################################################
@@ -882,14 +782,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -901,7 +796,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_920$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_920$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_920$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -910,7 +804,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -921,7 +815,7 @@ master_chain_920[curr_pars_920,]
 
 mean_pars_920 <- colMeans(master_chain_920)
 
-parameters_ebu_920 <- as.data.frame(master_chain_920[,1:4])
+parameters_ebu_920 <- as.data.frame(master_chain_920[,1:2])
 parameters_ebu_920$variable <- 1:nrow(parameters_ebu_920) 
 parameters_ebu_920$full_time_day <- as.POSIXct("2019-09-20")
 ###########################################################################################
@@ -936,14 +830,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+ 
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -955,7 +844,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_927$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_927$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_927$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -964,7 +852,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -975,7 +863,7 @@ master_chain_927[curr_pars_927,]
 
 mean_pars_927 <- colMeans(master_chain_927)
 
-parameters_ebu_927 <- as.data.frame(master_chain_927[,1:4])
+parameters_ebu_927 <- as.data.frame(master_chain_927[,1:2])
 parameters_ebu_927$variable <- 1:nrow(parameters_ebu_927) 
 parameters_ebu_927$full_time_day <- as.POSIXct("2019-09-27")
 ###########################################################################################
@@ -990,14 +878,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -1009,7 +892,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1002$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1002$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_1002$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1018,7 +900,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -1029,7 +911,7 @@ master_chain_1002[curr_pars_1002,]
 
 mean_pars_1002 <- colMeans(master_chain_1002)
 
-parameters_ebu_1002 <- as.data.frame(master_chain_1002[,1:4])
+parameters_ebu_1002 <- as.data.frame(master_chain_1002[,1:2])
 parameters_ebu_1002$variable <- 1:nrow(parameters_ebu_1002) 
 parameters_ebu_1002$full_time_day <- as.POSIXct("2019-10-02")
 ###########################################################################################
@@ -1044,12 +926,7 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
-    }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
+ebu.hat[i] <- ebu_lag[i]
     }
     
     # Prior for the inverse variance
@@ -1063,7 +940,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1011$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1011$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_1011$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1072,7 +948,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 50000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -1083,7 +959,7 @@ master_chain_1011[curr_pars_1011,]
 
 mean_pars_1011 <- colMeans(master_chain_1011)
 
-parameters_ebu_1011 <- as.data.frame(master_chain_1011[,1:4])
+parameters_ebu_1011 <- as.data.frame(master_chain_1011[,1:2])
 parameters_ebu_1011$variable <- 1:nrow(parameters_ebu_1011) 
 parameters_ebu_1011$full_time_day <- as.POSIXct("2019-10-11")
 ###########################################################################################
@@ -1098,14 +974,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -1117,7 +988,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1016$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1016$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_1016$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1126,7 +996,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -1137,7 +1007,7 @@ master_chain_1016[curr_pars_1016,]
 
 mean_pars_1016 <- colMeans(master_chain_1016)
 
-parameters_ebu_1016 <- as.data.frame(master_chain_1016[,1:4])
+parameters_ebu_1016 <- as.data.frame(master_chain_1016[,1:2])
 parameters_ebu_1016$variable <- 1:nrow(parameters_ebu_1016) 
 parameters_ebu_1016$full_time_day <- as.POSIXct("2019-10-16")
 ###########################################################################################
@@ -1152,14 +1022,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -1171,7 +1036,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1023$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1023$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_1023$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1180,7 +1044,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -1191,7 +1055,7 @@ master_chain_1023[curr_pars_1023,]
 
 mean_pars_1023 <- colMeans(master_chain_1023)
 
-parameters_ebu_1023 <- as.data.frame(master_chain_1023[,1:4])
+parameters_ebu_1023 <- as.data.frame(master_chain_1023[,1:2])
 parameters_ebu_1023$variable <- 1:nrow(parameters_ebu_1023) 
 parameters_ebu_1023$full_time_day <- as.POSIXct("2019-10-23")
 ###########################################################################################
@@ -1206,14 +1070,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -1225,7 +1084,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1030$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1030$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_1030$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1234,7 +1092,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -1245,7 +1103,7 @@ master_chain_1030[curr_pars_1030,]
 
 mean_pars_1030 <- colMeans(master_chain_1030)
 
-parameters_ebu_1030 <- as.data.frame(master_chain_1030[,1:4])
+parameters_ebu_1030 <- as.data.frame(master_chain_1030[,1:2])
 parameters_ebu_1030$variable <- 1:nrow(parameters_ebu_1030) 
 parameters_ebu_1030$full_time_day <- as.POSIXct("2019-10-30")
 ###########################################################################################
@@ -1260,14 +1118,9 @@ sink("jags_model.bug")
 cat('model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS
@@ -1279,7 +1132,6 @@ sink()
 jags <- jags.model('jags_model.bug',
                    data = list('ebu' = ebullition_1107$log_ebu_mgCH4_m2_d,
                                'ebu_lag' = ebullition_1107$log_ebu_mgCH4_m2_d_1,
-                               'temp' = ebullition_1107$temp_b_avg,
                                'N' = N),
                    n.chains = 4,
                    n.adapt = 100)
@@ -1288,7 +1140,7 @@ jags <- jags.model('jags_model.bug',
 update(jags,n.iter = 10000)
 
 samples = coda.samples(model = jags,
-                       variable.names = c('beta','sigma','tau'),
+                       variable.names = c('sigma','tau'),
                        n.iter = 60000)
 gelman.diag(samples) ### Check to make sure that the chains converge! 
 
@@ -1299,31 +1151,8 @@ master_chain_1107[curr_pars_1107,]
 
 mean_pars_1107 <- colMeans(master_chain_1107)
 
-parameters_ebu_1107 <- as.data.frame(master_chain_1107[,1:4])
+parameters_ebu_1107 <- as.data.frame(master_chain_1107[,1:2])
 parameters_ebu_1107$variable <- 1:nrow(parameters_ebu_1107) 
 parameters_ebu_1107$full_time_day <- as.POSIXct("2019-11-07")
 ###########################################################################################
 
-parm_ebu_all <- rbind(parameters_ebu_603,
-                       parameters_ebu_610,
-                       parameters_ebu_617,
-                       parameters_ebu_624,
-                       parameters_ebu_701,
-                       parameters_ebu_708,
-                       parameters_ebu_715,
-                       parameters_ebu_722,
-                       parameters_ebu_729,
-                       parameters_ebu_805,
-                       parameters_ebu_812,
-                       parameters_ebu_819,
-                       parameters_ebu_828,
-                       parameters_ebu_902,
-                       parameters_ebu_911,
-                       parameters_ebu_920,
-                       parameters_ebu_927,
-                       parameters_ebu_1002,
-                       parameters_ebu_1011,
-                       parameters_ebu_1016,
-                       parameters_ebu_1023,
-                       parameters_ebu_1030,
-                       parameters_ebu_1107)

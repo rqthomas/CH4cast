@@ -1,14 +1,9 @@
 model {
     for (i in 1:N) {
     ebu[i] ~ dnorm(ebu.hat[i], tau)
-    ebu.hat[i] <- beta[1] + beta[2]*ebu_lag[i] + beta[3]*temp[i]
+ebu.hat[i] <- ebu_lag[i]
     }
-    
-    #Vague priors on the beta
-    for(j in 1:3){
-    beta[j] ~ dnorm(0,1/100000)
-    }
-    
+
     # Prior for the inverse variance
     sigma ~ dunif(0, 100) # standard deviation
     tau <- 1 / (sigma * sigma) # sigma^2 doesnt work in JAGS

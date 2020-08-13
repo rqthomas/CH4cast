@@ -55,7 +55,7 @@ ebu_527 <- ebu %>% filter(date == "2019-05-27")
 ebu_527 <- na.omit(ebu_527)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_527 <- data.frame("full_time_day" = as.POSIXct("2019-05-27"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_527$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_527$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_527 <- data.frame("full_time_day" = as.POSIXct("2019-05-27"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_527$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_527$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -151,12 +151,12 @@ for(m in 1:n_methane_members){
   if(hold_methane_obs){
     curr_methane_527 <- mean(ebu_527$log_ebu_rate_mg_m2_d)
   }else{
-    curr_methane_527 <- rnorm(1, ebu_527$log_ebu_rate_mg_m2_d, sd(ebu_527$log_ebu_rate_mg_m2_d))
+    curr_methane_527 <- rnorm(1, ebu_527$log_ebu_rate_mg_m2_d, SE(ebu_527$log_ebu_rate_mg_m2_d))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_603[m] <- curr_pars_527[1] + curr_pars_527[2] * curr_methane_527 + curr_pars_527[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_603[m] <- curr_pars_527[1] + curr_pars_527[2] * curr_methane_527 + curr_pars_527[3] * sed_model_temp + process_error
   
   index <- index + 1
   if(index > n_temp_members){
@@ -222,7 +222,7 @@ ebu_603 <- ebu %>% filter(date == "2019-06-03")
 ebu_603 <- na.omit(ebu_603)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_603 <- data.frame("full_time_day" = as.POSIXct("2019-06-03"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_603$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_603$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_603 <- data.frame("full_time_day" = as.POSIXct("2019-06-03"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_603$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_603$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -318,12 +318,12 @@ for(m in 1:n_methane_members){
   if(hold_methane_obs){
     curr_methane_603 <- mean(ebu_603$log_ebu_rate_mg_m2_d)
   }else{
-    curr_methane_603 <- rnorm(1, ebu_603$log_ebu_rate_mg_m2_d, sd(ebu_603$log_ebu_rate_mg_m2_d))
+    curr_methane_603 <- rnorm(1, ebu_603$log_ebu_rate_mg_m2_d, SE(ebu_603$log_ebu_rate_mg_m2_d))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_610[m] <- curr_pars_603[1] + curr_pars_603[2] * curr_methane_603 + curr_pars_603[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_610[m] <- curr_pars_603[1] + curr_pars_603[2] * curr_methane_603 + curr_pars_603[3] * sed_model_temp + process_error
   
   index <- index + 1
   if(index > n_temp_members){
@@ -394,7 +394,7 @@ ebu_610 <- ebu %>% filter(date == "2019-06-10")
 ebu_610 <- na.omit(ebu_610)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_610 <- data.frame("full_time_day" = as.POSIXct("2019-06-10"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_610$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_610$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_610 <- data.frame("full_time_day" = as.POSIXct("2019-06-10"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_610$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_610$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -490,13 +490,13 @@ for(m in 1:n_methane_members){
   if(hold_methane_obs){
     curr_methane_610 <- mean(ebu_610$log_ebu_rate_mg_m2_d)
   }else{
-    curr_methane_610 <- rnorm(1, ebu_610$log_ebu_rate_mg_m2_d, sd(ebu_610$log_ebu_rate_mg_m2_d))
+    curr_methane_610 <- rnorm(1, ebu_610$log_ebu_rate_mg_m2_d, SE(ebu_610$log_ebu_rate_mg_m2_d))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-
-    log_ebu_rate_forecast_617[m] <- curr_pars_610[1] + curr_pars_610[2] * curr_methane_610 + curr_pars_610[3] * sed_model_temp + process_error
+  
+  
+  log_ebu_rate_forecast_617[m] <- curr_pars_610[1] + curr_pars_610[2] * curr_methane_610 + curr_pars_610[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -567,7 +567,7 @@ ebu_617 <- ebu %>% filter(date == "2019-06-17")
 ebu_617 <- na.omit(ebu_617)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_617 <- data.frame("full_time_day" = as.POSIXct("2019-06-17"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_617$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_617$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_617 <- data.frame("full_time_day" = as.POSIXct("2019-06-17"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_617$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_617$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -663,14 +663,14 @@ for(m in 1:n_methane_members){
   if(hold_methane_obs){
     curr_methane_617 <- mean(ebu_617$log_ebu_rate_mg_m2_d)
   }else{
-    curr_methane_617 <- rnorm(1, ebu_617$log_ebu_rate_mg_m2_d, sd(ebu_617$log_ebu_rate_mg_m2_d))
+    curr_methane_617 <- rnorm(1, ebu_617$log_ebu_rate_mg_m2_d, SE(ebu_617$log_ebu_rate_mg_m2_d))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-
-    log_ebu_rate_forecast_624[m] <- curr_pars_617[1] + curr_pars_617[2] * curr_methane_617 + curr_pars_617[3] * sed_model_temp + process_error
-
+  
+  
+  log_ebu_rate_forecast_624[m] <- curr_pars_617[1] + curr_pars_617[2] * curr_methane_617 + curr_pars_617[3] * sed_model_temp + process_error
+  
   
   index <- index + 1
   if(index > n_temp_members){
@@ -741,7 +741,7 @@ ebu_624 <- ebu %>% filter(date == "2019-06-24")
 ebu_624 <- na.omit(ebu_624)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_624 <- data.frame("full_time_day" = as.POSIXct("2019-06-24"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_624$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_624$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_624 <- data.frame("full_time_day" = as.POSIXct("2019-06-24"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_624$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_624$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -828,22 +828,16 @@ for(m in 1:n_methane_members){
     sed_model_temp <- temp_up_701[index]
   }
   
-  if(hold_level){
-    level_model <- mean(as.numeric(level_prediction))
-  }else{
-    level_model <- level_prediction[index]
-  }
-  
   if(hold_methane_obs){
-    curr_methane_624 <- mean(ebu_624$log_ebu_rate_mg_m2_d)
+    curr_methane_624 <- mean(log_ebu_rate_forecast_624$ebullition_prediction)
   }else{
-    curr_methane_624 <- rnorm(1, ebu_624$log_ebu_rate_mg_m2_d, sd(ebu_624$log_ebu_rate_mg_m2_d))
+    curr_methane_624 <- rnorm(1, log_ebu_rate_forecast_624$ebullition_prediction, SE(log_ebu_rate_forecast_624$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-
-    log_ebu_rate_forecast_701[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_624 + curr_pars_624[3] * sed_model_temp + process_error
+  
+  
+  log_ebu_rate_forecast_701[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_624 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -915,7 +909,7 @@ ebu_701 <- ebu %>% filter(date == "2019-07-01")
 ebu_701 <- na.omit(ebu_701)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_701 <- data.frame("full_time_day" = as.POSIXct("2019-07-01"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_701$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_701$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_701 <- data.frame("full_time_day" = as.POSIXct("2019-07-01"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_701$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_701$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -932,16 +926,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_701 <- colMeans(master_temp_chain_701)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_701)),1)
-    curr_temp_pars_701 <- master_temp_chain_701[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_701[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -950,7 +944,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_708[m] <- curr_temp_pars_701[1]*flare_temp + curr_temp_pars_701[2] + process_error
+  temp_up_708[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -984,16 +978,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_701 <- colMeans(master_chain_701)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_701 <- sample(seq(1, nrow(master_chain_701)),1)
-    curr_pars_701 <- master_chain_701[curr_pars_index_701,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_701[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -1009,14 +1003,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_701 <- mean(ebu_701$log_ebu_rate_mg_m2_d)
+    curr_methane_701 <- mean(log_ebu_rate_forecast_701$ebullition_prediction)
   }else{
-    curr_methane_701 <- rnorm(1, ebu_701$log_ebu_rate_mg_m2_d, sd(ebu_701$log_ebu_rate_mg_m2_d))
+    curr_methane_701 <- rnorm(1, log_ebu_rate_forecast_701$ebullition_prediction, SE(log_ebu_rate_forecast_701$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_708[m] <- curr_pars_701[1] + curr_pars_701[2] * curr_methane_701 + curr_pars_701[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_708[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_701 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -1088,7 +1082,7 @@ ebu_708 <- ebu %>% filter(date == "2019-07-08")
 ebu_708 <- na.omit(ebu_708)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_708 <- data.frame("full_time_day" = as.POSIXct("2019-07-08"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_708$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_708$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_708 <- data.frame("full_time_day" = as.POSIXct("2019-07-08"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_708$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_708$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -1105,16 +1099,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_708 <- colMeans(master_temp_chain_708)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_708)),1)
-    curr_temp_pars_708 <- master_temp_chain_708[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_708[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -1123,7 +1117,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_715[m] <- curr_temp_pars_708[1]*flare_temp + curr_temp_pars_708[2] + process_error
+  temp_up_715[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -1157,16 +1151,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_708 <- colMeans(master_chain_708)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_708 <- sample(seq(1, nrow(master_chain_708)),1)
-    curr_pars_708 <- master_chain_708[curr_pars_index_708,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_708[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -1182,16 +1176,16 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_708 <- mean(ebu_708$log_ebu_rate_mg_m2_d)
+    curr_methane_708 <- mean(log_ebu_rate_forecast_708$ebullition_prediction)
   }else{
-    curr_methane_708 <- rnorm(1, ebu_708$log_ebu_rate_mg_m2_d, sd(ebu_708$log_ebu_rate_mg_m2_d))
+    curr_methane_708 <- rnorm(1, log_ebu_rate_forecast_708$ebullition_prediction, SE(log_ebu_rate_forecast_708$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-
-    log_ebu_rate_forecast_715[m] <- curr_pars_708[1] + curr_pars_708[2] * curr_methane_708 + curr_pars_708[3] * sed_model_temp + process_error
-
+  
+  
+  log_ebu_rate_forecast_715[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_708 + curr_pars_624[3] * sed_model_temp + process_error
+  
   
   index <- index + 1
   if(index > n_temp_members){
@@ -1262,7 +1256,7 @@ ebu_715 <- ebu %>% filter(date == "2019-07-15")
 ebu_715 <- na.omit(ebu_715)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_715 <- data.frame("full_time_day" = as.POSIXct("2019-07-15"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_715$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_715$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_715 <- data.frame("full_time_day" = as.POSIXct("2019-07-15"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_715$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_715$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -1279,16 +1273,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_715 <- colMeans(master_temp_chain_715)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_715)),1)
-    curr_temp_pars_715 <- master_temp_chain_715[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_715[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -1297,7 +1291,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_722[m] <- curr_temp_pars_715[1]*flare_temp + curr_temp_pars_715[2] + process_error
+  temp_up_722[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -1331,16 +1325,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_715 <- colMeans(master_chain_715)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_715 <- sample(seq(1, nrow(master_chain_715)),1)
-    curr_pars_715 <- master_chain_715[curr_pars_index_715,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_715[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -1356,14 +1350,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_715 <- mean(ebu_715$log_ebu_rate_mg_m2_d)
+    curr_methane_715 <- mean(log_ebu_rate_forecast_715$ebullition_prediction)
   }else{
-    curr_methane_715 <- rnorm(1, ebu_715$log_ebu_rate_mg_m2_d, sd(ebu_715$log_ebu_rate_mg_m2_d))
+    curr_methane_715 <- rnorm(1, log_ebu_rate_forecast_715$ebullition_prediction, SE(log_ebu_rate_forecast_715$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_722[m] <- curr_pars_715[1] + curr_pars_715[2] * curr_methane_715 + curr_pars_715[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_722[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_715 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -1434,7 +1428,7 @@ ebu_722 <- ebu %>% filter(date == "2019-07-22")
 ebu_722 <- na.omit(ebu_722)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_722 <- data.frame("full_time_day" = as.POSIXct("2019-07-22"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_722$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_722$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_722 <- data.frame("full_time_day" = as.POSIXct("2019-07-22"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_722$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_722$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -1451,16 +1445,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_722 <- colMeans(master_temp_chain_722)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_722)),1)
-    curr_temp_pars_722 <- master_temp_chain_722[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_722[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -1469,7 +1463,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_729[m] <- curr_temp_pars_722[1]*flare_temp + curr_temp_pars_722[2] + process_error
+  temp_up_729[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -1503,16 +1497,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_722 <- colMeans(master_chain_722)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_722 <- sample(seq(1, nrow(master_chain_722)),1)
-    curr_pars_722 <- master_chain_722[curr_pars_index_722,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_722[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -1528,14 +1522,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_722 <- mean(ebu_722$log_ebu_rate_mg_m2_d)
+    curr_methane_722 <- mean(log_ebu_rate_forecast_722$ebullition_prediction)
   }else{
-    curr_methane_722 <- rnorm(1, ebu_722$log_ebu_rate_mg_m2_d, sd(ebu_722$log_ebu_rate_mg_m2_d))
+    curr_methane_722 <- rnorm(1, log_ebu_rate_forecast_722$ebullition_prediction, SE(log_ebu_rate_forecast_722$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_729[m] <- curr_pars_722[1] + curr_pars_722[2] * curr_methane_722 + curr_pars_722[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_729[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_722 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -1607,7 +1601,7 @@ ebu_729 <- ebu %>% filter(date == "2019-07-29")
 ebu_729 <- na.omit(ebu_729)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_729 <- data.frame("full_time_day" = as.POSIXct("2019-07-29"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_729$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_729$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_729 <- data.frame("full_time_day" = as.POSIXct("2019-07-29"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_729$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_729$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -1624,16 +1618,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_729 <- colMeans(master_temp_chain_729)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_729)),1)
-    curr_temp_pars_729 <- master_temp_chain_729[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_729[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -1642,7 +1636,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_805[m] <- curr_temp_pars_729[1]*flare_temp + curr_temp_pars_729[2] + process_error
+  temp_up_805[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -1676,16 +1670,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_729 <- colMeans(master_chain_729)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_729 <- sample(seq(1, nrow(master_chain_729)),1)
-    curr_pars_729 <- master_chain_729[curr_pars_index_729,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_729[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -1701,15 +1695,15 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_729 <- mean(ebu_729$log_ebu_rate_mg_m2_d)
+    curr_methane_729 <- mean(log_ebu_rate_forecast_729$ebullition_prediction)
   }else{
-    curr_methane_729 <- rnorm(1, ebu_729$log_ebu_rate_mg_m2_d, sd(ebu_729$log_ebu_rate_mg_m2_d))
+    curr_methane_729 <- rnorm(1, log_ebu_rate_forecast_729$ebullition_prediction, SE(log_ebu_rate_forecast_729$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-
-    log_ebu_rate_forecast_805[m] <- curr_pars_729[1] + curr_pars_729[2] * curr_methane_729 + curr_pars_729[3] * sed_model_temp + process_error
+  
+  
+  log_ebu_rate_forecast_805[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_729 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -1781,7 +1775,7 @@ ebu_805 <- ebu %>% filter(date == "2019-08-05")
 ebu_805 <- na.omit(ebu_805)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_805 <- data.frame("full_time_day" = as.POSIXct("2019-08-05"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_805$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_805$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_805 <- data.frame("full_time_day" = as.POSIXct("2019-08-05"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_805$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_805$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -1798,16 +1792,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_805 <- colMeans(master_temp_chain_805)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_805)),1)
-    curr_temp_pars_805 <- master_temp_chain_805[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_805[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -1816,7 +1810,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_812[m] <- curr_temp_pars_805[1]*flare_temp + curr_temp_pars_805[2] + process_error
+  temp_up_812[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -1850,16 +1844,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_805 <- colMeans(master_chain_805)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_805 <- sample(seq(1, nrow(master_chain_805)),1)
-    curr_pars_805 <- master_chain_805[curr_pars_index_805,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_805[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -1875,14 +1869,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_805 <- mean(ebu_805$log_ebu_rate_mg_m2_d)
+    curr_methane_805 <- mean(log_ebu_rate_forecast_805$ebullition_prediction)
   }else{
-    curr_methane_805 <- rnorm(1, ebu_805$log_ebu_rate_mg_m2_d, sd(ebu_805$log_ebu_rate_mg_m2_d))
+    curr_methane_805 <- rnorm(1, log_ebu_rate_forecast_805$ebullition_prediction, SE(log_ebu_rate_forecast_805$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_812[m] <- curr_pars_805[1] + curr_pars_805[2] * curr_methane_805 + curr_pars_805[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_812[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_805 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -1953,7 +1947,7 @@ ebu_812 <- ebu %>% filter(date == "2019-08-12")
 ebu_812 <- na.omit(ebu_812)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_812 <- data.frame("full_time_day" = as.POSIXct("2019-08-12"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_812$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_812$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_812 <- data.frame("full_time_day" = as.POSIXct("2019-08-12"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_812$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_812$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -1970,16 +1964,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_812 <- colMeans(master_temp_chain_812)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_812)),1)
-    curr_temp_pars_812 <- master_temp_chain_812[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_812[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -1988,7 +1982,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_819[m] <- curr_temp_pars_812[1]*flare_temp + curr_temp_pars_812[2] + process_error
+  temp_up_819[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -2022,16 +2016,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_812 <- colMeans(master_chain_812)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_812 <- sample(seq(1, nrow(master_chain_812)),1)
-    curr_pars_812 <- master_chain_812[curr_pars_index_812,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_812[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -2047,14 +2041,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_812 <- mean(ebu_812$log_ebu_rate_mg_m2_d)
+    curr_methane_812 <- mean(log_ebu_rate_forecast_812$ebullition_prediction)
   }else{
-    curr_methane_812 <- rnorm(1, ebu_812$log_ebu_rate_mg_m2_d, sd(ebu_812$log_ebu_rate_mg_m2_d))
+    curr_methane_812 <- rnorm(1, log_ebu_rate_forecast_812$ebullition_prediction, SE(log_ebu_rate_forecast_812$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_819[m] <- curr_pars_812[1] + curr_pars_812[2] * curr_methane_812 + curr_pars_812[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_819[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_812 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -2126,7 +2120,7 @@ ebu_819 <- ebu %>% filter(date == "2019-08-19")
 ebu_819 <- na.omit(ebu_819)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_819 <- data.frame("full_time_day" = as.POSIXct("2019-08-19"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_819$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_819$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_819 <- data.frame("full_time_day" = as.POSIXct("2019-08-19"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_819$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_819$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -2143,16 +2137,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_819 <- colMeans(master_temp_chain_819)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_819)),1)
-    curr_temp_pars_819 <- master_temp_chain_819[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_819[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -2161,7 +2155,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_828[m] <- curr_temp_pars_819[1]*flare_temp + curr_temp_pars_819[2] + process_error
+  temp_up_828[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -2195,16 +2189,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_819 <- colMeans(master_chain_819)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_819 <- sample(seq(1, nrow(master_chain_819)),1)
-    curr_pars_819 <- master_chain_819[curr_pars_index_819,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_819[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -2220,14 +2214,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_819 <- mean(ebu_819$log_ebu_rate_mg_m2_d)
+    curr_methane_819 <- mean(log_ebu_rate_forecast_819$ebullition_prediction)
   }else{
-    curr_methane_819 <- rnorm(1, ebu_819$log_ebu_rate_mg_m2_d, sd(ebu_819$log_ebu_rate_mg_m2_d))
+    curr_methane_819 <- rnorm(1, log_ebu_rate_forecast_819$ebullition_prediction, SE(log_ebu_rate_forecast_819$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_828[m] <- curr_pars_819[1] + curr_pars_819[2] * curr_methane_819 + curr_pars_819[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_828[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_819 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -2299,7 +2293,7 @@ ebu_828 <- ebu %>% filter(date == "2019-08-28")
 ebu_828 <- na.omit(ebu_828)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_828 <- data.frame("full_time_day" = as.POSIXct("2019-08-28"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_828$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_828$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_828 <- data.frame("full_time_day" = as.POSIXct("2019-08-28"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_828$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_828$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -2316,16 +2310,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_828 <- colMeans(master_temp_chain_828)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_828)),1)
-    curr_temp_pars_828 <- master_temp_chain_828[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_828[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -2334,7 +2328,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_902[m] <- curr_temp_pars_828[1]*flare_temp + curr_temp_pars_828[2] + process_error
+  temp_up_902[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -2368,16 +2362,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_828 <- colMeans(master_chain_828)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_828 <- sample(seq(1, nrow(master_chain_828)),1)
-    curr_pars_828 <- master_chain_828[curr_pars_index_828,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_828[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -2393,14 +2387,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_828 <- mean(ebu_828$log_ebu_rate_mg_m2_d)
+    curr_methane_828 <- mean(log_ebu_rate_forecast_828$ebullition_prediction)
   }else{
-    curr_methane_828 <- rnorm(1, ebu_828$log_ebu_rate_mg_m2_d, sd(ebu_828$log_ebu_rate_mg_m2_d))
+    curr_methane_828 <- rnorm(1, log_ebu_rate_forecast_828$ebullition_prediction, SE(log_ebu_rate_forecast_828$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_902[m] <- curr_pars_828[1] + curr_pars_828[2] * curr_methane_828 + curr_pars_828[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_902[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_828 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -2472,7 +2466,7 @@ ebu_902 <- ebu %>% filter(date == "2019-09-02")
 ebu_902 <- na.omit(ebu_902)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_902 <- data.frame("full_time_day" = as.POSIXct("2019-09-02"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_902$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_902$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_902 <- data.frame("full_time_day" = as.POSIXct("2019-09-02"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_902$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_902$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -2489,16 +2483,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_902 <- colMeans(master_temp_chain_902)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_902)),1)
-    curr_temp_pars_902 <- master_temp_chain_902[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_902[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -2507,7 +2501,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_911[m] <- curr_temp_pars_902[1]*flare_temp + curr_temp_pars_902[2] + process_error
+  temp_up_911[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -2541,16 +2535,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_902 <- colMeans(master_chain_902)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_902 <- sample(seq(1, nrow(master_chain_902)),1)
-    curr_pars_902 <- master_chain_902[curr_pars_index_902,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_902[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -2566,14 +2560,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_902 <- mean(ebu_902$log_ebu_rate_mg_m2_d)
+    curr_methane_902 <- mean(log_ebu_rate_forecast_902$ebullition_prediction)
   }else{
-    curr_methane_902 <- rnorm(1, ebu_902$log_ebu_rate_mg_m2_d, sd(ebu_902$log_ebu_rate_mg_m2_d))
+    curr_methane_902 <- rnorm(1, log_ebu_rate_forecast_902$ebullition_prediction, SE(log_ebu_rate_forecast_902$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_911[m] <- curr_pars_902[1] + curr_pars_902[2] * curr_methane_902 + curr_pars_902[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_911[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_902 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -2644,7 +2638,7 @@ ebu_911 <- ebu %>% filter(date == "2019-09-11")
 ebu_911 <- na.omit(ebu_911)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_911 <- data.frame("full_time_day" = as.POSIXct("2019-09-11"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_911$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_911$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_911 <- data.frame("full_time_day" = as.POSIXct("2019-09-11"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_911$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_911$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -2661,16 +2655,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_911 <- colMeans(master_temp_chain_911)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_911)),1)
-    curr_temp_pars_911 <- master_temp_chain_911[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_911[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -2679,7 +2673,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_920[m] <- curr_temp_pars_911[1]*flare_temp + curr_temp_pars_911[2] + process_error
+  temp_up_920[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -2713,16 +2707,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_911 <- colMeans(master_chain_911)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_911 <- sample(seq(1, nrow(master_chain_911)),1)
-    curr_pars_911 <- master_chain_911[curr_pars_index_911,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_911[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -2738,14 +2732,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_911 <- mean(ebu_911$log_ebu_rate_mg_m2_d)
+    curr_methane_911 <- mean(log_ebu_rate_forecast_911$ebullition_prediction)
   }else{
-    curr_methane_911 <- rnorm(1, ebu_911$log_ebu_rate_mg_m2_d, sd(ebu_911$log_ebu_rate_mg_m2_d))
+    curr_methane_911 <- rnorm(1, log_ebu_rate_forecast_911$ebullition_prediction, SE(log_ebu_rate_forecast_911$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_920[m] <- curr_pars_911[1] + curr_pars_911[2] * curr_methane_911 + curr_pars_911[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_920[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_911 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -2817,7 +2811,7 @@ ebu_920 <- ebu %>% filter(date == "2019-09-20")
 ebu_920 <- na.omit(ebu_920)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_920 <- data.frame("full_time_day" = as.POSIXct("2019-09-20"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_920$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_920$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_920 <- data.frame("full_time_day" = as.POSIXct("2019-09-20"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_920$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_920$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -2834,16 +2828,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_920 <- colMeans(master_temp_chain_920)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_920)),1)
-    curr_temp_pars_920 <- master_temp_chain_920[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_920[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -2852,7 +2846,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_927[m] <- curr_temp_pars_920[1]*flare_temp + curr_temp_pars_920[2] + process_error
+  temp_up_927[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -2886,16 +2880,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_920 <- colMeans(master_chain_920)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_920 <- sample(seq(1, nrow(master_chain_920)),1)
-    curr_pars_920 <- master_chain_920[curr_pars_index_920,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_920[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -2911,14 +2905,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_920 <- mean(ebu_920$log_ebu_rate_mg_m2_d)
+    curr_methane_920 <- mean(log_ebu_rate_forecast_920$ebullition_prediction)
   }else{
-    curr_methane_920 <- rnorm(1, ebu_920$log_ebu_rate_mg_m2_d, sd(ebu_920$log_ebu_rate_mg_m2_d))
+    curr_methane_920 <- rnorm(1, log_ebu_rate_forecast_920$ebullition_prediction, SE(log_ebu_rate_forecast_920$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_927[m] <- curr_pars_920[1] + curr_pars_920[2] * curr_methane_920 + curr_pars_920[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_927[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_920 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -2990,7 +2984,7 @@ ebu_927 <- ebu %>% filter(date == "2019-09-27")
 ebu_927 <- na.omit(ebu_927)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_927 <- data.frame("full_time_day" = as.POSIXct("2019-09-27"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_927$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_927$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_927 <- data.frame("full_time_day" = as.POSIXct("2019-09-27"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_927$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_927$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -3007,16 +3001,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_927 <- colMeans(master_temp_chain_927)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_927)),1)
-    curr_temp_pars_927 <- master_temp_chain_927[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_927[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -3025,7 +3019,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_1002[m] <- curr_temp_pars_927[1]*flare_temp + curr_temp_pars_927[2] + process_error
+  temp_up_1002[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -3059,16 +3053,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_927 <- colMeans(master_chain_927)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_927 <- sample(seq(1, nrow(master_chain_927)),1)
-    curr_pars_927 <- master_chain_927[curr_pars_index_927,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_927[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -3084,15 +3078,15 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_927 <- mean(ebu_927$log_ebu_rate_mg_m2_d)
+    curr_methane_927 <- mean(log_ebu_rate_forecast_927$ebullition_prediction)
   }else{
-    curr_methane_927 <- rnorm(1, ebu_927$log_ebu_rate_mg_m2_d, sd(ebu_927$log_ebu_rate_mg_m2_d))
+    curr_methane_927 <- rnorm(1, log_ebu_rate_forecast_927$ebullition_prediction, SE(log_ebu_rate_forecast_927$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_1002[m] <- curr_pars_927[1] + curr_pars_927[2] * curr_methane_927 + curr_pars_927[3] * sed_model_temp + process_error
-
+  
+  log_ebu_rate_forecast_1002[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_927 + curr_pars_624[3] * sed_model_temp + process_error
+  
   
   index <- index + 1
   if(index > n_temp_members){
@@ -3163,7 +3157,7 @@ ebu_1002 <- ebu %>% filter(date == "2019-10-02")
 ebu_1002 <- na.omit(ebu_1002)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_1002 <- data.frame("full_time_day" = as.POSIXct("2019-10-02"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1002$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1002$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_1002 <- data.frame("full_time_day" = as.POSIXct("2019-10-02"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1002$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_1002$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -3180,16 +3174,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_1002 <- colMeans(master_temp_chain_1002)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_1002)),1)
-    curr_temp_pars_1002 <- master_temp_chain_1002[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_1002[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -3198,7 +3192,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_1011[m] <- curr_temp_pars_1002[1]*flare_temp + curr_temp_pars_1002[2] + process_error
+  temp_up_1011[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -3232,16 +3226,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_1002 <- colMeans(master_chain_1002)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_1002 <- sample(seq(1, nrow(master_chain_1002)),1)
-    curr_pars_1002 <- master_chain_1002[curr_pars_index_1002,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_1002[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -3257,14 +3251,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_1002 <- mean(ebu_1002$log_ebu_rate_mg_m2_d)
+    curr_methane_1002 <- mean(log_ebu_rate_forecast_1002$ebullition_prediction)
   }else{
-    curr_methane_1002 <- rnorm(1, ebu_1002$log_ebu_rate_mg_m2_d, sd(ebu_1002$log_ebu_rate_mg_m2_d))
+    curr_methane_1002 <- rnorm(1, log_ebu_rate_forecast_1002$ebullition_prediction, SE(log_ebu_rate_forecast_1002$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_1011[m] <- curr_pars_1002[1] + curr_pars_1002[2] * curr_methane_1002 + curr_pars_1002[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_1011[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_1002 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -3335,7 +3329,7 @@ ebu_1011 <- ebu %>% filter(date == "2019-10-11")
 ebu_1011 <- na.omit(ebu_1011)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_1011 <- data.frame("full_time_day" = as.POSIXct("2019-10-11"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1011$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1011$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_1011 <- data.frame("full_time_day" = as.POSIXct("2019-10-11"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1011$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_1011$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -3352,16 +3346,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_1011 <- colMeans(master_temp_chain_1011)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_1011)),1)
-    curr_temp_pars_1011 <- master_temp_chain_1011[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_1011[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -3370,7 +3364,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_1016[m] <- curr_temp_pars_1011[1]*flare_temp + curr_temp_pars_1011[2] + process_error
+  temp_up_1016[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -3404,16 +3398,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_1011 <- colMeans(master_chain_1011)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_1011 <- sample(seq(1, nrow(master_chain_1011)),1)
-    curr_pars_1011 <- master_chain_1011[curr_pars_index_1011,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_1011[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -3429,14 +3423,14 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_1011 <- mean(ebu_1011$log_ebu_rate_mg_m2_d)
+    curr_methane_1011 <- mean(log_ebu_rate_forecast_1011$ebullition_prediction)
   }else{
-    curr_methane_1011 <- rnorm(1, ebu_1011$log_ebu_rate_mg_m2_d, sd(ebu_1011$log_ebu_rate_mg_m2_d))
+    curr_methane_1011 <- rnorm(1, log_ebu_rate_forecast_1011$ebullition_prediction, SE(log_ebu_rate_forecast_1011$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_1016[m] <- curr_pars_1011[1] + curr_pars_1011[2] * curr_methane_1011 + curr_pars_1011[3] * sed_model_temp + process_error
+  
+  log_ebu_rate_forecast_1016[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_1011 + curr_pars_624[3] * sed_model_temp + process_error
   
   
   index <- index + 1
@@ -3508,7 +3502,7 @@ ebu_1016 <- ebu %>% filter(date == "2019-10-16")
 ebu_1016 <- na.omit(ebu_1016)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_1016 <- data.frame("full_time_day" = as.POSIXct("2019-10-16"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1016$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1016$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_1016 <- data.frame("full_time_day" = as.POSIXct("2019-10-16"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1016$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_1016$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -3525,16 +3519,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_1016 <- colMeans(master_temp_chain_1016)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_1016)),1)
-    curr_temp_pars_1016 <- master_temp_chain_1016[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_1016[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -3543,7 +3537,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_1023[m] <- curr_temp_pars_1016[1]*flare_temp + curr_temp_pars_1016[2] + process_error
+  temp_up_1023[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -3577,16 +3571,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_1016 <- colMeans(master_chain_1016)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_1016 <- sample(seq(1, nrow(master_chain_1016)),1)
-    curr_pars_1016 <- master_chain_1016[curr_pars_index_1016,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_1016[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -3602,15 +3596,15 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_1016 <- mean(ebu_1016$log_ebu_rate_mg_m2_d)
+    curr_methane_1016 <- mean(log_ebu_rate_forecast_1016$ebullition_prediction)
   }else{
-    curr_methane_1016 <- rnorm(1, ebu_1016$log_ebu_rate_mg_m2_d, sd(ebu_1016$log_ebu_rate_mg_m2_d))
+    curr_methane_1016 <- rnorm(1, log_ebu_rate_forecast_1016$ebullition_prediction, SE(log_ebu_rate_forecast_1016$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_1023[m] <- curr_pars_1016[1] + curr_pars_1016[2] * curr_methane_1016 + curr_pars_1016[3] * sed_model_temp + process_error
-
+  
+  log_ebu_rate_forecast_1023[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_1016 + curr_pars_624[3] * sed_model_temp + process_error
+  
   
   index <- index + 1
   if(index > n_temp_members){
@@ -3681,7 +3675,7 @@ ebu_1023 <- ebu %>% filter(date == "2019-10-23")
 ebu_1023 <- na.omit(ebu_1023)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_1023 <- data.frame("full_time_day" = as.POSIXct("2019-10-23"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1023$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1023$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_1023 <- data.frame("full_time_day" = as.POSIXct("2019-10-23"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1023$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_1023$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -3698,16 +3692,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_1023 <- colMeans(master_temp_chain_1023)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_1023)),1)
-    curr_temp_pars_1023 <- master_temp_chain_1023[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_1023[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -3716,7 +3710,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_1030[m] <- curr_temp_pars_1023[1]*flare_temp + curr_temp_pars_1023[2] + process_error
+  temp_up_1030[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -3750,16 +3744,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_1023 <- colMeans(master_chain_1023)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_1023 <- sample(seq(1, nrow(master_chain_1023)),1)
-    curr_pars_1023 <- master_chain_1023[curr_pars_index_1023,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_1023[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -3775,15 +3769,15 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_1023 <- mean(ebu_1023$log_ebu_rate_mg_m2_d)
+    curr_methane_1023 <- mean(log_ebu_rate_forecast_1023$ebullition_prediction)
   }else{
-    curr_methane_1023 <- rnorm(1, ebu_1023$log_ebu_rate_mg_m2_d, sd(ebu_1023$log_ebu_rate_mg_m2_d))
+    curr_methane_1023 <- rnorm(1, log_ebu_rate_forecast_1023$ebullition_prediction, SE(log_ebu_rate_forecast_1023$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_1030[m] <- curr_pars_1023[1] + curr_pars_1023[2] * curr_methane_1023 + curr_pars_1023[3] * sed_model_temp + process_error
-
+  
+  log_ebu_rate_forecast_1030[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_1023 + curr_pars_624[3] * sed_model_temp + process_error
+  
   
   index <- index + 1
   if(index > n_temp_members){
@@ -3854,7 +3848,7 @@ ebu_1030 <- ebu %>% filter(date == "2019-10-30")
 ebu_1030 <- na.omit(ebu_1030)
 
 # Set up a manual dataframe from the observations that can be appended to the forecasts
-x_1030 <- data.frame("full_time_day" = as.POSIXct("2019-10-30"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1030$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1030$log_ebu_rate_mg_m2_d), "Data" = "observation")
+x_1030 <- data.frame("full_time_day" = as.POSIXct("2019-10-30"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1030$log_ebu_rate_mg_m2_d), "SE" = SE(ebu_1030$log_ebu_rate_mg_m2_d), "Data" = "observation")
 
 # predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
 # Build JAGS model for the Deep hole to shallow conversion
@@ -3871,16 +3865,16 @@ index <- 1
 for(m in 1:n_temp_members){
   
   if(hold_temp_model_pars){
-    curr_temp_pars_1030 <- colMeans(master_temp_chain_1030)
+    curr_temp_pars_624 <- colMeans(master_temp_chain_624)
   }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_1030)),1)
-    curr_temp_pars_1030 <- master_temp_chain_1030[curr_pars_temp_index,]
+    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_624)),1)
+    curr_temp_pars_624 <- master_temp_chain_624[curr_pars_temp_index,]
   }
   
   if(hold_temp_model_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_1030[3])
+    process_error <- rnorm(1, 0, curr_temp_pars_624[3])
   }
   
   if(hold_flare){
@@ -3889,7 +3883,7 @@ for(m in 1:n_temp_members){
     flare_temp <- temp_prediction[index]#This needs to be a vector!
   }
   
-  temp_up_1107[m] <- curr_temp_pars_1030[1]*flare_temp + curr_temp_pars_1030[2] + process_error
+  temp_up_1107[m] <- curr_temp_pars_624[1]*flare_temp + curr_temp_pars_624[2] + process_error
   index <- index + 1
   if(index > flare_nmembers){
     index <- 1
@@ -3923,16 +3917,16 @@ index <- 1
 for(m in 1:n_methane_members){
   
   if(hold_methane_pars){
-    curr_pars_1030 <- colMeans(master_chain_1030)
+    curr_pars_624 <- colMeans(master_chain_624)
   }else{
-    curr_pars_index_1030 <- sample(seq(1, nrow(master_chain_1030)),1)
-    curr_pars_1030 <- master_chain_1030[curr_pars_index_1030,]
+    curr_pars_index_624 <- sample(seq(1, nrow(master_chain_624)),1)
+    curr_pars_624 <- master_chain_624[curr_pars_index_624,]
   }
   
   if(hold_methane_process){
     process_error <- 0
   }else{
-    process_error <- rnorm(1, 0, curr_pars_1030[4])
+    process_error <- rnorm(1, 0, curr_pars_624[4])
   }
   
   if(hold_sed_temp){
@@ -3948,15 +3942,15 @@ for(m in 1:n_methane_members){
   }
   
   if(hold_methane_obs){
-    curr_methane_1030 <- mean(ebu_1030$log_ebu_rate_mg_m2_d)
+    curr_methane_1030 <- mean(log_ebu_rate_forecast_1030$ebullition_prediction)
   }else{
-    curr_methane_1030 <- rnorm(1, ebu_1030$log_ebu_rate_mg_m2_d, sd(ebu_1030$log_ebu_rate_mg_m2_d))
+    curr_methane_1030 <- rnorm(1, log_ebu_rate_forecast_1030$ebullition_prediction, SE(log_ebu_rate_forecast_1030$ebullition_prediction))
   }
   
   # This is the actual equation that is being run for the ebullition model
-
-    log_ebu_rate_forecast_1107[m] <- curr_pars_1030[1] + curr_pars_1030[2] * curr_methane_1030 + curr_pars_1030[3] * sed_model_temp + process_error
-
+  
+  log_ebu_rate_forecast_1107[m] <- curr_pars_624[1] + curr_pars_624[2] * curr_methane_1030 + curr_pars_624[3] * sed_model_temp + process_error
+  
   
   index <- index + 1
   if(index > n_temp_members){
@@ -3976,243 +3970,44 @@ hist(log_ebu_rate_forecast_1107$ebullition_prediction, breaks = 100)
 var_ebu_1107 <- var((log_ebu_rate_forecast_1107$ebullition_prediction), na = T)
 #############################################################################################################
 
-#Forecast for 20 November 19
-#############################################################################################################
-### These are the focal depths from GLM-AED FLARE RUNS ###
-
-# Extract the nc file and pull in all the forecasted depths for all ensembles
-nc <- nc_open("./input/flare_forecasts/forecast_H_2019_11_04_2019_11_07_F_16_562020_12_20.nc")
-t <- ncvar_get(nc,'time')
-full_time <- as.POSIXct(t, origin = '1970-01-01 00:00.00 UTC', tz = "EST")
-full_time_day <- strftime(full_time, format="%Y-%m-%d")
-temp <- ncvar_get(nc,'temp')
-level <- ncvar_get(nc,'lake_depth')
-nc_close(nc)
-
-#arrange the temp and level data frames
-time_day <- as.data.frame(full_time_day)
-temp1 <- as.data.frame(cbind(time_day, temp[1:20,1:210,8]))
-temp2 <- as.data.frame(cbind(time_day, temp[1:20,1:210,9]))
-temp3 <- as.data.frame(cbind(time_day, temp[1:20,1:210,10]))
-level <- as.data.frame(cbind(time_day, level[1:20,1:210]))
-
-temp <- rbind(temp1, temp2, temp3, deparse.level = 1)
-temp <- temp %>% group_by(full_time_day) %>% summarise_all(funs(mean)) %>% arrange(full_time_day)
-
-#paste ens_ to every single ensemble
-colnames(temp)[-1] = paste0('ens_',colnames(temp)[-1])
-colnames(level)[-1] = paste0('ens_',colnames(level)[-1])
-
-temp$full_time_day <- as.POSIXct(strptime(temp$full_time_day, '%Y-%m-%d', tz = 'EST'))
-level$full_time_day <- as.POSIXct(strptime(level$full_time_day, '%Y-%m-%d', tz = 'EST'))
-
-temp_prediction <- temp %>% 
-  filter(full_time_day >= "2019-11-07") %>% 
-  filter(full_time_day <= "2019-11-20") %>% 
-  select(-full_time_day) %>%
-  summarise_all(funs(mean))
-
-target = c(as.POSIXct("2019-11-07", tz = "EST"), as.POSIXct("2019-11-20", tz = "EST"))
-
-level_prediction <- level %>% 
-  filter(full_time_day %in% target) %>% 
-  select(-full_time_day) %>%
-  summarise_all(funs(diff))
-
-temp_prediction <- as.vector(temp_prediction[1,])
-level_prediction <- as.vector(level_prediction[1,])
-
-# Create a current methane ebullition observation as the AR term in the model.
-ebu_1107 <- ebu %>% filter(date == "2019-11-07")
-ebu_1107 <- na.omit(ebu_1107)
-
-# Set up a manual dataframe from the observations that can be appended to the forecasts
-x_1107 <- data.frame("full_time_day" = as.POSIXct("2019-11-07"), "Ensemble" = "observed", "ebullition_prediction" = mean(ebu_1107$log_ebu_rate_mg_m2_d), "SE" = sd(ebu_1107$log_ebu_rate_mg_m2_d), "Data" = "observation")
-
-# predict the temperature of the upstream sites using the linear model developed and then bind it with the time day column from the .nc file
-# Build JAGS model for the Deep hole to shallow conversion
-
-#Uncertaintity paritioning for Temperature
-hold_temp_model_pars <- F
-hold_temp_model_process <- F
-hold_flare <- F
-
-flare_nmembers <- 210
-n_temp_members <- 210
-temp_up_1120 <- array(NA, dim = n_temp_members)
-index <- 1
-for(m in 1:n_temp_members){
-  
-  if(hold_temp_model_pars){
-    curr_temp_pars_1107 <- colMeans(master_temp_chain_1107)
-  }else{
-    curr_pars_temp_index <- sample(seq(0, nrow(master_temp_chain_1107)),1)
-    curr_temp_pars_1107 <- master_temp_chain_1107[curr_pars_temp_index,]
-  }
-  
-  if(hold_temp_model_process){
-    process_error <- 0
-  }else{
-    process_error <- rnorm(1, 0, curr_temp_pars_1107[3])
-  }
-  
-  if(hold_flare){
-    flare_temp <- mean(as.numeric(temp_prediction))
-  }else{
-    flare_temp <- temp_prediction[index]#This needs to be a vector!
-  }
-  
-  temp_up_1120[m] <- curr_temp_pars_1107[1]*flare_temp + curr_temp_pars_1107[2] + process_error
-  index <- index + 1
-  if(index > flare_nmembers){
-    index <- 1
-  }
-}
-
-temp_up_1120 <- data.frame(temp_up_1120)
-temp_up_1120 <- as.vector(temp_up_1120[1,])
-
-#Set up a TS comparison of Tempurature scaling
-temp_up_1120_test <- data.frame(temp_up_1120)
-temp_up_1120_test$full_time_day <- as.POSIXct("2019-11-20")
-kf_mean_temp_up_1120 <- melt(temp_up_1120_test, id.vars = c("full_time_day"),
-                             variable.name = "Ensemble",
-                             value.name = "temp_prediction")
-# Take the variance
-variance_temp_1120 <- var(kf_mean_temp_up_1120$temp_prediction, na = T)
-
-#Uncertaintity paritioning for Ebullition
-hold_methane_pars <- F
-hold_methane_process <- F
-hold_sed_temp <- F
-hold_methane_obs <- F
-hold_level <- F
-include_level <- F
-
-# Here is the meat of the AR model that is using temperature and
-n_methane_members <- n_temp_members
-log_ebu_rate_forecast_1120 <- array(NA, dim = n_methane_members)
-index <- 1
-for(m in 1:n_methane_members){
-  
-  if(hold_methane_pars){
-    curr_pars_1107 <- colMeans(master_chain_1107)
-  }else{
-    curr_pars_index_1107 <- sample(seq(1, nrow(master_chain_1107)),1)
-    curr_pars_1107 <- master_chain_1107[curr_pars_index_1107,]
-  }
-  
-  if(hold_methane_process){
-    process_error <- 0
-  }else{
-    process_error <- rnorm(1, 0, curr_pars_1107[4])
-  }
-  
-  if(hold_sed_temp){
-    sed_model_temp <- mean(as.numeric(temp_up_1120))
-  }else{
-    sed_model_temp <- temp_up_1120[index]
-  }
-  
-  if(hold_level){
-    level_model <- mean(as.numeric(level_prediction))
-  }else{
-    level_model <- level_prediction[index]
-  }
-  
-  if(hold_methane_obs){
-    curr_methane_1107 <- mean(ebu_1107$log_ebu_rate_mg_m2_d)
-  }else{
-    curr_methane_1107 <- rnorm(1, ebu_1107$log_ebu_rate_mg_m2_d, sd(ebu_1107$log_ebu_rate_mg_m2_d))
-  }
-  
-  # This is the actual equation that is being run for the ebullition model
-log_ebu_rate_forecast_1120[m] <- curr_pars_1107[1] + curr_pars_1107[2] * curr_methane_1107 + curr_pars_1107[3] * sed_model_temp + process_error
-
-  
-  index <- index + 1
-  if(index > n_temp_members){
-    index <- 1
-  }
-}
-
-#Set up a TS comparison of Ebullition Model
-log_ebu_rate_forecast_1120 <- data.frame(log_ebu_rate_forecast_1120)
-log_ebu_rate_forecast_1120$full_time_day <- as.POSIXct("2019-11-20")
-log_ebu_rate_forecast_1120 <- melt(log_ebu_rate_forecast_1120, id.vars = c("full_time_day"),
-                                   variable.name = "Ensemble",
-                                   value.name = "ebullition_prediction")
-
-hist(log_ebu_rate_forecast_1120$ebullition_prediction, breaks = 100)
-# Calculatethe variance 
-var_ebu_1120 <- var((log_ebu_rate_forecast_1120$ebullition_prediction), na = T)
-#############################################################################################################
-
-#last_observation
-x_1120 <- data.frame("full_time_day" = as.POSIXct("2019-11-20"), "Ensemble" = "observed", "ebullition_prediction" = -3, "SE" = 1.1, "Data" = "observation")
 
 ### Rbind all the temperature forecasts together
 #############################################################################################################
-ensemble_temp_forecasts <- rbind(kf_mean_temp_up_603,
-                                     kf_mean_temp_up_610,
-                                     kf_mean_temp_up_617,
-                                     kf_mean_temp_up_624,
-                                     kf_mean_temp_up_701,
-                                     kf_mean_temp_up_708,
-                                     kf_mean_temp_up_715,
-                                     kf_mean_temp_up_722,
-                                     kf_mean_temp_up_729,
-                                     kf_mean_temp_up_805,
-                                     kf_mean_temp_up_812,
-                                     kf_mean_temp_up_819,
-                                     kf_mean_temp_up_828,
-                                     kf_mean_temp_up_902,
-                                     kf_mean_temp_up_911,
-                                     kf_mean_temp_up_920,
-                                     kf_mean_temp_up_927,
-                                     kf_mean_temp_up_1002,
-                                     kf_mean_temp_up_1011,
-                                     kf_mean_temp_up_1016,
-                                     kf_mean_temp_up_1023,
-                                     kf_mean_temp_up_1030,
-                                     kf_mean_temp_up_1107,
-                                     kf_mean_temp_up_1120,
-                                     deparse.level = 1)
+ensemble_temp_forecasts_nDA <- rbind(kf_mean_temp_up_603,
+                                 kf_mean_temp_up_610,
+                                 kf_mean_temp_up_617,
+                                 kf_mean_temp_up_624,
+                                 kf_mean_temp_up_701,
+                                 kf_mean_temp_up_708,
+                                 kf_mean_temp_up_715,
+                                 kf_mean_temp_up_722,
+                                 kf_mean_temp_up_729,
+                                 kf_mean_temp_up_805,
+                                 kf_mean_temp_up_812,
+                                 kf_mean_temp_up_819,
+                                 kf_mean_temp_up_828,
+                                 kf_mean_temp_up_902,
+                                 kf_mean_temp_up_911,
+                                 kf_mean_temp_up_920,
+                                 kf_mean_temp_up_927,
+                                 kf_mean_temp_up_1002,
+                                 kf_mean_temp_up_1011,
+                                 kf_mean_temp_up_1016,
+                                 kf_mean_temp_up_1023,
+                                 kf_mean_temp_up_1030,
+                                 kf_mean_temp_up_1107,
+                                 deparse.level = 1)
 
 # Take the mean of the forecasts
-mean_temp_forecasts <- ensemble_temp_forecasts %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+mean_temp_forecasts_nDA <- ensemble_temp_forecasts %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
 #############################################################################################################
-write_csv(kf_mean_temp_up_603[,c(1,3)],"./output/SWI_temp_Forecast_03Jun19.csv")
-write_csv(kf_mean_temp_up_610[,c(1,3)],"./output/SWI_temp_Forecast_10Jun19.csv")
-write_csv(kf_mean_temp_up_617[,c(1,3)],"./output/SWI_temp_Forecast_17Jun19.csv")
-write_csv(kf_mean_temp_up_624[,c(1,3)],"./output/SWI_temp_Forecast_24Jun19.csv")
-write_csv(kf_mean_temp_up_701[,c(1,3)],"./output/SWI_temp_Forecast_01Jul19.csv")
-write_csv(kf_mean_temp_up_708[,c(1,3)],"./output/SWI_temp_Forecast_08Jul19.csv")
-write_csv(kf_mean_temp_up_715[,c(1,3)],"./output/SWI_temp_Forecast_15Jul19.csv")
-write_csv(kf_mean_temp_up_722[,c(1,3)],"./output/SWI_temp_Forecast_22Jul19.csv")
-write_csv(kf_mean_temp_up_729[,c(1,3)],"./output/SWI_temp_Forecast_29Jul19.csv")
-write_csv(kf_mean_temp_up_805[,c(1,3)],"./output/SWI_temp_Forecast_05Aug19.csv")
-write_csv(kf_mean_temp_up_812[,c(1,3)],"./output/SWI_temp_Forecast_12Aug19.csv")
-write_csv(kf_mean_temp_up_819[,c(1,3)],"./output/SWI_temp_Forecast_19Aug19.csv")
-write_csv(kf_mean_temp_up_828[,c(1,3)],"./output/SWI_temp_Forecast_28Aug19.csv")
-write_csv(kf_mean_temp_up_902[,c(1,3)],"./output/SWI_temp_Forecast_02Sep19.csv")
-write_csv(kf_mean_temp_up_911[,c(1,3)],"./output/SWI_temp_Forecast_11Sep19.csv")
-write_csv(kf_mean_temp_up_920[,c(1,3)],"./output/SWI_temp_Forecast_20Sep19.csv")
-write_csv(kf_mean_temp_up_927[,c(1,3)],"./output/SWI_temp_Forecast_27Sep19.csv")
-write_csv(kf_mean_temp_up_1002[,c(1,3)],"./output/SWI_temp_Forecast_02Oct19.csv")
-write_csv(kf_mean_temp_up_1011[,c(1,3)],"./output/SWI_temp_Forecast_11Oct19.csv")
-write_csv(kf_mean_temp_up_1016[,c(1,3)],"./output/SWI_temp_Forecast_16Oct19.csv")
-write_csv(kf_mean_temp_up_1023[,c(1,3)],"./output/SWI_temp_Forecast_23Oct19.csv")
-write_csv(kf_mean_temp_up_1030[,c(1,3)],"./output/SWI_temp_Forecast_30Oct19.csv")
-write_csv(kf_mean_temp_up_1107[,c(1,3)],"./output/SWI_temp_Forecast_07Nov19.csv")
-write_csv(kf_mean_temp_up_1120[,c(1,3)],"./output/SWI_temp_Forecast_20Nov19.csv")
 
 
 ### Rbind all the ebullition forecasts together
 #############################################################################################################
 
 
-ensemble_forecasts_ch4 <- rbind(log_ebu_rate_forecast_603,
+ensemble_forecasts_ch4_nDA <- rbind(log_ebu_rate_forecast_603,
                                 log_ebu_rate_forecast_610,
                                 log_ebu_rate_forecast_617,
                                 log_ebu_rate_forecast_624,
@@ -4235,46 +4030,21 @@ ensemble_forecasts_ch4 <- rbind(log_ebu_rate_forecast_603,
                                 log_ebu_rate_forecast_1023,
                                 log_ebu_rate_forecast_1030,
                                 log_ebu_rate_forecast_1107,
-                                log_ebu_rate_forecast_1120,
                                 deparse.level = 1)
 
 # Remove the furthest outliers from the forecasts
-ensemble_forecasts_99th_ch4 <- ensemble_forecasts_ch4 %>% group_by(full_time_day) %>%
+ensemble_forecasts_99th_ch4_nDA <- ensemble_forecasts_ch4_nDA %>% group_by(full_time_day) %>%
   filter(ebullition_prediction < quantile(ebullition_prediction, 0.99, na.rm = T)) %>% filter(ebullition_prediction > quantile(ebullition_prediction, 0.01, na.rm = T))
 
 # Take the mean of the forecasts
-mean_forecast_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
-SE_forecast_ch4 <- ensemble_forecasts_ch4 %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(SE))
-names(SE_forecast_ch4)[2] <- "SE"
+mean_forecast_ch4_nDA <- ensemble_forecasts_ch4_nDA %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(mean))
+SE_forecast_ch4_nDA <- ensemble_forecasts_ch4_nDA %>% select(-Ensemble) %>% group_by(full_time_day) %>% summarize_all(funs(SE))
+names(SE_forecast_ch4_nDA)[2] <- "SE"
 
-mean_forecast_ch4 <- left_join(mean_forecast_ch4, SE_forecast_ch4, by = "full_time_day")
+mean_forecast_ch4_nDA <- left_join(mean_forecast_ch4_nDA, SE_forecast_ch4_nDA, by = "full_time_day")
+
+names(mean_forecast_ch4_nDA) <- c("full_time_day","ebullition_prediction", "SE")
 #############################################################################################################
-
-write_csv(log_ebu_rate_forecast_603[,c(1,3)],"./output/Ebullition_Forecast_03Jun19.csv")
-write_csv(log_ebu_rate_forecast_610[,c(1,3)],"./output/Ebullition_Forecast_10Jun19.csv")
-write_csv(log_ebu_rate_forecast_617[,c(1,3)],"./output/Ebullition_Forecast_17Jun19.csv")
-write_csv(log_ebu_rate_forecast_624[,c(1,3)],"./output/Ebullition_Forecast_24Jun19.csv")
-write_csv(log_ebu_rate_forecast_701[,c(1,3)],"./output/Ebullition_Forecast_01Jul19.csv")
-write_csv(log_ebu_rate_forecast_708[,c(1,3)],"./output/Ebullition_Forecast_08Jul19.csv")
-write_csv(log_ebu_rate_forecast_715[,c(1,3)],"./output/Ebullition_Forecast_15Jul19.csv")
-write_csv(log_ebu_rate_forecast_722[,c(1,3)],"./output/Ebullition_Forecast_22Jul19.csv")
-write_csv(log_ebu_rate_forecast_729[,c(1,3)],"./output/Ebullition_Forecast_29Jul19.csv")
-write_csv(log_ebu_rate_forecast_805[,c(1,3)],"./output/Ebullition_Forecast_05Aug19.csv")
-write_csv(log_ebu_rate_forecast_812[,c(1,3)],"./output/Ebullition_Forecast_12Aug19.csv")
-write_csv(log_ebu_rate_forecast_819[,c(1,3)],"./output/Ebullition_Forecast_19Aug19.csv")
-write_csv(log_ebu_rate_forecast_828[,c(1,3)],"./output/Ebullition_Forecast_28Aug19.csv")
-write_csv(log_ebu_rate_forecast_902[,c(1,3)],"./output/Ebullition_Forecast_02Sep19.csv")
-write_csv(log_ebu_rate_forecast_911[,c(1,3)],"./output/Ebullition_Forecast_11Sep19.csv")
-write_csv(log_ebu_rate_forecast_920[,c(1,3)],"./output/Ebullition_Forecast_20Sep19.csv")
-write_csv(log_ebu_rate_forecast_927[,c(1,3)],"./output/Ebullition_Forecast_27Sep19.csv")
-write_csv(log_ebu_rate_forecast_1002[,c(1,3)],"./output/Ebullition_Forecast_02Oct19.csv")
-write_csv(log_ebu_rate_forecast_1011[,c(1,3)],"./output/Ebullition_Forecast_11Oct19.csv")
-write_csv(log_ebu_rate_forecast_1016[,c(1,3)],"./output/Ebullition_Forecast_16Oct19.csv")
-write_csv(log_ebu_rate_forecast_1023[,c(1,3)],"./output/Ebullition_Forecast_23Oct19.csv")
-write_csv(log_ebu_rate_forecast_1030[,c(1,3)],"./output/Ebullition_Forecast_30Oct19.csv")
-write_csv(log_ebu_rate_forecast_1107[,c(1,3)],"./output/Ebullition_Forecast_07Nov19.csv")
-write_csv(log_ebu_rate_forecast_1120[,c(1,3)],"./output/Ebullition_Forecast_20Nov19.csv")
-
 
 mean_observe_all <- rbind(x_527,
                           x_603,
@@ -4300,11 +4070,10 @@ mean_observe_all <- rbind(x_527,
                           x_1023,
                           x_1030,
                           x_1107,
-                          x_1120,
                           deparse.level = 1)
 
 ### Total Variance ###
-var_ebu_forecast<- rbind(var_ebu_603,
+var_ebu_forecast_nDA<- rbind(var_ebu_603,
                          var_ebu_610,
                          var_ebu_617,
                          var_ebu_624,
@@ -4326,44 +4095,38 @@ var_ebu_forecast<- rbind(var_ebu_603,
                          var_ebu_1016, 
                          var_ebu_1023, 
                          var_ebu_1030, 
-                         var_ebu_1107, 
-                         var_ebu_1120)
+                         var_ebu_1107)
 
-var_ebu_forecast <- cbind(mean_observe_all[2:25,1],
+var_ebu_forecast <- cbind(mean_observe_all[2:24,1],
                           data.frame((var_ebu_forecast)))
 names(var_ebu_forecast) <- c("date", "total_variance")
 
 var_temp_forecast <- rbind(variance_temp_603,
-                      variance_temp_610,
-                      variance_temp_617,
-                      variance_temp_624,
-                      variance_temp_701,
-                      variance_temp_708,
-                      variance_temp_715,
-                      variance_temp_722,
-                      variance_temp_729,
-                      variance_temp_805,
-                      variance_temp_812,
-                      variance_temp_819,
-                      variance_temp_828,
-                      variance_temp_902,
-                      variance_temp_911,
-                      variance_temp_920,
-                      variance_temp_927,
-                      variance_temp_1002,
-                      variance_temp_1011,
-                      variance_temp_1016, 
-                      variance_temp_1023, 
-                      variance_temp_1030, 
-                      variance_temp_1107, 
-                      variance_temp_1120)
+                           variance_temp_610,
+                           variance_temp_617,
+                           variance_temp_624,
+                           variance_temp_701,
+                           variance_temp_708,
+                           variance_temp_715,
+                           variance_temp_722,
+                           variance_temp_729,
+                           variance_temp_805,
+                           variance_temp_812,
+                           variance_temp_819,
+                           variance_temp_828,
+                           variance_temp_902,
+                           variance_temp_911,
+                           variance_temp_920,
+                           variance_temp_927,
+                           variance_temp_1002,
+                           variance_temp_1011,
+                           variance_temp_1016, 
+                           variance_temp_1023, 
+                           variance_temp_1030, 
+                           variance_temp_1107)
 
-var_temp_forecast <- cbind(mean_observe_all[2:25,1],
-                          data.frame((var_temp_forecast)))
+var_temp_forecast <- cbind(mean_observe_all[2:24,1],
+                           data.frame((var_temp_forecast)))
 names(var_temp_forecast) <- c("date", "total_variance")
 
-### Run the deterministic model using the observed temperatures from the SWI and the parameter estimates from 2017 (McClure et al., 2020 JGR: Biogeosciences)
-det_prediction <- as.data.frame(-6.13 + 0.28803*ebullition_1120$log_ebu_mgCH4_m2_d_1 + 0.38255*ebullition_1120$temp_b_avg)
-deterministic_prediction <- cbind(mean_observe_all[,1],det_prediction)
-names(deterministic_prediction) <- c("full_time_day","deterministic")
 
