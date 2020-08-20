@@ -51,39 +51,38 @@ Note --> this may take a while if this is the first time using R.
 
 8: When the script is complete, select the tab 1_rjags_temp_scale_model_w_DA.R
 
-9: In 1_rjags_temp_scale_model_w_DA.R, select all of the script with your cursor and then select "Run" in the top right. 
+9: In 1_rjags_temp_scale_model_w_DA.R, select all of the script with your cursor (Control + A) and then select "Run" in the top right. 
 
 Note --> You cannot source this file because of the way it is currently set up with rjags. This will also take a while to execute. 
 
 10: When 1_rjags_temp_scale_model_w_DA.R is complete, select the tab 2_rjags_AR_forecast_model_w_DA.R
 
-11: In 2_rjags_AR_forecast_model_w_DA.R, select all of the script with your cursor and then select "Run" in the top right.
+11: In 2_rjags_AR_forecast_model_w_DA.R, select all of the script with your cursor (Control + A) and then select "Run" in the top right.
 
-Note --> this is like the temperature scaling model
+Note --> this is like the temperature scaling model and will take a while to execute!
 
-12 When 2_rjags_AR_forecast_model_w_DA.R is complete, select the tab 3_generate_forecasts.R
+12: When 2_rjags_AR_forecast_model_w_DA.R is complete, select the tab 3_generate_forecasts_wDA.R
 
-13: The 3_generate_forecasts.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. 
+13: The 3_generate_forecasts_wDA.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. This code is exectuing and running the forecasts in an iterative framweork and updating via data assimilation.
 
-14: Congrats, if there were no errors when 3_generate_forecasts.R was sourced then you have successfully run CH4cast! If you go to the output folder you can find the forecasts for both a SWI temperature scaling model and the CH4 ebullition rate forecasts. 
+14: When 3_generate_forecasts_wDA.R is complete, select the tab 4_generate_forecasts_nDA.R
 
+15: The 4_generate_forecasts_nDA.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. This code is executing the forecasts only from the parameter estimates generated on 24 June but using forecasted water temperature data from FLARE. Meaning, it is still generating an actual forecast by using forecasted data but the model is not improving as data become available. 
 
+16: When 4_generate_forecasts_nDA.R is complete, select the tab 5_rjags_null_persistence.R
+
+17: The 5_rjags_null_persistence.R is set up to execute using run. Select all of the script with your cursor (Control + A) and then select "Run" in the top right.
+
+18: When 5_rjags_null_persistence.R is complete, select the tab 6_null_persistence_forecacst.R
+
+19: The 6_null_persistence_forecacst.R is set up to execute using source. Simply click "Source" in the top right and the forecasts will begin running. This code is executing a null persistence model that is simply estimating future ebullition with the observed ebullition rate and random process noise. There are no parameters or updates to the parameters via data assimilation in this forecasting workflow. This is the baseline that the forecasts with and without data assimilation are evaluated against. 
 
 Step - 3 Forecast Verification (i.e. how did we do?)
 
-15: Select the tab 4_figure_output.R and click "Source". Figures will appear for both the SWI temp scaling model and CH4 ebullition forecasts within the "figures" folder.
-    
-    For the SWI temp model forecasts:
-    CH4cast/figures/SWI_scaling_model_forecast/weekly_output
-    
-    For the CH4 ebullition forecast:
-    CH4cast/figures/ebullition_forecast/weekly_output
-
-16: Finally, select the tab 5_forecast_evaluation.R and then click "Source". A table will generate that reports the Nash-Sutcliffe Efficiancy
-
-    For the NSE table, go to:
-    CH4cast/figures/ebullition_forecast/weekly_output
+20: Select the tab 7_figure_output.R and click "Source". Figures will appear for both the SWI temp scaling model and CH4 ebullition forecasts within the "figures" folder.
 
 Congrats! You have run CH4cast. Please keep an eye on the repo for more updates as we work to develop a mechanistic model that forecasts ebullition using Meterological drivers!
 
-For more information please visit ryanmclake.weebly.com
+For more information please visit ryanmclake.weebly.com or email me at ryan333@vt.edu.
+
+Also - I am happy to chat further if you have any additional ideas or thoughts. This is a very early version and the entire workflow will hopefully be updated to run more smoothly soon-ish ;). 
